@@ -1,0 +1,9 @@
+# 공식 PDF (저작권)
+00_official_docs/
+02_frq_archive/
+
+# 내부 메모/임시
+r.txt
+
+# Claude Code 설정
+.claude/
