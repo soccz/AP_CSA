@@ -48,6 +48,8 @@
 
 ## 4.3 Array Creation and Access (2기간)
 
+> **쉽게 말해**: 학생 30명의 점수를 저장하려면 변수 30개(`score1`, `score2`, ... `score30`)를 만들어야 할까? 배열을 쓰면 `int[] scores = new int[30];` 한 줄이면 끝이다. 배열은 **같은 종류의 데이터를 한 묶음으로 관리하는 상자**다. 각 칸에 번호(인덱스)가 붙어있어서 `scores[0]`, `scores[1]`처럼 접근한다.
+
 ### 핵심 개념
 
 배열(Array)은 **같은 타입**의 데이터를 **고정된 크기**로 저장하는 자료구조이다.
@@ -223,6 +225,8 @@ System.out.println("최대: " + max); // 89
 System.out.println("최소: " + min); // 12
 ```
 
+> **Edge Case 주의**: 위 알고리즘에서 `arr[0]`으로 초기화하므로, 배열이 비어있으면(`arr.length == 0`) `ArrayIndexOutOfBoundsException` 발생. AP FRQ에서는 precondition으로 "배열이 비어있지 않다"를 보장하지만, 알아두면 좋다.
+
 #### 3. 특정 조건 존재 확인 (exists)
 
 ```java
@@ -232,7 +236,7 @@ boolean hasNegative = false;
 for (int val : arr) {
     if (val < 0) {
         hasNegative = true;
-        break; // 하나만 찾으면 충분
+        // break; — CED EXCLUSION: break는 AP 시험 범위 밖. 실무에서는 유용하지만 시험에는 사용하지 않는다.
     }
 }
 System.out.println(hasNegative); // true
@@ -247,7 +251,7 @@ boolean allPositive = true;
 for (int val : arr) {
     if (val <= 0) {
         allPositive = false;
-        break;
+        // break; — CED EXCLUSION: break는 AP 시험 범위 밖
     }
 }
 System.out.println(allPositive); // true
@@ -288,10 +292,10 @@ for (int i = 0; i < arr.length; i++) {
     for (int j = i + 1; j < arr.length; j++) {
         if (arr[i] == arr[j]) {
             hasDup = true;
-            break;
+            // break; — CED EXCLUSION
         }
     }
-    if (hasDup) break;
+    // if (hasDup) break; — CED EXCLUSION: break 대신 boolean 변수로 제어
 }
 System.out.println(hasDup); // true
 ```
@@ -546,6 +550,8 @@ System.out.println(sum); // 출력: ?
 ---
 
 ## 4.8 ArrayList Methods (3기간)
+
+> **배열 vs ArrayList**: 배열은 **고정 크기 아파트**(입주 후 방 수 변경 불가), ArrayList는 **확장 가능한 호텔**(손님이 늘면 방을 추가할 수 있다). 크기가 변해야 할 때 ArrayList를 쓴다.
 
 ### 핵심 개념
 
@@ -1377,9 +1383,13 @@ public static void merge(int[] arr, int left, int mid, int right) {
 > Pass 2(i=2): key=8, 5<8 → [3, 5, 8, 1, 4] (이동 없음)
 > Pass 3(i=3): key=1, 8>1, 5>1, 3>1 → [1, 3, 5, 8, 4]
 
+> **EXCLUSION**: `Arrays.sort()`와 `Collections.sort()` 같은 Java 내장 정렬 메서드는 AP 시험에서 사용할 수 없다. FRQ에서는 직접 정렬 알고리즘을 구현하거나, 문제에서 제공하는 헬퍼 메서드를 사용해야 한다.
+
 ---
 
 ## 4.16 Recursion (3기간)
+
+> **중요: 2025-26 CED에서 재귀는 MCQ 트레이싱(코드 추적)에서만 출제됩니다. 재귀 메서드를 직접 작성하는 것은 시험 범위 밖입니다. FRQ에서는 절대 재귀를 요구하지 않습니다. 아래 코드들은 "읽고 추적하는 연습"용이지 "작성 암기"용이 아닙니다.**
 
 ### 핵심 개념
 
@@ -1679,6 +1689,97 @@ public static int[] rowMaxes(int[][] grid) {
     return result;
 }
 ```
+
+---
+
+## FRQ 실전 연습
+
+### FRQ Q3 스타일: ArrayList 필터링
+
+다음 `StudentList` 클래스에서 `removeBelow` 메서드를 구현하시오. 이 메서드는 `students` 리스트에서 점수가 `minScore` 미만인 학생을 모두 제거한다.
+
+```java
+public class StudentList {
+    private ArrayList<Student> students;
+    
+    // Student 클래스에는 다음 메서드가 있다:
+    // public String getName() — 학생 이름 반환
+    // public int getScore() — 학생 점수 반환
+    
+    public void removeBelow(int minScore) {
+        // 여기에 구현
+    }
+}
+```
+
+Precondition: students는 null이 아니며, 원소도 null이 아님.
+
+<details>
+<summary>모범 답안</summary>
+
+```java
+public void removeBelow(int minScore) {
+    for (int i = students.size() - 1; i >= 0; i--) {
+        if (students.get(i).getScore() < minScore) {
+            students.remove(i);
+        }
+    }
+}
+```
+
+**채점 기준 (5점)**:
+1. ArrayList의 모든 원소를 순회 — 1점
+2. getScore() 올바르게 호출 — 1점
+3. minScore 미만 조건 올바르게 비교 — 1점
+4. 조건 충족 원소 삭제 — 1점
+5. 삭제 시 인덱스 밀림 올바르게 처리 (역순 또는 i--) — 1점 (algorithm)
+</details>
+
+### FRQ Q4 스타일: 2D Array 탐색
+
+다음 `Grid` 클래스에서 `countRowsWithAll` 메서드를 구현하시오. 이 메서드는 2D 배열 `grid`에서 모든 원소가 `target` 값인 행의 수를 반환한다.
+
+```java
+public class Grid {
+    private int[][] grid;
+    
+    public int countRowsWithAll(int target) {
+        // 여기에 구현
+    }
+}
+```
+
+예: grid = {{1,1,1}, {1,2,1}, {3,3,3}}이고 target=1이면, 첫 번째 행만 모두 1이므로 1을 반환.
+
+<details>
+<summary>모범 답안</summary>
+
+```java
+public int countRowsWithAll(int target) {
+    int count = 0;
+    for (int r = 0; r < grid.length; r++) {
+        boolean allMatch = true;
+        for (int c = 0; c < grid[r].length; c++) {
+            if (grid[r][c] != target) {
+                allMatch = false;
+            }
+        }
+        if (allMatch) {
+            count++;
+        }
+    }
+    return count;
+}
+```
+
+**채점 기준 (6점)**:
+1. 외부 루프가 모든 행을 순회 — 1점
+2. 내부 루프가 해당 행의 모든 열을 순회 — 1점
+3. grid[r][c]와 target 비교 — 1점
+4. 행별 boolean 플래그로 "모두 일치" 판단 — 1점
+5. 일치하는 행 카운트 — 1점
+6. 전체 알고리즘 정합성 (올바른 반환) — 1점 (algorithm)
+</details>
 
 ---
 

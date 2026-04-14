@@ -442,7 +442,7 @@ File f = new File("data.txt");
 Scanner sc = new Scanner(new File("data.txt"));
 ```
 
-> **시험 주의점**: 파일 입출력 시 `throws FileNotFoundException` 또는 `try-catch`가 필요할 수 있음
+> **시험 주의점**: 파일 입출력 시 메서드 선언부에 `throws IOException`이 필요. AP CSA에서는 `throws IOException` 방식만 사용 (try-catch는 시험 범위 밖)
 
 ---
 
@@ -533,6 +533,31 @@ while (sc.hasNext()) {
 
 ---
 
+### `boolean hasNextInt()` / `boolean hasNextDouble()`
+다음 토큰이 **정수/실수로 변환 가능한지** 확인한다.
+
+```java
+Scanner sc = new Scanner(new File("mixed.txt"));
+// 파일 내용: 10 hello 3.14
+while (sc.hasNext()) {
+    if (sc.hasNextInt()) {
+        int n = sc.nextInt();
+        System.out.println("정수: " + n);
+    } else if (sc.hasNextDouble()) {
+        double d = sc.nextDouble();
+        System.out.println("실수: " + d);
+    } else {
+        String s = sc.next();
+        System.out.println("문자열: " + s);
+    }
+}
+// 출력: 정수: 10, 문자열: hello, 실수: 3.14
+```
+
+> **시험 주의점**: 타입별로 분기하여 읽을 때 사용. `hasNextInt()`가 true이면 `nextInt()`로 안전하게 읽기 가능.
+
+---
+
 ### `void close()`
 Scanner를 닫고 관련 리소스를 해제한다.
 
@@ -558,16 +583,16 @@ Object a = new Object();
 Object b = new Object();
 a.equals(b); // false (기본 구현은 == 과 동일, 주소 비교)
 
-// String 등은 오버라이드하여 내용 비교를 함
+// String 등은 내용 비교를 함
 String s1 = new String("hi");
 String s2 = new String("hi");
-s1.equals(s2); // true (String이 오버라이드했으므로 내용 비교)
+s1.equals(s2); // true (String의 equals()는 내용 비교)
 ```
 
 > **시험 주의점**:
 > - Object의 기본 `equals()`는 `==`와 동일 (주소 비교)
-> - String, Integer 등은 **오버라이드**하여 값 비교로 동작
-> - 직접 만든 클래스에서 `equals()`를 오버라이드할 때 매개변수 타입은 **`Object`**이어야 함
+> - String, Integer 등의 `equals()`는 **값 비교**로 동작
+> - 직접 만든 클래스의 `equals()`는 기본적으로 주소 비교 (커스텀 작성은 시험 범위 밖)
 
 ---
 
@@ -578,7 +603,7 @@ s1.equals(s2); // true (String이 오버라이드했으므로 내용 비교)
 Object obj = new Object();
 obj.toString(); // "java.lang.Object@1a2b3c" (클래스명@해시코드)
 
-// 오버라이드 예시
+// 커스텀 toString 예시 (2025-26 시험 범위 안 — FRQ Q2에서 요구됨)
 class Student {
     private String name;
     private int grade;
@@ -596,7 +621,8 @@ System.out.println(s); // "Kim (Grade 11)"
 > **시험 주의점**:
 > - `System.out.println(객체)`는 자동으로 `toString()` 호출
 > - `"문자열" + 객체`도 자동으로 `toString()` 호출
-> - 오버라이드하지 않으면 `클래스명@해시코드` 형태로 출력됨 (유용하지 않음)
+> - 기본 `toString()`은 `클래스명@해시코드` 형태로 출력됨 (유용하지 않음)
+> - `toString()` 메서드를 클래스 내에서 직접 작성하는 것은 2025-26 시험 범위 안이다 (FRQ Q2에서 자주 요구됨). 단, `@Override` 어노테이션이나 상속 개념으로서의 오버라이딩은 범위 밖.
 
 ---
 

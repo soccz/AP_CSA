@@ -6,6 +6,8 @@
 
 ## 2.1 Algorithms with Selection and Repetition (1기간)
 
+> **쉽게 말해**: 일상에서 선택(Selection)은 "비가 오면 우산을 챙긴다", 반복(Iteration)은 "알람이 울릴 때까지 잠을 잔다"이다. 프로그래밍에서도 조건에 따라 다른 행동을 하거나(if), 조건이 맞는 동안 반복(while/for)하는 것이 핵심이다.
+
 **CED 학습목표:** 선택(selection)과 반복(repetition)을 사용하는 알고리즘을 설명할 수 있다.
 
 ### 핵심 개념
@@ -65,6 +67,8 @@ for (int i = 0; i < 10; i++) {
 ---
 
 ## 2.2 Boolean Expressions (3기간)
+
+> **쉽게 말해**: Boolean은 **예/아니오 질문**이다. "나이가 18 이상인가?" → true/false. 컴퓨터는 모든 판단을 이런 "참/거짓 질문"으로 처리한다.
 
 **CED 학습목표:** Boolean 표현식을 작성하고 평가할 수 있다. 관계 연산자를 사용하여 값을 비교할 수 있다.
 
@@ -429,7 +433,7 @@ a.equals(null) // false (NullPointerException 아님, .equals가 처리)
 null.equals(a) // ⚠️ NullPointerException!
 ```
 
-> **EXCLUSION:** equals 메서드를 오버라이딩하는 방법은 시험 범위 밖
+> **EXCLUSION:** equals 메서드의 커스텀 작성은 시험 범위 밖 (상속 개념 제거됨)
 
 ### 시험 출제 포인트
 - De Morgan's Law 변환 문제는 **거의 매년 출제**
@@ -466,6 +470,10 @@ x < 10 || y >= 20<br>
 ---
 
 ## 2.7 while Loops (3기간)
+
+> **쉽게 말해**: while 루프는 **"~할 때까지 반복"**이다. "배가 부를 때까지 밥을 먹는다" = `while (!배부름) { 밥먹기(); }`. 조건이 처음부터 false면 한 번도 실행하지 않는다 (이미 배가 부르면 밥을 안 먹는다).
+>
+> **for vs while 선택 기준**: 반복 횟수를 **아는** 경우 → `for`, **모르는** 경우 → `while`
 
 **CED 학습목표:** while 루프를 사용하여 반복 알고리즘을 구현할 수 있다.
 
@@ -563,9 +571,17 @@ while (n < 100) {
 n: 1→3→9→27→81→243 (반복 시 n값: 1, 3, 9, 27, 81 → 5번 출력 후 243에서 종료)
 </details>
 
+> **EXCLUSION (시험 범위 밖):**
+> - `do-while` 루프: Java에 존재하지만 AP CSA 시험에 출제되지 않음
+> - `switch` 문: 다중 분기에 유용하지만 시험 범위 밖
+> - `continue` 키워드: 루프의 나머지를 건너뛰지만 시험 범위 밖
+> - `for-each` (enhanced for): Unit 4에서 별도 학습
+
 ---
 
 ## 2.8 for Loops (3기간)
+
+> **쉽게 말해**: for 루프는 **"N번 반복"**이다. "운동장 5바퀴 뛰기" = `for (int i = 0; i < 5; i++) { 뛰기(); }`. 시작(0바퀴), 조건(5바퀴 미만인가?), 증가(1바퀴 추가)가 한 줄에 모두 있다.
 
 **CED 학습목표:** for 루프를 사용하여 반복 알고리즘을 구현할 수 있다. for와 while의 상호 변환을 이해한다.
 
@@ -957,7 +973,7 @@ for (int i = 2; i <= 9; i++) {
 - "print문이 총 몇 번 실행되는가?" 계산
 - 내부 루프 조건이 외부 변수에 의존할 때 실행 횟수
 - 중첩 루프에서 `break`는 **가장 안쪽 루프만** 탈출. **CED EXCLUSION:** `break`는 AP CSA 시험 범위에 포함되지 않는다. 실무에서는 유용하지만 시험에는 나오지 않으므로 암기할 필요 없다.
-- 2차원 배열(Unit 8)과 밀접하게 연결됨
+- 2차원 배열(Unit 4의 2D Array 토픽)과 밀접하게 연결됨
 
 ### 연습 문제
 
@@ -1112,6 +1128,160 @@ for (int j = 0; j < n; j++) {
 코드 B: n + n = 20번 (순차적)<br>
 코드 A가 훨씬 많이 실행됨
 </details>
+
+#### Big-O 표기법 (비공식 이해)
+
+AP CSA에서 "비공식(informal)" 분석이란, 정확한 수학적 증명 없이 **루프 구조를 보고 실행 횟수의 증가 패턴을 판단**하는 것이다.
+
+| 패턴 | 루프 구조 | 이름 | 의미 |
+|------|----------|------|------|
+| 단일 루프 (n번) | `for (int i = 0; i < n; i++)` | **O(n)** — 선형 | n이 2배 → 시간 2배 |
+| 이중 루프 (n×n번) | `for (i) { for (j) }` | **O(n²)** — 이차 | n이 2배 → 시간 4배 |
+| 단일 루프 2개 순차 | `for (i) { } for (j) { }` | **O(n)** — 선형 | n+n = 2n ≈ n |
+
+> **시험에서**: "다음 코드 세그먼트의 실행 횟수를 n으로 표현하시오" 형태. 정확한 Big-O 표기는 요구하지 않지만, n번 vs n²번 구분은 알아야 한다.
+
+---
+
+## FRQ 대비: 반복문+조건문 조합 연습
+
+FRQ Q1은 루프와 조건문을 조합하여 메서드를 구현하는 문제다. 아래를 직접 풀어보자.
+
+### 연습 1: 연속 같은 문자 최대 길이
+
+문자열에서 같은 문자가 연속으로 나타나는 최대 길이를 반환하시오.
+
+예: `maxRun("aabbbccdd")` → `3` ("bbb"), `maxRun("abcd")` → `1`
+
+Precondition: str의 길이는 1 이상
+
+```java
+public static int maxRun(String str)
+```
+
+<details>
+<summary>모범 답안</summary>
+
+```java
+public static int maxRun(String str) {
+    int maxLen = 1;
+    int currentLen = 1;
+    for (int i = 1; i < str.length(); i++) {
+        if (str.substring(i, i + 1).equals(str.substring(i - 1, i))) {
+            currentLen++;
+        } else {
+            currentLen = 1;
+        }
+        if (currentLen > maxLen) {
+            maxLen = currentLen;
+        }
+    }
+    return maxLen;
+}
+```
+
+**핵심**: 현재 연속 길이(`currentLen`)와 최대 길이(`maxLen`)를 별도로 추적. 문자가 바뀌면 `currentLen`을 1로 리셋.
+</details>
+
+### 연습 2: 조건을 만족하는 요소 카운트
+
+정수 배열에서 짝수이면서 10 이상인 요소의 개수를 반환하시오.
+
+```java
+public static int countEvenAboveTen(int[] arr)
+```
+
+<details>
+<summary>모범 답안</summary>
+
+```java
+public static int countEvenAboveTen(int[] arr) {
+    int count = 0;
+    for (int val : arr) {
+        if (val % 2 == 0 && val >= 10) {
+            count++;
+        }
+    }
+    return count;
+}
+```
+
+**핵심**: `&&`로 두 조건을 결합. enhanced for로 순회. 카운터 패턴.
+</details>
+
+---
+
+## 자주 틀리는 코드 모음 (Unit 2)
+
+### if문 중괄호 생략 + 들여쓰기 함정
+
+```java
+// ❌ 잘못된 코드: 의도와 다른 동작
+int x = 5;
+if (x > 10)
+    System.out.println("크다");
+    System.out.println("항상 출력됨");  // 들여쓰기와 무관하게 항상 실행!
+
+// ✅ 올바른 코드: 중괄호 필수
+if (x > 10) {
+    System.out.println("크다");
+    System.out.println("이것도 조건 안에");
+}
+```
+
+### for 루프 경계값 실수 (off-by-one)
+
+```java
+// ❌ 잘못된 코드: 마지막 원소 누락
+int[] arr = {1, 2, 3, 4, 5};
+for (int i = 0; i < arr.length - 1; i++) {  // < length-1이면 마지막 못 봄!
+    System.out.print(arr[i] + " ");
+}
+// 출력: 1 2 3 4 (5가 빠짐!)
+
+// ✅ 올바른 코드
+for (int i = 0; i < arr.length; i++) {  // < length
+    System.out.print(arr[i] + " ");
+}
+// 출력: 1 2 3 4 5
+```
+
+### while 무한 루프
+
+```java
+// ❌ 잘못된 코드: 종료 조건 갱신 누락
+int n = 10;
+while (n > 0) {
+    System.out.println(n);
+    // n-- 를 빠뜨림! → 무한 루프
+}
+
+// ✅ 올바른 코드
+int n = 10;
+while (n > 0) {
+    System.out.println(n);
+    n--;  // 반드시 종료 조건에 다가가야 함
+}
+```
+
+### 초기값 실수 (max/min)
+
+```java
+// ❌ 잘못된 코드: max를 0으로 초기화
+int max = 0;
+int[] arr = {-5, -2, -8, -1};
+for (int val : arr) {
+    if (val > max) max = val;
+}
+System.out.println(max);  // 0 출력! (모든 값이 음수이므로)
+
+// ✅ 올바른 코드: 첫 원소로 초기화
+int max = arr[0];
+for (int i = 1; i < arr.length; i++) {
+    if (arr[i] > max) max = arr[i];
+}
+System.out.println(max);  // -1 (올바른 최대값)
+```
 
 ---
 

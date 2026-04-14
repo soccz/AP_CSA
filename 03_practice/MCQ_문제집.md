@@ -1,12 +1,12 @@
 # AP Computer Science A — MCQ 연습문제집
 
-> Unit 1~4 | 총 80문제 | 난이도: 쉬움(E) / 보통(M) / 어려움(H)
+> Unit 1~4 | 총 119문제 | 난이도: 쉬움(E) / 보통(M) / 어려움(H)
 >
 > 실제 AP CSA 시험 형식 (4지선다, Java 코드 포함)
 
 ---
 
-## Unit 1: Primitive Types (15문제)
+## Unit 1: Using Objects and Methods (39문제)
 
 ---
 
@@ -105,28 +105,7 @@ System.out.println(result);
 
 ---
 
-### 문제 5 (Unit 1 - 토픽 1.2) [H]
-
-```java
-int x = -7;
-int y = 2;
-System.out.println(x / y + " " + x % y);
-```
-
-출력 결과는?
-
-(A) `-3 -1`
-(B) `-4 1`
-(C) `-3 1`
-(D) `-4 -1`
-
-<details>
-<summary>정답 및 해설</summary>
-
-**정답: (A)**
-
-Java의 정수 나눗셈은 **0 방향으로 절삭(truncate toward zero)** 한다. `-7 / 2 = -3` (수학적으로 -3.5이지만 0 방향으로 잘라서 -3). 나머지: `-7 % 2 = -1` (검증: `-3 * 2 + (-1) = -7` ✓). Java에서 `%` 연산자의 결과 부호는 피제수(왼쪽 피연산자)의 부호를 따른다.
-</details>
+*문제 5는 CED 제외 항목(음수의 % 연산)이므로 삭제되었습니다.*
 
 ---
 
@@ -377,11 +356,7 @@ System.out.println(max + 1);
 
 ---
 
-## Unit 2: Using Objects (25문제)
-
----
-
-### 문제 16 (Unit 2 - 토픽 2.1) [E]
+### 문제 16 (Unit 1 - 토픽 2.1) [E]
 
 다음 중 올바른 객체 생성 문장은?
 
@@ -400,7 +375,7 @@ System.out.println(max + 1);
 
 ---
 
-### 문제 17 (Unit 2 - 토픽 2.2) [E]
+### 문제 17 (Unit 1 - 토픽 2.2) [E]
 
 ```java
 String s = "Computer Science";
@@ -424,7 +399,7 @@ System.out.println(s.length());
 
 ---
 
-### 문제 18 (Unit 2 - 토픽 2.7) [M]
+### 문제 18 (Unit 1 - 토픽 2.7) [M]
 
 ```java
 String s = "ABCDEF";
@@ -448,7 +423,7 @@ System.out.println(s.substring(2, 5));
 
 ---
 
-### 문제 19 (Unit 2 - 토픽 2.6) [M]
+### 문제 19 (Unit 1 - 토픽 2.6) [M]
 
 ```java
 String a = "hello";
@@ -477,7 +452,7 @@ System.out.println(a.equals(c));
 
 ---
 
-### 문제 20 (Unit 2 - 토픽 2.7) [E]
+### 문제 20 (Unit 1 - 토픽 2.7) [E]
 
 ```java
 String s = "Hello World";
@@ -501,7 +476,9 @@ System.out.println(s.indexOf("World"));
 
 ---
 
-### 문제 21 (Unit 2 - 토픽 2.7) [M]
+### 문제 21 (Unit 1 - 토픽 2.7) [M]
+
+*(참고: `toUpperCase()`는 Quick Reference에 없는 메서드)*
 
 ```java
 String s = "Hello";
@@ -526,7 +503,7 @@ System.out.println(s);
 
 ---
 
-### 문제 22 (Unit 2 - 토픽 2.7) [M]
+### 문제 22 (Unit 1 - 토픽 2.7) [M]
 
 ```java
 String s = "AP Computer Science A";
@@ -550,7 +527,7 @@ System.out.println(s.substring(3, 11));
 
 ---
 
-### 문제 23 (Unit 2 - 토픽 2.3) [E]
+### 문제 23 (Unit 1 - 토픽 2.3) [E]
 
 ```java
 String s = null;
@@ -574,7 +551,9 @@ System.out.println(s.length());
 
 ---
 
-### 문제 24 (Unit 2 - 토픽 2.4) [M]
+### 문제 24 (Unit 1 - 토픽 2.4) [M]
+
+*(참고: `Integer.valueOf()`는 Quick Reference에 없는 메서드)*
 
 ```java
 Integer a = Integer.valueOf(200);
@@ -600,7 +579,7 @@ System.out.println(a.equals(b));
 
 ---
 
-### 문제 25 (Unit 2 - 토픽 2.5) [E]
+### 문제 25 (Unit 1 - 토픽 2.5) [E]
 
 ```java
 int x = 5;
@@ -626,7 +605,7 @@ Java는 **autoboxing** (`int` → `Integer`)과 **unboxing** (`Integer` → `int
 
 ---
 
-### 문제 26 (Unit 2 - 토픽 2.8) [M]
+### 문제 26 (Unit 1 - 토픽 2.8) [M]
 
 ```java
 double d = Math.sqrt(25) + Math.pow(2, 3);
@@ -650,7 +629,7 @@ System.out.println(d);
 
 ---
 
-### 문제 27 (Unit 2 - 토픽 2.8) [E]
+### 문제 27 (Unit 1 - 토픽 2.8) [E]
 
 ```java
 System.out.println(Math.abs(-7));
@@ -674,7 +653,7 @@ System.out.println(Math.abs(7));
 
 ---
 
-### 문제 28 (Unit 2 - 토픽 2.7) [H]
+### 문제 28 (Unit 1 - 토픽 2.7) [H]
 
 ```java
 String s = "banana";
@@ -698,7 +677,7 @@ System.out.println(s.substring(0, s.indexOf("na")));
 
 ---
 
-### 문제 29 (Unit 2 - 토픽 2.6) [H]
+### 문제 29 (Unit 1 - 토픽 2.6) [H]
 
 ```java
 String a = "Java";
@@ -729,7 +708,7 @@ System.out.println(a == d);
 
 ---
 
-### 문제 30 (Unit 2 - 토픽 2.7) [M]
+### 문제 30 (Unit 1 - 토픽 2.7) [M]
 
 ```java
 String s = "Hello";
@@ -753,7 +732,7 @@ System.out.println(s.substring(5));
 
 ---
 
-### 문제 31 (Unit 2 - 토픽 2.7) [M]
+### 문제 31 (Unit 1 - 토픽 2.7) [M]
 
 ```java
 String s = "computer";
@@ -779,7 +758,7 @@ System.out.println(t + " " + idx);
 
 ---
 
-### 문제 32 (Unit 2 - 토픽 2.7) [E]
+### 문제 32 (Unit 1 - 토픽 2.7) [E]
 
 ```java
 String name = "Alice";
@@ -803,7 +782,7 @@ System.out.println(name.substring(0, 1));
 
 ---
 
-### 문제 33 (Unit 2 - 토픽 2.6) [M]
+### 문제 33 (Unit 1 - 토픽 2.6) [M]
 
 ```java
 String s1 = "abc";
@@ -829,7 +808,7 @@ System.out.println(s1.compareTo(s2) > 0);
 
 ---
 
-### 문제 34 (Unit 2 - 토픽 2.3) [M]
+### 문제 34 (Unit 1 - 토픽 2.3) [M]
 
 다음 중 `void` 메서드에 대한 설명으로 올바른 것은?
 
@@ -848,7 +827,7 @@ System.out.println(s1.compareTo(s2) > 0);
 
 ---
 
-### 문제 35 (Unit 2 - 토픽 2.4) [H]
+### 문제 35 (Unit 1 - 토픽 2.4) [H]
 
 ```java
 String s1 = "Cat";
@@ -874,7 +853,7 @@ System.out.println(result < 0);
 
 ---
 
-### 문제 36 (Unit 2 - 토픽 2.7) [H]
+### 문제 36 (Unit 1 - 토픽 2.7) [H]
 
 ```java
 String s = "Hello World";
@@ -899,7 +878,7 @@ System.out.println(result);
 
 ---
 
-### 문제 37 (Unit 2 - 토픽 2.8) [M]
+### 문제 37 (Unit 1 - 토픽 2.8) [M]
 
 ```java
 System.out.println((int)(Math.random() * 10) + 5);
@@ -922,7 +901,9 @@ System.out.println((int)(Math.random() * 10) + 5);
 
 ---
 
-### 문제 38 (Unit 2 - 토픽 2.3) [E]
+### 문제 38 (Unit 1 - 토픽 2.3) [E]
+
+*(참고: `toLowerCase()`는 Quick Reference에 없는 메서드)*
 
 ```java
 String s = "Java";
@@ -947,7 +928,7 @@ System.out.println(s);
 
 ---
 
-### 문제 39 (Unit 2 - 토픽 2.5) [H]
+### 문제 39 (Unit 1 - 토픽 2.5) [H]
 
 ```java
 Integer x = null;
@@ -971,7 +952,9 @@ int y = x;
 
 ---
 
-### 문제 40 (Unit 2 - 토픽 2.7) [M]
+### 문제 40 (Unit 1 - 토픽 2.7) [M]
+
+*(참고: `toUpperCase()`는 Quick Reference에 없는 메서드)*
 
 ```java
 String s = "programming";
@@ -995,11 +978,11 @@ System.out.println(s.substring(3, 7).toUpperCase());
 
 ---
 
-## Unit 3: Boolean Expressions and if Statements (12문제)
+## Unit 2: Selection and Iteration (38문제)
 
 ---
 
-### 문제 41 (Unit 3 - 토픽 3.1) [E]
+### 문제 41 (Unit 2 - 토픽 3.1) [E]
 
 ```java
 int x = 10;
@@ -1025,7 +1008,7 @@ if (x > 5)
 
 ---
 
-### 문제 42 (Unit 3 - 토픽 3.1) [E]
+### 문제 42 (Unit 2 - 토픽 3.1) [E]
 
 ```java
 int x = 7;
@@ -1051,7 +1034,7 @@ if (x > 10)
 
 ---
 
-### 문제 43 (Unit 3 - 토픽 3.5) [M]
+### 문제 43 (Unit 2 - 토픽 3.5) [M]
 
 ```java
 boolean a = true;
@@ -1077,7 +1060,7 @@ System.out.println(!a || !b);
 
 ---
 
-### 문제 44 (Unit 3 - 토픽 3.5) [H]
+### 문제 44 (Unit 2 - 토픽 3.5) [H]
 
 다음 중 `!(x > 5 && y < 10)`과 동치인 것은?
 
@@ -1096,7 +1079,7 @@ System.out.println(!a || !b);
 
 ---
 
-### 문제 45 (Unit 3 - 토픽 3.4) [M]
+### 문제 45 (Unit 2 - 토픽 3.4) [M]
 
 ```java
 int score = 85;
@@ -1127,7 +1110,7 @@ else
 
 ---
 
-### 문제 46 (Unit 3 - 토픽 3.6) [H]
+### 문제 46 (Unit 2 - 토픽 3.6) [H]
 
 ```java
 int x = 5;
@@ -1155,7 +1138,7 @@ if (x > 3)
 
 ---
 
-### 문제 47 (Unit 3 - 토픽 3.3) [M]
+### 문제 47 (Unit 2 - 토픽 3.3) [M]
 
 ```java
 int x = 0;
@@ -1182,7 +1165,7 @@ else
 
 ---
 
-### 문제 48 (Unit 3 - 토픽 3.5) [M]
+### 문제 48 (Unit 2 - 토픽 3.5) [M]
 
 다음 중 `!(a || b)`와 동치인 것은?
 
@@ -1201,7 +1184,7 @@ else
 
 ---
 
-### 문제 49 (Unit 3 - 토픽 3.2) [E]
+### 문제 49 (Unit 2 - 토픽 3.2) [E]
 
 ```java
 double x = 0.1 + 0.1 + 0.1;
@@ -1228,7 +1211,7 @@ else
 
 ---
 
-### 문제 50 (Unit 3 - 토픽 3.6) [H]
+### 문제 50 (Unit 2 - 토픽 3.6) [H]
 
 ```java
 int a = 5, b = 3, c = 8;
@@ -1255,7 +1238,7 @@ else
 
 ---
 
-### 문제 51 (Unit 3 - 토픽 3.3) [M]
+### 문제 51 (Unit 2 - 토픽 3.3) [M]
 
 ```java
 String s = null;
@@ -1282,7 +1265,7 @@ else
 
 ---
 
-### 문제 52 (Unit 3 - 토픽 3.4) [M]
+### 문제 52 (Unit 2 - 토픽 3.4) [M]
 
 ```java
 int x = 15;
@@ -1315,11 +1298,7 @@ System.out.println(result);
 
 ---
 
-## Unit 4: Iteration (28문제)
-
----
-
-### 문제 53 (Unit 4 - 토픽 4.1) [E]
+### 문제 53 (Unit 2 - 토픽 4.1) [E]
 
 ```java
 int count = 0;
@@ -1346,7 +1325,7 @@ while (count < 5) {
 
 ---
 
-### 문제 54 (Unit 4 - 토픽 4.2) [E]
+### 문제 54 (Unit 2 - 토픽 4.2) [E]
 
 ```java
 for (int i = 1; i <= 5; i++) {
@@ -1371,7 +1350,7 @@ for (int i = 1; i <= 5; i++) {
 
 ---
 
-### 문제 55 (Unit 4 - 토픽 4.2) [M]
+### 문제 55 (Unit 2 - 토픽 4.2) [M]
 
 ```java
 int sum = 0;
@@ -1398,7 +1377,7 @@ System.out.println(sum);
 
 ---
 
-### 문제 56 (Unit 4 - 토픽 4.1) [M]
+### 문제 56 (Unit 2 - 토픽 4.1) [M]
 
 ```java
 int x = 100;
@@ -1427,7 +1406,7 @@ System.out.println(count);
 
 ---
 
-### 문제 57 (Unit 4 - 토픽 4.2) [H]
+### 문제 57 (Unit 2 - 토픽 4.2) [H]
 
 ```java
 for (int i = 0; i < 5; i++) {
@@ -1481,7 +1460,7 @@ for (int i = 0; i < 5; i++) {
 
 ---
 
-### 문제 58 (Unit 4 - 토픽 4.2) [M]
+### 문제 58 (Unit 2 - 토픽 4.2) [M]
 
 ```java
 int result = 1;
@@ -1508,7 +1487,7 @@ System.out.println(result);
 
 ---
 
-### 문제 59 (Unit 4 - 토픽 4.3) [E]
+### 문제 59 (Unit 2 - 토픽 4.3) [E]
 
 ```java
 String s = "Hello";
@@ -1534,7 +1513,7 @@ for (int i = 0; i < s.length(); i++) {
 
 ---
 
-### 문제 60 (Unit 4 - 토픽 4.3) [M]
+### 문제 60 (Unit 2 - 토픽 4.3) [M]
 
 ```java
 String s = "abcba";
@@ -1563,7 +1542,7 @@ System.out.println(count);
 
 ---
 
-### 문제 61 (Unit 4 - 토픽 4.1) [H]
+### 문제 61 (Unit 2 - 토픽 4.1) [H]
 
 ```java
 int n = 1234;
@@ -1597,7 +1576,7 @@ System.out.println(reversed);
 
 ---
 
-### 문제 62 (Unit 4 - 토픽 4.2) [M]
+### 문제 62 (Unit 2 - 토픽 4.2) [M]
 
 ```java
 for (int i = 10; i >= 1; i -= 2) {
@@ -1622,7 +1601,7 @@ for (int i = 10; i >= 1; i -= 2) {
 
 ---
 
-### 문제 63 (Unit 4 - 토픽 4.4) [M]
+### 문제 63 (Unit 2 - 토픽 4.4) [M]
 
 ```java
 for (int i = 1; i <= 3; i++) {
@@ -1673,7 +1652,7 @@ for (int i = 1; i <= 3; i++) {
 
 ---
 
-### 문제 64 (Unit 4 - 토픽 4.1) [E]
+### 문제 64 (Unit 2 - 토픽 4.1) [E]
 
 다음 중 무한 루프가 되는 코드는?
 
@@ -1688,13 +1667,15 @@ while (x > 0) { x--; }
 ```
 (C)
 ```java
-while (true) { break; }
+while (true) { break; } // 참고: break는 AP 시험 범위 밖
 ```
 (D)
 ```java
 int x = 1;
 while (x > 0) { x++; }
 ```
+
+> **참고**: 선택지 (C)의 `break`는 AP 시험 범위 밖이지만, 코드 추적 연습을 위해 포함했습니다.
 
 <details>
 <summary>정답 및 해설</summary>
@@ -1706,7 +1687,7 @@ while (x > 0) { x++; }
 
 ---
 
-### 문제 65 (Unit 4 - 토픽 4.3) [M]
+### 문제 65 (Unit 2 - 토픽 4.3) [M]
 
 ```java
 String s = "Hello World";
@@ -1735,7 +1716,7 @@ System.out.println(result);
 
 ---
 
-### 문제 66 (Unit 4 - 토픽 4.2) [H]
+### 문제 66 (Unit 2 - 토픽 4.2) [H]
 
 ```java
 int count = 0;
@@ -1763,7 +1744,7 @@ System.out.println(count);
 
 ---
 
-### 문제 67 (Unit 4 - 토픽 4.4) [M]
+### 문제 67 (Unit 2 - 토픽 4.4) [M]
 
 ```java
 int sum = 0;
@@ -1823,7 +1804,7 @@ System.out.println(max + " " + sum);
 
 ---
 
-### 문제 69 (Unit 4 - 토픽 4.3) [H]
+### 문제 69 (Unit 2 - 토픽 4.3) [H]
 
 ```java
 String s = "abcde";
@@ -1851,7 +1832,7 @@ System.out.println(result);
 
 ---
 
-### 문제 70 (Unit 4 - 토픽 4.2) [E]
+### 문제 70 (Unit 2 - 토픽 4.2) [E]
 
 ```java
 int sum = 0;
@@ -1878,7 +1859,7 @@ System.out.println(sum);
 
 ---
 
-### 문제 71 (Unit 4 - 토픽 4.1) [M]
+### 문제 71 (Unit 2 - 토픽 4.1) [M]
 
 ```java
 int n = 7;
@@ -1910,7 +1891,7 @@ System.out.println(isPrime);
 
 ---
 
-### 문제 72 (Unit 4 - 토픽 4.2) [H]
+### 문제 72 (Unit 2 - 토픽 4.2) [H]
 
 ```java
 int n = 5;
@@ -1938,7 +1919,7 @@ System.out.println(result);
 
 ---
 
-### 문제 73 (Unit 4 - 토픽 4.4) [H]
+### 문제 73 (Unit 2 - 토픽 4.4) [H]
 
 ```java
 int count = 0;
@@ -1967,7 +1948,7 @@ System.out.println(count);
 
 ---
 
-### 문제 74 (Unit 4 - 토픽 4.3) [M]
+### 문제 74 (Unit 2 - 토픽 4.3) [M]
 
 ```java
 String s = "Java";
@@ -1993,7 +1974,7 @@ for (int i = 0; i < s.length(); i++) {
 
 ---
 
-### 문제 75 (Unit 4 - 토픽 4.1) [M]
+### 문제 75 (Unit 2 - 토픽 4.1) [M]
 
 ```java
 int x = 1;
@@ -2020,7 +2001,7 @@ System.out.println(x);
 
 ---
 
-### 문제 76 (Unit 4 - 토픽 4.2) [E]
+### 문제 76 (Unit 2 - 토픽 4.2) [E]
 
 ```java
 for (int i = 0; i < 3; i++) {
@@ -2047,7 +2028,7 @@ for (int i = 0; i < 3; i++) {
 
 ---
 
-### 문제 77 (Unit 4 - 토픽 4.3) [H]
+### 문제 77 (Unit 2 - 토픽 4.3) [H]
 
 ```java
 String s = "aabbcc";
@@ -2083,7 +2064,9 @@ System.out.println(count);
 
 ---
 
-### 문제 78 (Unit 4 - 토픽 4.4) [H]
+### 문제 78 (Unit 2 - 토픽 4.4) [H]
+
+*(참고: `trim()`은 Quick Reference에 없는 메서드)*
 
 ```java
 String result = "";
@@ -2147,7 +2130,7 @@ System.out.println(max);
 
 ---
 
-### 문제 80 (Unit 4 - 토픽 4.1) [H]
+### 문제 80 (Unit 2 - 토픽 4.1) [H]
 
 ```java
 int a = 48;
@@ -2183,26 +2166,1233 @@ System.out.println(a);
 
 ---
 
+## Unit 3: Class Creation (10문제)
+
+---
+
+### 문제 81 (Unit 3 - 토픽 3.1) [E]
+
+다음 클래스에서 `main` 메서드의 출력 결과는?
+
+```java
+public class Dog {
+    private String name;
+
+    public Dog(String n) {
+        name = n;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+// 다른 클래스의 main 메서드
+Dog d = new Dog("Buddy");
+System.out.println(d.name);
+```
+
+(A) `Buddy`
+(B) `null`
+(C) 컴파일 에러
+(D) 런타임 에러
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (C)**
+
+`name`은 `private` 인스턴스 변수이므로 **클래스 외부에서 직접 접근할 수 없다**. `d.name`은 컴파일 에러를 발생시킨다. 외부에서 접근하려면 `d.getName()`처럼 public accessor 메서드를 사용해야 한다. `private`은 캡슐화(encapsulation)를 위한 접근 제어자로, 데이터를 보호하고 클래스 내부 구현을 숨기는 역할을 한다.
+</details>
+
+---
+
+### 문제 82 (Unit 3 - 토픽 3.2) [E]
+
+```java
+public class Circle {
+    private double radius;
+
+    public Circle(double r) {
+        radius = r;
+    }
+
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+}
+```
+
+다음 코드의 실행 결과는?
+
+```java
+Circle c = new Circle(5.0);
+System.out.println(c.getArea() > 78 && c.getArea() < 79);
+```
+
+(A) `true`
+(B) `false`
+(C) 컴파일 에러
+(D) `78.5`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (A)**
+
+생성자 `Circle(double r)`에 `5.0`이 전달되어 `radius = 5.0`으로 초기화된다. `getArea()`는 `Math.PI * 5.0 * 5.0 = 78.5398...`을 반환한다. 이 값은 78보다 크고 79보다 작으므로 `true && true`는 `true`이다. 생성자의 매개변수(parameter)를 통해 인스턴스 변수를 초기화하는 기본적인 패턴이다.
+</details>
+
+---
+
+### 문제 83 (Unit 3 - 토픽 3.1) [M]
+
+다음 클래스를 보고, `main`에서 객체를 생성한 직후 각 인스턴스 변수의 기본값은?
+
+```java
+public class Student {
+    private String name;
+    private int age;
+    private double gpa;
+    private boolean enrolled;
+
+    public Student() {
+        // 빈 생성자
+    }
+}
+```
+
+```java
+Student s = new Student();
+```
+
+(A) `name`은 `""`, `age`는 `0`, `gpa`는 `0.0`, `enrolled`는 `false`
+(B) `name`은 `null`, `age`는 `0`, `gpa`는 `0.0`, `enrolled`는 `false`
+(C) 모든 변수가 `null`
+(D) 컴파일 에러 — 인스턴스 변수를 초기화하지 않았으므로
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+Java에서 인스턴스 변수는 **명시적으로 초기화하지 않으면 기본값을 갖는다**. `int`는 `0`, `double`은 `0.0`, `boolean`은 `false`, 참조 타입(`String` 등)은 `null`이다. 지역 변수(local variable)와 달리 인스턴스 변수는 초기화 없이 사용해도 컴파일 에러가 나지 않는다. (A)의 함정: `String`의 기본값은 빈 문자열 `""`이 아니라 `null`이다.
+</details>
+
+---
+
+### 문제 84 (Unit 3 - 토픽 3.4) [M]
+
+다음 중 **accessor 메서드**만을 모두 고른 것은?
+
+```java
+public class BankAccount {
+    private double balance;
+    private String owner;
+
+    public double getBalance() {        // 메서드 I
+        return balance;
+    }
+
+    public void deposit(double amount) { // 메서드 II
+        balance += amount;
+    }
+
+    public String getOwner() {           // 메서드 III
+        return owner;
+    }
+
+    public void setOwner(String name) {  // 메서드 IV
+        owner = name;
+    }
+}
+```
+
+(A) I만
+(B) I, III
+(C) I, II, III
+(D) I, III, IV
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+Accessor 메서드(getter)는 **인스턴스 변수의 값을 반환하되, 객체의 상태를 변경하지 않는** 메서드이다. 메서드 I(`getBalance`)과 III(`getOwner`)은 값을 return할 뿐 변경하지 않으므로 accessor이다. 메서드 II(`deposit`)는 `balance`를 변경하므로 mutator이고, 메서드 IV(`setOwner`)도 `owner`를 변경하므로 mutator(setter)이다.
+</details>
+
+---
+
+### 문제 85 (Unit 3 - 토픽 3.5) [M]
+
+```java
+public class Counter {
+    private int count;
+
+    public Counter() {
+        count = 0;
+    }
+
+    public void increment(int count) {
+        count = count + 1;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}
+```
+
+다음 코드의 출력은?
+
+```java
+Counter c = new Counter();
+c.increment(10);
+c.increment(20);
+System.out.println(c.getCount());
+```
+
+(A) `2`
+(B) `0`
+(C) `31`
+(D) `12`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+`increment` 메서드의 매개변수 이름이 `count`로, 인스턴스 변수 `count`와 **동일한 이름**이다. 메서드 내부에서 `count`는 **매개변수(지역 변수)**를 가리키므로, `count = count + 1`은 매개변수 값만 변경하고 인스턴스 변수 `this.count`는 전혀 변경되지 않는다. 따라서 `getCount()`는 초기값 `0`을 반환한다. 인스턴스 변수를 변경하려면 `this.count = this.count + 1;`로 작성해야 한다.
+</details>
+
+---
+
+### 문제 86 (Unit 3 - 토픽 3.5) [E]
+
+```java
+public class Temperature {
+    private double celsius;
+
+    public Temperature(double c) {
+        celsius = c;
+    }
+
+    public void setCelsius(double c) {
+        celsius = c;
+    }
+
+    public double getFahrenheit() {
+        return celsius * 9.0 / 5.0 + 32;
+    }
+}
+```
+
+다음 코드의 출력은?
+
+```java
+Temperature t = new Temperature(0);
+t.setCelsius(100);
+System.out.println(t.getFahrenheit());
+```
+
+(A) `32.0`
+(B) `212.0`
+(C) `100.0`
+(D) `0.0`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+처음 `celsius`는 `0`으로 초기화되지만, `setCelsius(100)`이 호출되어 `celsius`가 `100`으로 변경된다. 이후 `getFahrenheit()`는 `100 * 9.0 / 5.0 + 32 = 180.0 + 32 = 212.0`을 반환한다. `setCelsius`는 mutator 메서드로 객체의 상태(인스턴스 변수)를 변경하고, `getFahrenheit`는 accessor 메서드로 계산된 값을 반환한다.
+</details>
+
+---
+
+### 문제 87 (Unit 3 - 토픽 3.6) [H]
+
+```java
+public class Item {
+    private static int nextId = 1;
+    private int id;
+    private String name;
+
+    public Item(String name) {
+        this.name = name;
+        this.id = nextId;
+        nextId++;
+    }
+
+    public int getId() {
+        return id;
+    }
+}
+```
+
+다음 코드의 출력은?
+
+```java
+Item a = new Item("Apple");
+Item b = new Item("Banana");
+Item c = new Item("Cherry");
+System.out.println(a.getId() + " " + b.getId() + " " + c.getId());
+```
+
+(A) `1 1 1`
+(B) `1 2 3`
+(C) `3 3 3`
+(D) `0 1 2`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+`nextId`는 `static` 변수로 **클래스 레벨**에 존재하며, 모든 인스턴스가 공유한다. 객체가 생성될 때마다 현재 `nextId`를 `id`에 대입한 후 `nextId`를 증가시킨다. 첫 번째 객체 `a`는 `id=1`(nextId→2), 두 번째 `b`는 `id=2`(nextId→3), 세 번째 `c`는 `id=3`(nextId→4). 각 객체의 `id`는 인스턴스 변수이므로 생성 시점의 값을 유지한다. (C)의 함정: `static`인 것은 `nextId`이지 `id`가 아니다.
+</details>
+
+---
+
+### 문제 88 (Unit 3 - 토픽 3.6) [H]
+
+다음 코드에서 컴파일 에러가 발생하는 줄은?
+
+```java
+public class MathHelper {
+    private int value;
+
+    public MathHelper(int v) {
+        value = v;
+    }
+
+    public static int square(int x) {   // Line 1
+        return x * x;                   // Line 2
+    }
+
+    public static int doubleValue() {   // Line 3
+        return value * 2;               // Line 4
+    }
+
+    public int getValue() {             // Line 5
+        return value;                   // Line 6
+    }
+}
+```
+
+(A) Line 1
+(B) Line 4
+(C) Line 5
+(D) 컴파일 에러 없음
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+`doubleValue()`는 `static` 메서드인데, `value`는 인스턴스 변수이다. **`static` 메서드는 특정 객체에 속하지 않으므로 인스턴스 변수에 접근할 수 없다.** Line 4에서 `value`를 참조하면 컴파일 에러가 발생한다. `static` 메서드는 `static` 변수와 다른 `static` 메서드만 직접 호출할 수 있다. 인스턴스 멤버에 접근하려면 객체 참조를 통해야 한다.
+</details>
+
+---
+
+### 문제 89 (Unit 3 - 토픽 3.3) [M]
+
+다음 Javadoc 주석을 보고, 이 메서드의 동작으로 올바른 것은?
+
+```java
+/**
+ * 주어진 문자열에서 특정 문자의 등장 횟수를 반환한다.
+ *
+ * @param str 검색 대상 문자열 (null이 아님)
+ * @param ch 찾을 문자
+ * @return str에서 ch가 등장하는 횟수.
+ *         ch가 str에 없으면 0을 반환한다.
+ */
+public int countChar(String str, char ch)
+```
+
+다음 중 `countChar("banana", 'a')`의 반환값은?
+
+(A) `1`
+(B) `2`
+(C) `3`
+(D) Javadoc만으로는 판단할 수 없으며, 구현에 따라 다르다
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (C)**
+
+Javadoc의 `@return`에 따르면 이 메서드는 `str`에서 `ch`가 **등장하는 횟수**를 반환한다. `"banana"`에서 `'a'`는 인덱스 1, 3, 5에 총 **3번** 등장한다. Javadoc 주석은 메서드의 **계약(contract)**을 명시하므로, 올바르게 구현된 메서드라면 `@return` 설명대로 동작해야 한다. (D)의 함정: AP CSA에서 Javadoc은 메서드의 동작 명세로 간주하며, 구현이 명세를 따른다고 가정한다.
+</details>
+
+---
+
+### 문제 90 (Unit 3 - 토픽 3.1) [H]
+
+다음 중 `Rectangle` 클래스의 올바른 구현은?
+
+**요구사항:**
+- `width`와 `height` 인스턴스 변수 (외부 접근 불가)
+- 두 값을 받는 생성자
+- 넓이를 반환하는 `getArea()` 메서드
+- `width`를 변경하는 `setWidth()` 메서드
+
+(A)
+```java
+public class Rectangle {
+    public double width;
+    public double height;
+    public Rectangle(double w, double h) {
+        width = w; height = h;
+    }
+    public double getArea() { return width * height; }
+    public void setWidth(double w) { width = w; }
+}
+```
+
+(B)
+```java
+public class Rectangle {
+    private double width;
+    private double height;
+    public Rectangle(double w, double h) {
+        width = w; height = h;
+    }
+    public double getArea() { return width * height; }
+    public void setWidth(double w) { width = w; }
+}
+```
+
+(C)
+```java
+public class Rectangle {
+    private double width;
+    private double height;
+    public Rectangle(double w, double h) {
+        width = w; height = h;
+    }
+    public double getArea() { return width * height; }
+    public double setWidth(double w) { width = w; }
+}
+```
+
+(D)
+```java
+public class Rectangle {
+    private double width;
+    private double height;
+    public void Rectangle(double w, double h) {
+        width = w; height = h;
+    }
+    public double getArea() { return width * height; }
+    public void setWidth(double w) { width = w; }
+}
+```
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+(A) `width`와 `height`가 `public`이므로 "외부 접근 불가" 요구사항을 위반한다. (B) 모든 요구사항을 충족한다 — `private` 인스턴스 변수, 매개변수를 받는 생성자, `double`을 반환하는 accessor `getArea()`, `void`를 반환하는 mutator `setWidth()`. (C) `setWidth`의 반환 타입이 `double`인데 `return` 문이 없으므로 컴파일 에러이다. mutator는 일반적으로 `void`를 반환한다. (D) 생성자에 `void` 반환 타입을 선언하면 **생성자가 아니라 일반 메서드**가 된다. `new Rectangle(1, 2)` 호출 시 이 메서드는 실행되지 않아 변수가 기본값 `0.0`으로 남는다.
+</details>
+
+---
+
+## Unit 4: Data Collections (32문제)
+
+> 문제 68, 79는 배열(array)을 다루므로 Unit 4에 해당합니다. 해당 문제는 Unit 2 영역에 물리적으로 위치하지만 Unit 4로 분류됩니다.
+
+---
+
+### 문제 91 (Unit 4 - 토픽 4.1) [E]
+
+다음 중 올바른 배열 선언 및 초기화는?
+
+(A) `int[] arr = new int(5);`
+(B) `int[] arr = new int[5];`
+(C) `int arr[] = new int[];`
+(D) `int arr = new int[5];`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+배열 생성 시 `new int[크기]` 형식을 사용한다. (A) 소괄호는 생성자 호출 문법이며 배열에는 사용 불가. (C) 크기를 지정하지 않으면 컴파일 에러. (D) 타입이 `int`이므로 배열 참조를 저장할 수 없다. `int[]` 또는 `int arr[]` 형태여야 한다.
+</details>
+
+---
+
+### 문제 92 (Unit 4 - 토픽 4.2) [E]
+
+```java
+int[] nums = {10, 20, 30, 40, 50};
+System.out.println(nums[2] + " " + nums.length);
+```
+
+출력 결과는?
+
+(A) `20 5`
+(B) `30 5`
+(C) `30 4`
+(D) `20 4`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+배열 인덱스는 0부터 시작하므로 `nums[2]`는 세 번째 원소 `30`이다. `nums.length`는 배열의 크기로 `5`이다. `.length`는 메서드가 아닌 필드이므로 괄호 없이 사용한다.
+</details>
+
+---
+
+### 문제 93 (Unit 4 - 토픽 4.3) [M]
+
+```java
+int[] arr = {2, 4, 6, 8, 10};
+int result = 0;
+for (int i = 0; i < arr.length; i += 2) {
+    result += arr[i];
+}
+System.out.println(result);
+```
+
+출력 결과는?
+
+(A) `12`
+(B) `18`
+(C) `20`
+(D) `30`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+`i`는 0, 2, 4 순서로 증가한다(2씩 건너뛰기). `arr[0]=2`, `arr[2]=6`, `arr[4]=10`. `result = 2 + 6 + 10 = 18`. 루프 증감식이 `i++`가 아닌 `i += 2`임에 주의해야 한다.
+</details>
+
+---
+
+### 문제 94 (Unit 4 - 토픽 4.3) [M]
+
+```java
+int[] vals = {5, 3, 8, 1, 7};
+for (int val : vals) {
+    val = val * 2;
+}
+System.out.println(vals[0] + " " + vals[2]);
+```
+
+출력 결과는?
+
+(A) `10 16`
+(B) `5 8`
+(C) `10 8`
+(D) `5 16`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+for-each 루프에서 `val`은 배열 원소의 **복사본**이다. `val = val * 2`는 지역 변수 `val`만 변경하고, 원래 배열 `vals`의 원소는 변경되지 않는다. 따라서 `vals[0]`은 여전히 `5`, `vals[2]`는 여전히 `8`이다. 이것은 for-each 루프의 핵심 제한 사항이다.
+</details>
+
+---
+
+### 문제 95 (Unit 4 - 토픽 4.4) [H]
+
+```java
+String[] words = {"cat", "dog", "ant", "bat"};
+String first = words[0];
+for (String w : words) {
+    if (w.compareTo(first) < 0) {
+        first = w;
+    }
+}
+System.out.println(first);
+```
+
+출력 결과는?
+
+(A) `cat`
+(B) `ant`
+(C) `bat`
+(D) `dog`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+`compareTo`는 사전순(lexicographic) 비교를 한다. `first`는 `"cat"`으로 시작. `"cat".compareTo("cat") == 0` → 갱신 안 됨. `"dog".compareTo("cat") > 0` → 갱신 안 됨. `"ant".compareTo("cat") < 0` → `first = "ant"`. `"bat".compareTo("ant") > 0` → 갱신 안 됨. 최종적으로 사전순 가장 앞선 문자열 `"ant"`가 출력된다.
+</details>
+
+---
+
+### 문제 96 (Unit 4 - 토픽 4.5) [M]
+
+```java
+int[] arr = {4, 1, 7, 3, 9, 2};
+int min = arr[0];
+int minIdx = 0;
+for (int i = 1; i < arr.length; i++) {
+    if (arr[i] < min) {
+        min = arr[i];
+        minIdx = i;
+    }
+}
+System.out.println(minIdx);
+```
+
+출력 결과는?
+
+(A) `1`
+(B) `3`
+(C) `5`
+(D) `0`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (A)**
+
+배열에서 최솟값의 인덱스를 찾는 알고리즘이다. `min=4, minIdx=0`으로 시작. `i=1`: `1<4` → `min=1, minIdx=1`. `i=2`: `7<1`? 아니오. `i=3`: `3<1`? 아니오. `i=4`: `9<1`? 아니오. `i=5`: `2<1`? 아니오. 최종 `minIdx = 1`. 최솟값 `1`은 인덱스 `1`에 위치한다.
+</details>
+
+---
+
+### 문제 97 (Unit 4 - 토픽 4.5) [H]
+
+```java
+int[] arr = {3, 8, 1, 5, 2, 9, 4};
+for (int i = 0; i < arr.length - 1; i++) {
+    arr[i] = arr[i + 1];
+}
+arr[arr.length - 1] = 0;
+System.out.println(arr[0] + " " + arr[5] + " " + arr[6]);
+```
+
+출력 결과는?
+
+(A) `8 4 0`
+(B) `8 9 4`
+(C) `3 9 0`
+(D) `8 9 0`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (A)**
+
+이 코드는 배열을 **왼쪽으로 한 칸 시프트**하는 알고리즘이다. 각 원소가 오른쪽 이웃의 값으로 덮어써진다. 시프트 후 배열: `{8, 1, 5, 2, 9, 4, 4}`. 마지막 원소를 `0`으로 설정: `{8, 1, 5, 2, 9, 4, 0}`. `arr[0]=8`, `arr[5]=4`, `arr[6]=0`.
+</details>
+
+---
+
+### 문제 98 (Unit 4 - 토픽 4.5) [M]
+
+```java
+int[] data = {10, 25, 30, 15, 20};
+int target = 30;
+int idx = -1;
+for (int i = 0; i < data.length; i++) {
+    if (data[i] == target) {
+        idx = i;
+    }
+}
+System.out.println(idx);
+```
+
+출력 결과는?
+
+(A) `-1`
+(B) `2`
+(C) `3`
+(D) `30`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+선형 탐색(linear search)으로 `target` 값 `30`을 찾는다. `data[2] == 30`이므로 `idx = 2`. 루프가 끝까지 돌기 때문에, 만약 동일한 값이 여러 개 있으면 **마지막** 인덱스가 저장된다. 여기서는 `30`이 한 번만 등장하므로 `idx = 2`.
+</details>
+
+---
+
+### 문제 99 (Unit 4 - 토픽 4.6) [E]
+
+```java
+ArrayList<String> list = new ArrayList<String>();
+list.add("A");
+list.add("B");
+list.add("C");
+list.add(1, "X");
+System.out.println(list);
+```
+
+출력 결과는?
+
+(A) `[A, B, X, C]`
+(B) `[A, X, B, C]`
+(C) `[X, A, B, C]`
+(D) `[A, B, C, X]`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+`add(1, "X")`는 인덱스 1에 `"X"`를 삽입하고, 기존 원소들을 오른쪽으로 밀어낸다. 초기 리스트 `[A, B, C]`에서 인덱스 1에 삽입하면 `[A, X, B, C]`가 된다. `add(index, element)` 메서드는 기존 원소를 덮어쓰지 않고 끼워 넣는다는 점이 핵심이다.
+</details>
+
+---
+
+### 문제 100 (Unit 4 - 토픽 4.6) [M]
+
+```java
+ArrayList<Integer> nums = new ArrayList<Integer>();
+nums.add(10);
+nums.add(20);
+nums.add(30);
+nums.set(1, 99);
+nums.remove(0);
+System.out.println(nums);
+```
+
+출력 결과는?
+
+(A) `[99, 30]`
+(B) `[10, 99]`
+(C) `[20, 30]`
+(D) `[99, 20]`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (A)**
+
+단계별 추적: 초기 `[10, 20, 30]`. `set(1, 99)` → 인덱스 1의 값을 99로 교체: `[10, 99, 30]`. `remove(0)` → 인덱스 0 제거: `[99, 30]`. `set`은 기존 값을 **교체**하고, `remove`는 해당 인덱스의 원소를 제거한 뒤 나머지를 왼쪽으로 당긴다.
+</details>
+
+---
+
+### 문제 101 (Unit 4 - 토픽 4.7) [H]
+
+```java
+ArrayList<Integer> list = new ArrayList<Integer>();
+list.add(5);
+list.add(10);
+list.add(15);
+list.add(20);
+int sum = 0;
+for (int i = 0; i < list.size(); i++) {
+    if (list.get(i) % 10 == 0) {
+        sum += list.remove(i);
+    }
+}
+System.out.println(sum + " " + list.size());
+```
+
+출력 결과는?
+
+(A) `30 2`
+(B) `10 3`
+(C) `10 2`
+(D) `20 3`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (A)**
+
+ArrayList에서 삭제 시 인덱스 이동에 주의해야 한다. `i=0`: `5 % 10 ≠ 0`. `i=1`: `10 % 10 == 0` → `remove(1)` 반환값 `10`, `sum=10`. 리스트: `[5, 15, 20]` (size=3). `i=2`: `list.get(2) = 20`, `20 % 10 == 0` → `remove(2)` 반환값 `20`, `sum=30`. 리스트: `[5, 15]` (size=2). `i=3`: `3 < 2` → false, 루프 종료. 주의: `15`는 인덱스가 밀려 건너뛰어졌지만 `15 % 10 ≠ 0`이므로 결과에 영향 없다. 출력: `30 2`.
+</details>
+
+---
+
+### 문제 102 (Unit 4 - 토픽 4.8) [M]
+
+```java
+ArrayList<String> colors = new ArrayList<String>();
+colors.add("red");
+colors.add("blue");
+colors.add("red");
+colors.add("green");
+String result = "";
+for (String c : colors) {
+    result += c.substring(0, 1);
+}
+System.out.println(result);
+```
+
+출력 결과는?
+
+(A) `rbrg`
+(B) `redblue`
+(C) `rbg`
+(D) `RBRG`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (A)**
+
+for-each 루프로 ArrayList를 순회하며 각 문자열의 첫 글자를 `result`에 누적한다. `"red"→"r"`, `"blue"→"b"`, `"red"→"r"`, `"green"→"g"`. 결과: `"rbrg"`. `substring(0, 1)`은 인덱스 0부터 1 직전까지, 즉 첫 한 글자를 반환한다.
+</details>
+
+---
+
+### 문제 103 (Unit 4 - 토픽 4.9) [M]
+
+```java
+ArrayList<Integer> list = new ArrayList<Integer>();
+list.add(3);
+list.add(6);
+list.add(4);
+list.add(6);
+list.add(9);
+int i = 0;
+while (i < list.size()) {
+    if (list.get(i) % 3 == 0) {
+        list.remove(i);
+    } else {
+        i++;
+    }
+}
+System.out.println(list);
+```
+
+출력 결과는?
+
+(A) `[6, 4, 6]`
+(B) `[4]`
+(C) `[4, 6]`
+(D) `[6, 4, 6, 9]`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+3의 배수를 모두 제거한다. 핵심: 제거 시 `i`를 증가시키지 않는다(다음 원소가 당겨져 오므로). `i=0`: `3%3==0` → 제거. 리스트: `[6,4,6,9]`. `i=0`: `6%3==0` → 제거. `[4,6,9]`. `i=0`: `4%3≠0` → `i=1`. `i=1`: `6%3==0` → 제거. `[4,9]`. `i=1`: `9%3==0` → 제거. `[4]`. `i=1`: `1 < 1` → false. 최종: `[4]`. 이 패턴은 삭제 중 순회의 올바른 방법이다.
+</details>
+
+---
+
+### 문제 104 (Unit 4 - 토픽 4.9) [M]
+
+```java
+ArrayList<String> names = new ArrayList<String>();
+names.add("Amy");
+names.add("Bob");
+names.add("Amy");
+names.add("Dan");
+
+for (int i = names.size() - 1; i >= 0; i--) {
+    if (names.get(i).equals("Amy")) {
+        names.remove(i);
+    }
+}
+System.out.println(names);
+```
+
+출력 결과는?
+
+(A) `[Bob, Amy, Dan]`
+(B) `[Bob, Dan]`
+(C) `[Amy, Bob, Dan]`
+(D) `[Bob, Amy]`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+**뒤에서부터** 순회하며 삭제하는 패턴이다. 이 방법은 인덱스 이동 문제를 자연스럽게 해결한다. `i=3`: `"Dan"` ≠ `"Amy"`. `i=2`: `"Amy"` → 제거. `[Amy, Bob, Dan]`. `i=1`: `"Bob"` ≠ `"Amy"`. `i=0`: `"Amy"` → 제거. `[Bob, Dan]`. 역순 순회 삭제는 AP CSA에서 중요한 패턴이다.
+</details>
+
+---
+
+### 문제 105 (Unit 4 - 토픽 4.10) [M]
+
+```java
+public static int search(int[] arr, int target) {
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] == target) {
+            return i;
+        }
+    }
+    return -1;
+}
+```
+
+`search(new int[]{5, 12, 3, 12, 8}, 12)`를 호출하면 반환값은?
+
+(A) `-1`
+(B) `1`
+(C) `3`
+(D) `2`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+순차 탐색(sequential search)은 배열을 처음부터 끝까지 순서대로 확인한다. `12`는 인덱스 1과 3에 모두 존재하지만, `return`이 실행되면 즉시 메서드를 종료하므로 **처음 발견된** 인덱스 `1`을 반환한다. 순차 탐색의 시간 복잡도는 O(n)이다.
+</details>
+
+---
+
+### 문제 106 (Unit 4 - 토픽 4.11) [M]
+
+다음 코드는 어떤 정렬 알고리즘을 구현한 것인가?
+
+```java
+for (int i = 1; i < arr.length; i++) {
+    int key = arr[i];
+    int j = i - 1;
+    while (j >= 0 && arr[j] > key) {
+        arr[j + 1] = arr[j];
+        j--;
+    }
+    arr[j + 1] = key;
+}
+```
+
+(A) 버블 정렬 (Bubble Sort)
+(B) 선택 정렬 (Selection Sort)
+(C) 삽입 정렬 (Insertion Sort)
+(D) 병합 정렬 (Merge Sort)
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (C)**
+
+이것은 **삽입 정렬(Insertion Sort)** 이다. 핵심 특징: (1) `key = arr[i]`로 현재 원소를 저장, (2) 이미 정렬된 부분에서 `key`보다 큰 원소들을 오른쪽으로 밀어냄, (3) 빈 자리에 `key`를 삽입. 선택 정렬과의 차이: 선택 정렬은 최솟값을 **찾아서 교환**하고, 삽입 정렬은 원소를 **올바른 위치에 삽입**한다.
+</details>
+
+---
+
+### 문제 107 (Unit 4 - 토픽 4.11) [H]
+
+```java
+int[] arr = {9, 5, 2, 7};
+// 선택 정렬 1회전(pass) 수행
+int minIdx = 0;
+for (int j = 1; j < arr.length; j++) {
+    if (arr[j] < arr[minIdx]) {
+        minIdx = j;
+    }
+}
+int temp = arr[0];
+arr[0] = arr[minIdx];
+arr[minIdx] = temp;
+```
+
+위 코드 실행 후 `arr`의 상태는?
+
+(A) `{2, 5, 9, 7}`
+(B) `{2, 5, 7, 9}`
+(C) `{5, 9, 2, 7}`
+(D) `{2, 9, 5, 7}`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (A)**
+
+선택 정렬의 1회전은 (1) 전체에서 최솟값의 인덱스를 찾고, (2) 첫 번째 원소와 교환한다. `minIdx=0`으로 시작. `j=1`: `5<9` → `minIdx=1`. `j=2`: `2<5` → `minIdx=2`. `j=3`: `7<2`? 아니오. 최솟값은 `arr[2]=2`. 교환: `arr[0]`과 `arr[2]`를 교환. `{9,5,2,7}` → `{2,5,9,7}`. 선택 정렬 1회전은 최솟값만 올바른 위치에 놓고, 나머지 원소의 상대적 위치는 교환 외에 변하지 않는다.
+</details>
+
+---
+
+### 문제 108 (Unit 4 - 토픽 4.12) [E]
+
+```java
+int[][] grid = new int[3][4];
+System.out.println(grid.length + " " + grid[0].length);
+```
+
+출력 결과는?
+
+(A) `4 3`
+(B) `3 4`
+(C) `12 3`
+(D) `3 12`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+`new int[3][4]`는 3행 4열의 2D 배열을 생성한다. `grid.length`는 **행의 수** = 3. `grid[0].length`는 **첫 번째 행의 열 수** = 4. 2D 배열에서 `배열.length`는 행 수, `배열[i].length`는 해당 행의 열 수임을 기억해야 한다.
+</details>
+
+---
+
+### 문제 109 (Unit 4 - 토픽 4.12) [E]
+
+```java
+int[][] mat = {{1, 2, 3}, {4, 5, 6}};
+System.out.println(mat[1][2] + mat[0][1]);
+```
+
+출력 결과는?
+
+(A) `7`
+(B) `8`
+(C) `9`
+(D) `11`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+`mat[1][2]`는 1행 2열 = `6`. `mat[0][1]`은 0행 1열 = `2`. `6 + 2 = 8`. 2D 배열 인덱스는 `[행][열]` 순서이며 모두 0부터 시작한다. 행렬로 보면: 행0 = `{1,2,3}`, 행1 = `{4,5,6}`.
+</details>
+
+---
+
+### 문제 110 (Unit 4 - 토픽 4.13) [H]
+
+```java
+int[][] grid = {{1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}};
+int sum = 0;
+for (int c = 0; c < grid[0].length; c++) {
+    for (int r = 0; r < grid.length; r++) {
+        sum += grid[r][c];
+        if (sum > 10) {
+            System.out.println(sum);
+            return;
+        }
+    }
+}
+```
+
+출력 결과는?
+
+(A) `10`
+(B) `12`
+(C) `15`
+(D) `6`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+이것은 **열 우선(column-major)** 순회이다. 바깥 루프가 열(`c`), 안쪽 루프가 행(`r`)을 돈다. 순서: `grid[0][0]=1`(sum=1), `grid[1][0]=4`(sum=5), `grid[2][0]=7`(sum=12). `12 > 10`이므로 `12`를 출력하고 종료. 행 우선 순회였다면 `grid[0][0], grid[0][1], grid[0][2], grid[1][0]...` 순이었을 것이다.
+</details>
+
+---
+
+### 문제 111 (Unit 4 - 토픽 4.14) [E]
+
+다음 코드에서 빈칸에 들어갈 올바른 코드는?
+
+```java
+import java.util.Scanner;
+import java.io.File;
+
+Scanner sc = new Scanner(___________);
+while (sc.hasNext()) {
+    System.out.println(sc.nextLine());
+}
+sc.close();
+```
+
+(A) `"data.txt"`
+(B) `new File("data.txt")`
+(C) `File("data.txt")`
+(D) `System.in("data.txt")`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+파일에서 데이터를 읽으려면 `Scanner`에 `File` 객체를 전달해야 한다. `new File("data.txt")`로 File 객체를 생성하여 Scanner 생성자에 넘긴다. (A) 문자열을 직접 전달하면 그 문자열 자체를 파싱하는 Scanner가 된다. (C) `new` 키워드 없이 객체 생성 불가. (D) `System.in`은 키보드 입력용이며 인자를 받지 않는다.
+</details>
+
+---
+
+### 문제 112 (Unit 4 - 토픽 4.14) [M]
+
+```java
+// data.txt 내용:
+// 10
+// 20
+// 30
+
+Scanner sc = new Scanner(new File("data.txt"));
+int total = 0;
+while (sc.hasNextInt()) {
+    total += sc.nextInt();
+}
+System.out.println(total);
+sc.close();
+```
+
+출력 결과는?
+
+(A) `10`
+(B) `30`
+(C) `60`
+(D) 컴파일 에러
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (C)**
+
+`hasNextInt()`는 다음에 읽을 정수가 있는지 확인하고, `nextInt()`는 정수를 읽는다. 파일에 `10`, `20`, `30`이 있으므로 세 번 반복하여 `total = 10 + 20 + 30 = 60`. `hasNextInt()`와 `nextInt()`는 함께 사용하여 파일의 모든 정수를 안전하게 읽는 패턴이다.
+</details>
+
+---
+
+### 문제 113 (Unit 4 - 토픽 4.15) [M]
+
+```java
+ArrayList<Integer> scores = new ArrayList<Integer>();
+scores.add(85);
+scores.add(92);
+scores.add(78);
+scores.add(95);
+scores.add(88);
+
+double avg = 0;
+for (int s : scores) {
+    avg += s;
+}
+avg /= scores.size();
+
+int count = 0;
+for (int s : scores) {
+    if (s > avg) {
+        count++;
+    }
+}
+System.out.println(count);
+```
+
+출력 결과는?
+
+(A) `2`
+(B) `3`
+(C) `4`
+(D) `1`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+먼저 평균을 구한다: `(85+92+78+95+88) / 5 = 438 / 5 = 87.6`. 평균 `87.6`보다 큰 점수: `85`(아니오), `92`(예), `78`(아니오), `95`(예), `88`(예). 총 3개. 데이터셋에서 평균보다 큰 원소의 개수를 구하는 것은 전형적인 데이터 처리 패턴이다.
+</details>
+
+---
+
+### 문제 114 (Unit 4 - 토픽 4.16) [M]
+
+```java
+public static int mystery(int n) {
+    if (n <= 1) {
+        return n;
+    }
+    return mystery(n - 1) + mystery(n - 2);
+}
+```
+
+`mystery(5)`의 반환값은?
+
+(A) `3`
+(B) `5`
+(C) `8`
+(D) `10`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+이것은 **피보나치 수열**의 재귀 구현이다. 추적:
+- `mystery(5)` = `mystery(4)` + `mystery(3)`
+- `mystery(4)` = `mystery(3)` + `mystery(2)`
+- `mystery(3)` = `mystery(2)` + `mystery(1)` = `1 + 1 = 2`
+- `mystery(2)` = `mystery(1)` + `mystery(0)` = `1 + 0 = 1`
+- `mystery(4)` = `2 + 1 = 3`
+- `mystery(5)` = `3 + 2 = 5`
+
+피보나치 수열: 0, 1, 1, 2, 3, **5**, 8, ...
+</details>
+
+---
+
+### 문제 115 (Unit 4 - 토픽 4.16) [H]
+
+```java
+public static String mystery(String s) {
+    if (s.length() <= 1) {
+        return s;
+    }
+    return mystery(s.substring(1)) + s.substring(0, 1);
+}
+```
+
+`mystery("ABCD")`의 반환값은?
+
+(A) `"ABCD"`
+(B) `"DCBA"`
+(C) `"BCDA"`
+(D) `"DABC"`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+이 재귀 메서드는 문자열을 **뒤집는다**. 추적:
+- `mystery("ABCD")` = `mystery("BCD")` + `"A"`
+- `mystery("BCD")` = `mystery("CD")` + `"B"`
+- `mystery("CD")` = `mystery("D")` + `"C"`
+- `mystery("D")` = `"D"` (base case)
+- 역순으로 결합: `"D"` + `"C"` = `"DC"`, `"DC"` + `"B"` = `"DCB"`, `"DCB"` + `"A"` = `"DCBA"`
+
+재귀 추적 시 호출 스택을 따라가며 반환값을 역순으로 결합하는 과정을 이해해야 한다.
+</details>
+
+---
+
 ## 난이도 분포 요약
 
 | 난이도 | 문제 수 | 비율 |
 |--------|---------|------|
-| 쉬움 (E) | 24문제 | 30% |
-| 보통 (M) | 40문제 | 50% |
-| 어려움 (H) | 16문제 | 20% |
+| 쉬움 (E) | 33문제 | 29% |
+| 보통 (M) | 59문제 | 52% |
+| 어려움 (H) | 25문제 | 22% |
 
 ## Unit별 분포
 
 | Unit | 문제 번호 | 문제 수 |
 |------|-----------|---------|
-| Unit 1: Primitive Types | 1~15 | 15문제 |
-| Unit 2: Using Objects | 16~40 | 25문제 |
-| Unit 3: Boolean Expressions and if Statements | 41~52 | 12문제 |
-| Unit 4: Iteration | 53~80 | 28문제 |
+| Unit 1: Using Objects and Methods | 1~4, 6~40 | 39문제 |
+| Unit 2: Selection and Iteration | 41~67, 69~78, 80 | 38문제 |
+| Unit 3: Class Creation | 81~90 | 10문제 |
+| Unit 4: Data Collections | 68, 79, 91~120 | 32문제 |
 
 ## 주요 함정 체크리스트
 
-- [ ] 정수 나눗셈 (문제 4, 5, 13)
+- [ ] 정수 나눗셈 (문제 4, 13)
 - [ ] 캐스팅 버림/truncation (문제 3, 9)
 - [ ] `substring()` 범위 — endIndex 미포함 (문제 18, 22, 28, 32)
 - [ ] `==` vs `equals()` (문제 19, 24, 29)
@@ -2215,3 +3405,192 @@ System.out.println(a);
 - [ ] Dangling else (문제 46)
 - [ ] 부동소수점 비교 (문제 8, 49)
 - [ ] Integer overflow (문제 15)
+- [ ] private 접근 제어 — 외부 직접 접근 불가 (문제 81)
+- [ ] 인스턴스 변수 기본값 — String은 null, int는 0 (문제 83)
+- [ ] 매개변수와 인스턴스 변수 이름 충돌 — this 미사용 시 (문제 85)
+- [ ] static 메서드에서 인스턴스 변수 접근 불가 (문제 88)
+- [ ] 생성자에 void 반환 타입 → 일반 메서드 (문제 90)
+- [ ] for-each 루프는 배열 원소 수정 불가 — 복사본만 변경 (문제 94)
+- [ ] ArrayList remove 중 인덱스 이동 — 원소 건너뛰기 (문제 101, 103)
+- [ ] 역순 순회 삭제 패턴 (문제 104)
+- [ ] 2D 배열 행/열 혼동 — grid.length는 행, grid[0].length는 열 (문제 108)
+- [ ] 열 우선(column-major) vs 행 우선(row-major) 순회 (문제 110)
+- [ ] File/Scanner throws IOException 누락 (문제 111, 112)
+- [ ] 재귀 base case 도달 경로 추적 (문제 114, 115)
+
+---
+
+## 보너스: 추가 File/Scanner + 재귀 MCQ (문제 116-120)
+
+> 2025-26 신규 토픽 보강을 위한 추가 문제입니다.
+
+---
+
+### 문제 116 (Unit 4 - 토픽 4.14) [E]
+
+다음 중 파일에서 데이터를 읽기 위해 Scanner를 생성하는 올바른 코드는?
+
+**(A)**
+```java
+Scanner sc = new Scanner("data.txt");
+```
+**(B)**
+```java
+Scanner sc = new Scanner(new File("data.txt"));
+```
+**(C)**
+```java
+Scanner sc = Scanner.open("data.txt");
+```
+**(D)**
+```java
+Scanner sc = File.read("data.txt");
+```
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B)**
+
+- **(A)** `new Scanner("data.txt")`는 문자열 `"data.txt"` 자체를 입력으로 사용. 파일을 읽지 않음!
+- **(B)** 정답. `new File("data.txt")`로 파일 객체를 만들고 Scanner에 전달.
+- **(C), (D)** 존재하지 않는 메서드.
+
+**주의**: `new Scanner(new File(...))` 사용 시 반드시 `throws IOException` 선언 필요.
+</details>
+
+---
+
+### 문제 117 (Unit 4 - 토픽 4.14) [M]
+
+파일 `nums.txt`의 내용이 다음과 같을 때:
+```
+5
+10
+15
+```
+
+다음 코드의 출력은?
+
+```java
+Scanner sc = new Scanner(new File("nums.txt"));
+int total = 0;
+while (sc.hasNext()) {
+    total += sc.nextInt();
+}
+System.out.println(total);
+```
+
+**(A)** `30` **(B)** `15` **(C)** `510` **(D)** 컴파일 에러
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (A) `30`**
+
+- `nextInt()`로 5, 10, 15를 순서대로 읽고 합산: 5+10+15 = 30
+- `hasNext()`는 읽을 토큰이 남아있는 동안 true
+- **(C)** `"510"`: 문자열 연결이 아닌 정수 덧셈이므로 틀림
+- **(D)**: `throws IOException`이 있으면 컴파일 에러 아님 (문제에서 메서드 선언은 생략)
+</details>
+
+---
+
+### 문제 118 (Unit 4 - 토픽 4.14) [H]
+
+파일 `mixed.txt`의 내용이 다음과 같을 때:
+```
+3
+hello
+world
+```
+
+다음 코드의 출력은?
+
+```java
+Scanner sc = new Scanner(new File("mixed.txt"));
+int n = sc.nextInt();
+String s = sc.nextLine();
+System.out.println(n + "|" + s + "|");
+```
+
+**(A)** `3|hello|` **(B)** `3||` **(C)** `3| hello|` **(D)** 런타임 에러
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B) `3||`**
+
+- `nextInt()`는 `3`을 읽지만 그 뒤의 개행문자(`\n`)를 남김
+- `nextLine()`은 남은 개행문자까지만 읽어서 빈 문자열 `""` 반환
+- 따라서 `s = ""`이고 출력은 `"3||"`
+
+**이것은 AP CSA에서 가장 자주 나오는 Scanner 함정입니다.**
+해결법: `nextInt()` 후 `sc.nextLine()`을 한 번 더 호출하여 개행 소비.
+</details>
+
+---
+
+### 문제 119 (Unit 4 - 토픽 4.16) [M]
+
+```java
+public static int mystery(int n) {
+    if (n <= 1) return n;
+    return mystery(n - 1) + mystery(n - 2);
+}
+```
+
+`mystery(6)`의 반환값은?
+
+**(A)** `5` **(B)** `8` **(C)** `13` **(D)** `6`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B) `8`**
+
+피보나치 수열: mystery(0)=0, mystery(1)=1, mystery(2)=1, mystery(3)=2, mystery(4)=3, mystery(5)=5, mystery(6)=8
+
+호출 트리:
+```
+m(6) = m(5) + m(4) = 5 + 3 = 8
+m(5) = m(4) + m(3) = 3 + 2 = 5
+m(4) = m(3) + m(2) = 2 + 1 = 3
+m(3) = m(2) + m(1) = 1 + 1 = 2
+m(2) = m(1) + m(0) = 1 + 0 = 1
+```
+</details>
+
+---
+
+### 문제 120 (Unit 4 - 토픽 4.16) [H]
+
+```java
+public static String mystery(String s) {
+    if (s.length() <= 1) return s;
+    return mystery(s.substring(1)) + s.substring(0, 1);
+}
+```
+
+`mystery("ABCD")`의 반환값은?
+
+**(A)** `"ABCD"` **(B)** `"DCBA"` **(C)** `"BCDA"` **(D)** `"DABC"`
+
+<details>
+<summary>정답 및 해설</summary>
+
+**정답: (B) `"DCBA"`**
+
+호출 추적:
+```
+mystery("ABCD") = mystery("BCD") + "A"
+mystery("BCD")  = mystery("CD") + "B"
+mystery("CD")   = mystery("D") + "C"
+mystery("D")    = "D"  (base case)
+```
+
+역순 조립: `"D"` + `"C"` = `"DC"` + `"B"` = `"DCB"` + `"A"` = `"DCBA"`
+
+이 재귀는 문자열을 **뒤집는** 알고리즘입니다.
+</details>
+- [ ] 재귀 호출 추적 — 호출 스택과 반환값 결합 순서 (문제 114, 115)

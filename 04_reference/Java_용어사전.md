@@ -513,7 +513,7 @@ System.out.println("C:\\Users\\Kim"); // 백슬래시 출력
 
 ---
 
-## Unit 2: 메서드와 클래스
+## Unit 1 영역: 메서드와 클래스 (Using Objects and Methods)
 
 ---
 
@@ -772,7 +772,7 @@ import java.util.*;            // java.util의 모든 클래스 가져오기
 
 ---
 
-## Unit 2: String 관련
+## Unit 1 영역: String 관련 (Using Objects and Methods)
 
 ---
 
@@ -876,7 +876,7 @@ System.out.println(a.compareTo("apple")); // 0 (같음)
 
 ---
 
-## Unit 3: 조건문
+## Unit 2 영역: 조건문 (Selection and Iteration)
 
 ---
 
@@ -1031,7 +1031,7 @@ boolean d = (x != 1 && x != 2);    // De Morgan 적용
 
 ---
 
-## Unit 4: 반복문
+## Unit 2 영역: 반복문 (Selection and Iteration)
 
 ---
 
@@ -1166,7 +1166,7 @@ for (int i = 1; i <= 3; i++) {
 
 ---
 
-## Unit 5: OOP (객체 지향 프로그래밍)
+## Unit 3 영역: OOP (객체 지향 프로그래밍 - Class Creation)
 
 ---
 
@@ -1422,7 +1422,7 @@ public class Student {
 
 ---
 
-## Unit 6: 자료구조 - Array
+## Unit 4 영역: 자료구조 - Array
 
 ---
 
@@ -1471,7 +1471,7 @@ System.out.println(arr.length);     // 5 (괄호 없음!)
 
 ---
 
-## Unit 7: 자료구조 - ArrayList
+## Unit 4 영역: 자료구조 - ArrayList
 
 ---
 
@@ -1689,7 +1689,7 @@ for (int col = 0; col < grid[0].length; col++) {       // 열 먼저
 
 ---
 
-## Unit 7-10: 알고리즘
+## Unit 4 영역: 알고리즘 (검색, 정렬, 재귀 트레이싱)
 
 ---
 

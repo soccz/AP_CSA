@@ -160,27 +160,26 @@ System.out.println(m1.getVal() + " " + m2.getVal());
 ---
 
 ### Q7.
-Which of the following best describes why the code does not work as intended?
+Consider the following code segment.
 
 ```java
-public class Item {
-    private double price;
-    public Item(double price) { this.price = price; }
-    public boolean equals(Item other) {
-        return this.price == other.price;
-    }
-}
-```
-```java
-Item a = new Item(9.99);
-Object b = new Item(9.99);
-System.out.println(a.equals(b));
+String s1 = "Java";
+String s2 = new String("Java");
+String s3 = s1;
+
+System.out.print(s1 == s2);
+System.out.print(" ");
+System.out.print(s1 == s3);
+System.out.print(" ");
+System.out.print(s1.equals(s2));
 ```
 
-(A) The `equals(Item other)` method overloads rather than overrides `Object.equals(Object)`. Since `b` is declared as `Object`, the inherited `Object.equals()` is called, which compares references.
-(B) The `price` field cannot be compared with `==`.
-(C) A compile-time error occurs because `b` is an `Object`.
-(D) The code works as intended and prints `true`.
+What is printed?
+
+(A) `false false true`
+(B) `false true true`
+(C) `true true true`
+(D) `true false true`
 
 ---
 
@@ -229,7 +228,7 @@ int x = (int)(Math.random() * 6 + 1);
 (A) 1 to 6
 (B) 0 to 6
 (C) 1 to 7
-(D) The range is the same as `(int)(Math.random() * 6) + 1`
+(D) 0 to 5
 
 ---
 
@@ -555,17 +554,18 @@ for (int i = 0; i <= arr.length; i++) {
 What is printed as a result of executing the code segment?
 
 ```java
-int[][] jagged = new int[3][];
-jagged[0] = new int[]{1, 2};
-jagged[1] = new int[]{3, 4, 5};
-jagged[2] = new int[]{6};
-System.out.println(jagged[1].length + " " + jagged[2].length);
+int[][] grid = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+int sum = 0;
+for (int c = 0; c < grid[0].length; c++) {
+    sum += grid[grid.length - 1][c];
+}
+System.out.println(sum);
 ```
 
-(A) 3 1
-(B) 2 3
-(C) 3 3
-(D) A compile-time error occurs
+(A) 6
+(B) 15
+(C) 24
+(D) 45
 
 ---
 
@@ -864,10 +864,10 @@ What is returned by the method call `mystery("ABCD")`?
 | 4 | A | U1 | 클래스와 객체 비교 | ★☆☆ | `getX()`와 `getY()`로 int 값을 비교. `3==3 && 4==4` → `true`. |
 | 5 | B | U1 | 참조 재할당 vs 객체 변경 | ★★★ | `change()` 메서드 안에서 `other = new Foo(99)`는 로컬 매개변수만 재할당. 원래 `b`가 가리키는 객체는 변하지 않음. |
 | 6 | B | U1 | Java 참조 swap 함정 | ★★★ | Java에서 메서드 매개변수로 참조를 swap해도 호출자의 참조는 바뀌지 않음. 로컬 변수만 교환됨. |
-| 7 | A | U1 | equals 오버로딩 vs 오버라이딩 | ★★☆ | `equals(Item other)`는 `equals(Object other)`를 오버라이딩한 게 아니라 오버로딩한 것. `b`의 타입이 `Object`이므로 `Object.equals()`가 호출되어 참조 비교 → false. |
+| 7 | B | U1 | == vs .equals() String 비교 | ★★☆ | `s1 == s2`는 false (new로 별도 객체 생성), `s1 == s3`는 true (같은 참조), `s1.equals(s2)`는 true (같은 내용). |
 | 8 | A | U1 | 캡슐화 에러 식별 | ★★☆ | public 필드는 외부에서 직접 수정 가능하여 캡슐화 위반. private + getter가 올바른 패턴. |
 | 9 | C | U2 | Math.random() 범위 | ★★☆ | `Math.random()`은 [0.0, 1.0) → `*6`하면 [0.0, 6.0) → `(int)` 캐스트하면 0~5 → `+1`하면 1~6. |
-| 10 | A | U2 | Math.random() 괄호 위치 | ★★★ | `Math.random()*6+1` → [1.0, 7.0) → `(int)` 캐스트하면 1~6. 결과는 같지만 `(int)6.999...=6`이므로 1~6. |
+| 10 | A | U2 | Math.random() 괄호 위치 | ★★★ | `Math.random()*6+1` → [1.0, 7.0) → `(int)` 캐스트하면 1~6. (D) 0~5는 `(int)(Math.random()*6)` 범위이므로 틀림. |
 | 11 | B | U2 | 정수 나눗셈 | ★★★ | `7/2`는 정수 나눗셈으로 3. 이것이 double에 대입되면 3.0. |
 | 12 | B | U2 | 정수 나눗셈과 나머지 | ★★☆ | `17/5 = 3` (정수), `17%5 = 2`. 출력은 `3 2`. |
 | 13 | C | U2 | String pool vs new | ★★☆ | `s1`과 `s2`는 String pool에서 같은 객체 참조 → `==` true. `s3`는 `new`로 생성한 별도 객체 → `==` false. |
@@ -884,7 +884,7 @@ What is returned by the method call `mystery("ABCD")`?
 | 24 | A | U3 | 2D 배열 열 우선 순회 | ★★★ | 외부 루프가 `arr[0].length`(열=3), 내부 루프가 `arr.length`(행=2). 열 우선 순회. `arr[0][0]+arr[1][0]+arr[0][1]+arr[1][1]+arr[0][2]+arr[1][2]` = 1+4+2+5+3+6 = 21. 범위 초과 없음. |
 | 25 | B | U3 | 배열 length (괄호 없음) | ★★☆ | 배열은 `.length` (필드, 괄호 없음). `size()`는 ArrayList. 3개 원소이므로 3. |
 | 26 | B | U3 | off-by-one 에러 | ★★★ | `i <= arr.length`에서 i=5일 때 `arr[5]` 접근 → ArrayIndexOutOfBoundsException. 그 전까지 0~4 인덱스는 정상 출력. |
-| 27 | A | U3 | 비정방 2D 배열 | ★★★ | 각 행의 길이가 다름. `jagged[1].length=3`, `jagged[2].length=1`. |
+| 27 | C | U3 | 2D 배열 마지막 행 합 | ★★☆ | `grid.length - 1` = 2 (마지막 행). 마지막 행 {7, 8, 9}의 합: 7+8+9 = 24. |
 | 28 | A | U4 | ArrayList remove(int) 인덱스 | ★★★ | `remove(1)`은 인덱스 1의 원소(=2)를 제거. 결과: [1, 3]. **핵심 함정**: `Integer` 리스트에서 `remove(1)`은 autoboxing되지 않고 인덱스로 해석됨. |
 | 29 | A | U4 | ArrayList remove(Object) 값 | ★★★ | `remove(Integer.valueOf(1))`은 값 1을 제거. 결과: [2, 3]. Q28과 비교하여 인덱스 vs 값 차이를 이해해야 함. |
 | 30 | A | U4 | ArrayList 기본 연산 | ★★☆ | size()=3, get(1)은 인덱스 1 → "dog". |

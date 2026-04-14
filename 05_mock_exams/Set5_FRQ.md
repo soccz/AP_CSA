@@ -566,7 +566,7 @@ Row 3 |  78   |  72   |  68   |  35   |
 - (0,1)=80: 오른쪽(0,2)=70, 아래(1,1)=75. 둘 다 < 80. 70 < 75 → 오른쪽으로 이동. step=2
 - (0,2)=70: 오른쪽(0,3)=65, 아래(1,2)=60. 둘 다 < 70. 60 < 65 → 아래로 이동. step=3
 - (1,2)=60: 오른쪽(1,3)=55, 아래(2,2)=50. 둘 다 < 60. 50 < 55 → 아래로 이동. step=4
-- (2,2)=50: 오른쪽(2,3)=40, 아래(3,2)=68. 68 >= 50은 거짓이지만 68 > 50 → 아래 불가. 오른쪽 40 < 50 → 오른쪽으로 이동. step=5
+- (2,2)=50: 오른쪽(2,3)=40, 아래(3,2)=68. 68 < 50이 거짓 → 아래로 이동 불가 (현재 값 50보다 크므로 내리막이 아님). 오른쪽 40 < 50 → 오른쪽으로 이동. step=5
 - (2,3)=40: 오른쪽 없음(경계 밖), 아래(3,3)=35. 35 < 40 → 아래로 이동. step=6
 - (3,3)=35: 오른쪽 없음, 아래 없음 → 종료.
 
@@ -587,8 +587,9 @@ public int longestDescentPath(int startRow, int startCol) {
     int steps = 0;
     int r = startRow;
     int c = startCol;
+    boolean moving = true;
 
-    while (true) {
+    while (moving) {
         int current = elevation[r][c];
 
         boolean canRight = (c + 1 < elevation[0].length)
@@ -597,24 +598,21 @@ public int longestDescentPath(int startRow, int startCol) {
                            && (elevation[r + 1][c] < current);
 
         if (!canRight && !canDown) {
-            break;
-        }
-
-        if (canRight && canDown) {
-            if (elevation[r + 1][c] < elevation[r][c + 1]) {
-                // 아래쪽이 더 낮음 → 아래로
-                r++;
-            } else {
-                // 오른쪽이 더 낮거나 같음 → 오른쪽 우선
-                c++;
-            }
-        } else if (canRight) {
-            c++;
+            moving = false;
         } else {
-            r++;
+            if (canRight && canDown) {
+                if (elevation[r + 1][c] < elevation[r][c + 1]) {
+                    r++;
+                } else {
+                    c++;
+                }
+            } else if (canRight) {
+                c++;
+            } else {
+                r++;
+            }
+            steps++;
         }
-
-        steps++;
     }
 
     return steps;

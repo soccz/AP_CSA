@@ -66,15 +66,16 @@ System.out.println(x + " " + y);
 What is printed as a result of executing the code segment?
 
 ```java
-int n = 5;
-n += n++ * 2;
-System.out.println(n);
+int total = 7;
+int count = 2;
+double average = (double) total / count;
+System.out.println(average);
 ```
 
-(A) 15
-(B) 16
-(C) 17
-(D) 20
+(A) 3.0
+(B) 3.5
+(C) 4.0
+(D) 3
 
 ---
 
@@ -389,18 +390,22 @@ Which of the following should replace `/* blank */` so that the code works as in
 ---
 
 ### Q20
-What is printed as a result of executing the code segment?
+Consider the following code segment.
 
 ```java
-String s = "Hello World";
-String[] parts = s.split(" ");
-System.out.println(parts[1].substring(0, 3));
+String s = "hello world";
+int space = s.indexOf(" ");
+String first = s.substring(0, space);
+String second = s.substring(space + 1);
+System.out.println(first + "-" + second);
 ```
 
-(A) Hel
-(B) Wor
-(C) Wo
-(D) orl
+What is printed?
+
+(A) `"hello-world"`
+(B) `"hello- world"`
+(C) `" hello-world"`
+(D) `"hello -world"`
 
 ---
 
@@ -886,7 +891,7 @@ System.out.println(total);
 | 1 | B | 1 | 정수 나눗셈 + 캐스팅 | `a / b`는 `7 / 2 = 3` (정수 나눗셈). 이후 `(double)3`은 `3.0`. `(double)`을 나눗셈 전에 적용해야 3.5가 됨. |
 | 2 | B | 1 | 타입 변환 | `double y = 5;`는 int→double 자동 확대(widening) 변환으로 합법. 나머지는 축소 변환이거나 타입 불일치. |
 | 3 | B | 1 | 나머지 연산자 | Java에서 `%` 결과의 부호는 피제수(왼쪽 피연산자)를 따름. `13 % 5 = 3`, `-13 % 5 = -3`. |
-| 4 | A | 1 | 후위 증가 연산자 | `n += n++ * 2` → `n = n + (n++ * 2)`. n=5 시점에서 `n++ * 2`는 `5 * 2 = 10`, n은 6이 되지만 `n = 5 + 10 = 15`로 덮어씌워짐. |
+| 4 | B | 1 | 정수 나눗셈 + 캐스팅 순서 | `(double) total`이 먼저 평가되어 7.0이 됨. `7.0 / 2` = `3.5`. 캐스팅이 나눗셈보다 먼저 적용되는 것이 핵심. |
 | 5 | B | 1 | double→int 캐스팅 | `(int)` 캐스팅은 소수점 이하를 버림(truncation). `2.9` → `2`. 반올림이 아님. |
 | 6 | B | 1 | 정수 오버플로우 | I: `MAX_VALUE + 1`은 오버플로우 발생. II: `(long)` 캐스팅 후 덧셈이므로 안전. III: `c++`도 오버플로우 발생. |
 | 7 | B | 1 | 정수 나눗셈 혼합 | `1 / 3 = 0` (정수 나눗셈), `1.0 / 3 ≈ 0.333...`. 합은 약 `0.333...`. |
@@ -902,7 +907,7 @@ System.out.println(total);
 | 17 | B | 2 | 참조 공유 | `cart2 = cart1`은 같은 객체 참조. `cart2.addItem(30.00)`은 원본도 변경. 3개 아이템, 합 60.0. |
 | 18 | B | 2 | 단축 평가 | `str != null`이 false이므로 `&&` 단축 평가로 `str.length()`를 실행하지 않음. NullPointerException 발생 안 함. |
 | 19 | B | 2 | charAt vs substring | `charAt()`은 char 비교(`!=` 사용 가능). (A)는 `!=`로 String 비교하므로 참조 비교가 됨. (C)는 인덱스 오류. |
-| 20 | B | 2 | split + substring | `split(" ")`으로 ["Hello", "World"]. `parts[1]`은 "World". `substring(0, 3)`은 "Wor". |
+| 20 | A | 2 | indexOf + substring | `indexOf(" ")`는 5 반환. `substring(0,5)` = "hello", `substring(6)` = "world". 결과: "hello-world". |
 | 21 | A | 2 | String 연결 | `s.length()`는 "Java"의 길이 4. `"Java" + " " + 4` → `"Java 4"`. length()는 원래 s 기준. |
 | 22 | B | 3 | dangling else | `else`는 가장 가까운 `if`와 짝을 이룸. `x > 3` true, `x > 10` false → "B" 출력. |
 | 23 | B | 3 | De Morgan's Law | `!(a && !b)` = `!a || !!b` = `!a || b`. |

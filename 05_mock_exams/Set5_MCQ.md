@@ -781,7 +781,7 @@ Which of the following best describes the relationship when class `Library` has 
 
 (A) Inheritance (is-a)
 (B) Composition (has-a)
-(C) Implementation (implements)
+(C) Delegation
 (D) Dependency
 
 ---

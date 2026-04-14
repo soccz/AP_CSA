@@ -96,6 +96,8 @@ public void processOrder() {
 
 ## 3.3 Anatomy of a Class (2기간)
 
+> **쉽게 말해**: 클래스는 **붕어빵 틀**, 객체는 **붕어빵**이다. 틀(클래스)은 하나지만 붕어빵(객체)은 여러 개 만들 수 있다. 각 붕어빵은 같은 모양이지만 안에 든 재료(인스턴스 변수)는 다를 수 있다. 클래스를 만드는 것 = 나만의 새로운 데이터 타입을 정의하는 것이다.
+
 ### 핵심 개념
 
 **Data Encapsulation(캡슐화)** = 구현 세부사항을 외부로부터 숨김
@@ -164,7 +166,7 @@ public class BankAccount {
 - (A) 같은 패키지의 모든 클래스
 - (B) 같은 클래스 내부에서만
 - (C) 어디서든 호출 가능
-- (D) 자식 클래스에서만
+- (D) 같은 패키지에서만 (default access)
 
 > **정답: (B)**
 
@@ -235,6 +237,25 @@ public class Classroom {
 - 생성자를 하나라도 정의하면 default constructor 자동 소멸
 - mutable 매개변수 → **방어적 복사(defensive copy)** 필요
 
+#### 함정: 생성자에 반환 타입을 쓰면?
+
+```java
+public class Dog {
+    private String name;
+    
+    public void Dog(String name) {  // ⚠️ void 반환 타입!
+        this.name = name;
+    }
+}
+
+Dog d = new Dog("Buddy"); // 컴파일 에러! 
+// void Dog(String)은 생성자가 아니라 "Dog"이라는 이름의 일반 메서드
+// 실제 생성자가 없으므로 기본 생성자 Dog()만 존재
+// Dog("Buddy")에 매칭되는 생성자가 없어서 에러
+```
+
+> **시험 포인트**: 생성자에는 **절대로 반환 타입을 쓰지 않는다.** `void`를 쓰면 메서드가 된다. AP MCQ에서 자주 나오는 트릭!
+
 ### 연습문제
 
 **Q1.** 다음 코드의 출력은?
@@ -279,6 +300,8 @@ public class Cat {
 ---
 
 ## 3.5 Methods: How to Write Them (4기간)
+
+> **한국어 정리**: accessor = 접근자(getter) = 값을 **읽기만** 하는 메서드. mutator = 변경자(setter) = 값을 **바꾸는** 메서드. 쉽게 말해, accessor는 "온도계로 온도를 확인"하는 것이고, mutator는 "에어컨으로 온도를 조절"하는 것이다.
 
 ### 핵심 개념
 
@@ -402,6 +425,72 @@ System.out.println(a);
 ```
 
 > **정답:** `10` — primitive는 값의 복사본이 전달되므로 원본 불변.
+
+### 메서드 오버로딩 (Method Overloading)
+
+같은 이름의 메서드를 **매개변수 타입이나 개수를 다르게** 하여 여러 개 정의할 수 있다.
+
+```java
+public class Calculator {
+    public int add(int a, int b) { return a + b; }
+    public double add(double a, double b) { return a + b; }
+    public int add(int a, int b, int c) { return a + b + c; }
+}
+
+Calculator calc = new Calculator();
+calc.add(1, 2);       // int add(int, int) 호출 → 3
+calc.add(1.5, 2.5);   // double add(double, double) 호출 → 4.0
+calc.add(1, 2, 3);    // int add(int, int, int) 호출 → 6
+```
+
+> **주의**: 반환 타입만 다르고 매개변수가 같으면 오버로딩이 **아님** → 컴파일 에러
+
+### toString() 메서드
+
+클래스의 객체를 **문자열로 표현**할 때 사용한다. FRQ Q2에서 자주 요구된다.
+
+```java
+public class Student {
+    private String name;
+    private int grade;
+    
+    public Student(String name, int grade) {
+        this.name = name;
+        this.grade = grade;
+    }
+    
+    public String toString() {
+        return name + " (Grade " + grade + ")";
+    }
+}
+
+// 사용
+Student s = new Student("Kim", 11);
+System.out.println(s);          // "Kim (Grade 11)"
+System.out.println("학생: " + s); // "학생: Kim (Grade 11)"
+// println과 문자열 연결(+)은 자동으로 toString() 호출
+```
+
+> **시험 출제 포인트**:
+> - `System.out.println(객체)`는 자동으로 `toString()` 호출
+> - `"문자열" + 객체`도 자동으로 `toString()` 호출
+> - toString()을 작성하지 않으면 `클래스명@해시코드` 형태 출력 (유용하지 않음)
+> - FRQ Q2에서 toString()이 요구되면 반드시 정확한 형식으로 반환해야 함
+
+#### 연습 문제
+다음 코드의 출력은?
+```java
+public class Point {
+    private int x, y;
+    public Point(int x, int y) { this.x = x; this.y = y; }
+    public String toString() { return "(" + x + ", " + y + ")"; }
+}
+Point p = new Point(3, 7);
+System.out.println("위치: " + p);
+```
+**(A)** `위치: Point@1a2b3c` **(B)** `위치: (3, 7)` **(C)** 컴파일 에러 **(D)** `위치: 3, 7`
+
+> **정답: (B)** — 문자열 연결에서 자동으로 toString() 호출. 괄호와 ", "이 포함된 형식 반환.
 
 ---
 
@@ -922,6 +1011,52 @@ public class Thermostat {
 | `void` | 반환값 없음 |
 | `return` | 값을 반환하고 메서드 종료 |
 | `new` | 객체 생성 (constructor 호출) |
+
+---
+
+## FRQ Q2 실전 연습
+
+### 연습 FRQ 1: Library 클래스
+
+다음 명세에 따라 `Library` 클래스를 작성하시오.
+
+- `Library` 객체는 도서관 이름(String)과 총 장서 수(int)를 가진다.
+- 생성자는 도서관 이름과 초기 장서 수를 매개변수로 받는다.
+- `addBooks(int count)` 메서드는 장서 수를 count만큼 증가시킨다.
+- `toString()` 메서드는 `"도서관이름 (N권)"` 형태를 반환한다. 예: `"중앙도서관 (5000권)"`
+
+<details>
+<summary>모범 답안</summary>
+
+```java
+public class Library {
+    private String name;
+    private int bookCount;
+    
+    public Library(String name, int bookCount) {
+        this.name = name;
+        this.bookCount = bookCount;
+    }
+    
+    public void addBooks(int count) {
+        bookCount += count;
+    }
+    
+    public String toString() {
+        return name + " (" + bookCount + "권)";
+    }
+}
+```
+
+**채점 기준 (7점)**:
+1. 클래스 헤더 `public class Library` — 1점
+2. private instance variables 2개 — 1점
+3. 생성자가 매개변수를 올바르게 저장 — 1점
+4. addBooks가 bookCount를 올바르게 증가 — 1점
+5. toString이 올바른 형식의 문자열 반환 — 1점
+6. toString에서 문자열 연결이 정확 — 1점
+7. 전체 알고리즘 정합성 — 1점
+</details>
 
 ---
 

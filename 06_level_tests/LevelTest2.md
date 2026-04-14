@@ -36,26 +36,27 @@ double b = 0.3;
 System.out.println(Math.abs(a - b) < 0.0001);
 ```
 
-(A) `true`
+(A) Compile-time error
 (B) `false`
 (C) `0.0`
-(D) Compile-time error
+(D) `true`
 
 ---
 
 ### 3. [U1 · 보통]
-What is the output of the following code?
+What is printed as a result of executing the code segment?
 
 ```java
 int x = 5;
-int y = ++x + x++;
-System.out.println(x + " " + y);
+x++;
+x += 3;
+System.out.println(x);
 ```
 
-(A) `7 12`
-(B) `7 11`
-(C) `6 11`
-(D) This code does not compile because `++` is not on the AP subset.
+(A) `8`
+(B) `6`
+(C) `10`
+(D) `9`
 
 ---
 
@@ -103,28 +104,35 @@ What is the output?
 (A) `"racecar true"`
 (B) `"racecar false"`
 (C) `"racecartrue"`
-(D) `"racecar true"` — but only because the String was a palindrome
+(D) `"racecar false"`
 
 ---
 
 ### 6. [U2 · 어려움]
-What is the output of the following code?
+
+다음 코드의 출력은?
 
 ```java
-String word = "Mississippi";
-int count = 0;
-int idx = word.indexOf("ss");
-while (idx != -1) {
-    count++;
-    idx = word.indexOf("ss", idx + 1);
+String s = "abcdefg";
+String result = "";
+for (int i = 0; i < s.length(); i++)
+{
+    if (i % 3 == 0)
+    {
+        result += s.substring(i, i + 1).toUpperCase();
+    }
+    else
+    {
+        result += s.substring(i, i + 1);
+    }
 }
-System.out.println(count);
+System.out.println(result);
 ```
 
-(A) 2
-(B) 3
-(C) 4
-(D) 1
+(A) `"AbCdEfG"`
+(B) `"ABCdEFg"`
+(C) `"AbcDeFg"`
+(D) `"AbcDefG"`
 
 ---
 
@@ -188,9 +196,9 @@ System.out.println(p.getX() + " " + q.getX());
 ```
 
 (A) `3 1`
-(B) `1 3`
+(B) `3 3`
 (C) `1 1`
-(D) `3 3`
+(D) `1 3`
 
 ---
 
@@ -214,13 +222,15 @@ System.out.println(p.getX() + " " + q.getX());
 ```
 
 (A) `11 99`
-(B) `11 5`
+(B) `1 5`
 (C) `1 99`
-(D) `1 5`
+(D) `11 5`
 
 ---
 
 ### 10. [U4 · 보통]
+> **참고:** `static` 키워드는 AP CSA 범위 밖이지만, 인스턴스 vs 클래스 변수 이해를 위해 포함했습니다.
+
 What is the difference between `this` and `static` in the following class?
 
 ```java
@@ -253,8 +263,8 @@ System.out.println(c1.getCount() + " " + c2.getCount() + " " + Counter.getTotalC
 ```
 
 (A) `2 1 3`
-(B) `2 1 5`
-(C) `3 3 5`
+(B) `3 3 5`
+(C) `2 1 5`
 (D) `2 1 6`
 
 ---
@@ -274,8 +284,8 @@ else
 ```
 
 (A) `A`
-(B) `B`
-(C) `C`
+(B) `C`
+(C) `B`
 (D) `BC`
 
 ---
@@ -376,22 +386,22 @@ System.out.println(nums);
 ---
 
 ### 17. [U4 · 어려움]
-Consider the following merge sort trace. Given the array `{38, 27, 43, 3, 9, 82, 10}`, what is the state after the first complete merge step (merging the first two sorted sub-arrays of size 1)?
+An array contains the values `{8, 3, 6, 1, 5}`. After **two** passes of selection sort (sorting in ascending order), what are the contents of the array?
 
-(A) `{27, 38, 43, 3, 9, 82, 10}`
-(B) `{27, 38, 3, 43, 9, 10, 82}`
-(C) `{3, 9, 10, 27, 38, 43, 82}`
-(D) `{38, 27, 3, 43, 9, 82, 10}`
+(A) `{1, 3, 6, 8, 5}`
+(B) `{1, 3, 8, 6, 5}`
+(C) `{3, 1, 6, 8, 5}`
+(D) `{1, 3, 5, 6, 8}`
 
 ---
 
 ### 18. [U4 · 어려움]
-Trace the full merge sort on `{5, 2, 8, 1}`. Which of the following shows the correct sequence of merge operations?
+An array contains the values `{5, 2, 8, 1, 4}`. After **three** passes of insertion sort (sorting in ascending order), what are the contents of the array?
 
-(A) Merge `{5,2}→{2,5}`, merge `{8,1}→{1,8}`, merge `{2,5,1,8}→{1,2,5,8}`
-(B) Merge `{5,2}→{2,5}`, merge `{1,8}→{1,8}`, merge `{2,5,1,8}→{1,2,5,8}`
-(C) Merge `{2,5}→{2,5}`, merge `{1,8}→{1,8}`, merge `{2,5,1,8}→{1,2,5,8}`
-(D) Merge `{5,2}→{2,5}`, merge `{8,1}→{1,8}`, merge `{2,5}+{1,8}→{1,2,5,8}`
+(A) `{2, 5, 8, 1, 4}`
+(B) `{1, 2, 5, 8, 4}`
+(C) `{2, 5, 1, 8, 4}`
+(D) `{1, 2, 8, 5, 4}`
 
 ---
 
@@ -434,10 +444,10 @@ System.out.println(sum);
 
 What is the output?
 
-(A) 30
+(A) 78
 (B) 36
 (C) 24
-(D) 78
+(D) 30
 
 ---
 
@@ -575,25 +585,25 @@ public class ScheduleManager {
 | 번호 | 정답 | Unit | 난이도 | 토픽 | 해설 |
 |------|------|------|--------|------|------|
 | 1 | B | 1 | 쉬움 | double 부동소수점 오차 | `0.1 + 0.2`는 IEEE 754 부동소수점에서 정확히 `0.3`이 아닌 `0.30000000000000004`를 반환. `==` 비교는 `false`. |
-| 2 | A | 1 | 보통 | double 비교 전략 | `Math.abs(a - b)`는 약 `5.5E-17`로 `0.0001`보다 훨씬 작으므로 `true`. 부동소수점 비교는 오차 범위(epsilon)를 사용해야 함. |
-| 3 | A | 1 | 보통 | 증감연산자 | `++x`는 6으로 증가 후 6을 사용, `x++`는 현재 6을 사용 후 7로 증가. `y = 6 + 6 = 12`, 최종 `x = 7`. 참고: `++`/`--`는 AP 부분집합에 포함되지 않지만, 간혹 출제됨. |
+| 2 | D | 1 | 보통 | double 비교 전략 | `Math.abs(a - b)`는 약 `5.5E-17`로 `0.0001`보다 훨씬 작으므로 `true`. 부동소수점 비교는 오차 범위(epsilon)를 사용해야 함. |
+| 3 | D | 1 | 보통 | 증감연산자·복합대입 | `x`는 5에서 시작. `x++`로 6이 되고, `x += 3`으로 9가 됨. 출력: `9`. |
 | 4 | A | 2 | 어려움 | 문자열 순회+조건+누적 | `compareTo`로 각 문자를 `"d"`와 비교. `"d"`, `"e"`, `"f"`, `"g"`, `"h"`가 `>= 0`이므로 누적. 결과: `"defgh"`. |
 | 5 | A | 2 | 어려움 | 복합 String 알고리즘 | `rev`는 `"racecar"`의 역순이지만 `"racecar"` 자체가 회문이므로 `rev = "racecar"`. 회문 검사도 `true`. 출력에서 `" "` 문자열 연결이 공백을 추가하므로 `"racecar true"`. |
-| 6 | A | 2 | 어려움 | indexOf 반복 탐색 | `"Mississippi"` = `M(0)i(1)s(2)s(3)i(4)s(5)s(6)i(7)p(8)p(9)i(10)`. 첫 `indexOf("ss")` → 2, count=1. `indexOf("ss",3)` → 5, count=2. `indexOf("ss",6)` → -1, 종료. count=2. `idx+1`로 탐색하므로 겹치는 부분 문자열도 별도로 세지만, 여기서는 `"ss"`가 2곳에만 존재. |
+| 6 | D | 2 | 어려움 | 조건부 대문자 변환 | `i % 3 == 0`인 인덱스(0,3,6)의 문자만 `toUpperCase()`로 대문자 변환. i=0→"A", i=1→"b", i=2→"c", i=3→"D", i=4→"e", i=5→"f", i=6→"G". 결과: `"AbcDefG"`. |
 | 7 | B | 2 | 보통 | aliasing(참조 공유) | `p2 = p1`은 같은 객체를 참조. `p2.translate(1,1)` 호출하면 `p1`도 영향 받음. `p1.getX()=4`, `p1.getY()=5`. |
-| 8 | B | 2 | 어려움 | 참조 전달과 swap | Java는 참조값을 복사하여 전달. `swap` 내부에서 지역 변수 `a`, `b`의 값만 교환되고 원본 `p`, `q`에는 영향 없음. `p.getX()=1`, `q.getX()=3`. |
-| 9 | B | 2 | 어려움 | 참조 전달 + 객체 수정 vs 재할당 | `a.translate(10,10)`은 원본 `p` 객체를 수정 → `p.getX()=11`. `b = new Point(99,99)`는 지역 변수 `b`만 재할당, 원본 `q`에 영향 없음 → `q.getX()=5`. |
-| 10 | B | 4 | 보통 | this vs static | 생성자 2번 호출 → `totalCount=2`. `c1.increment()` 2번 → `c1.count=2`, `totalCount=4`. `c2.increment()` 1번 → `c2.count=1`, `totalCount=5`. 출력: `2 1 5`. |
-| 11 | B | 3 | 보통 | dangling else | `else`는 가장 가까운 `if`에 바인딩. `x>3`은 true이므로 내부 진입, `x>10`은 false이므로 `else` 실행 → `"B"`. |
+| 8 | D | 2 | 어려움 | 참조 전달과 swap | Java는 참조값을 복사하여 전달. `swap` 내부에서 지역 변수 `a`, `b`의 값만 교환되고 원본 `p`, `q`에는 영향 없음. `p.getX()=1`, `q.getX()=3`. |
+| 9 | D | 2 | 어려움 | 참조 전달 + 객체 수정 vs 재할당 | `a.translate(10,10)`은 원본 `p` 객체를 수정 → `p.getX()=11`. `b = new Point(99,99)`는 지역 변수 `b`만 재할당, 원본 `q`에 영향 없음 → `q.getX()=5`. |
+| 10 | C | 4 | 보통 | this vs static | 생성자 2번 호출 → `totalCount=2`. `c1.increment()` 2번 → `c1.count=2`, `totalCount=4`. `c2.increment()` 1번 → `c2.count=1`, `totalCount=5`. 출력: `2 1 5`. |
+| 11 | C | 3 | 보통 | dangling else | `else`는 가장 가까운 `if`에 바인딩. `x>3`은 true이므로 내부 진입, `x>10`은 false이므로 `else` 실행 → `"B"`. |
 | 12 | A | 3 | 어려움 | 연산자 우선순위 | `a \|\| b && c`: `&&`가 먼저 → `b && c = false`, `a \|\| false = true`. `(a \|\| b) && c`: `true && true = true`. `!(a && b) \|\| c`: `!(false) \|\| true = true \|\| true = true`. 모두 `true`. |
 | 13 | C | 3 | 보통 | De Morgan's Law | `!(x >= 5 && y < 10)` = `!(x >= 5) \|\| !(y < 10)` = `x < 5 \|\| y >= 10`. |
 | 14 | A | 4 | 쉬움 | ArrayList remove 인덱스 vs 값 | 초기: `[1,2,3,4,5]`. `remove(2)`: 인덱스 2 제거(값 3) → `[1,2,4,5]`. `remove(Integer.valueOf(2))`: 값 2 제거 → `[1,4,5]`. |
 | 15 | C | 4 | 어려움 | enhanced for + ConcurrentModificationException | enhanced for loop 사용 중 `ArrayList`를 수정하면 `ConcurrentModificationException` 발생. |
 | 16 | B | 4 | 보통 | 전진 순회 중 삭제 인덱스 건너뜀 | 초기: `[3,1,1,4,5]`. `i=0`: 3≠1. `i=1`: `get(1)=1` → 제거 → `[3,1,4,5]`. `i++` → `i=2`: `get(2)=4` ≠ 1 (두 번째 1이 인덱스 1로 당겨졌지만 건너뜀!). `i=3`: `get(3)=5` ≠ 1. 종료. 결과: `[3,1,4,5]`. 전진 순회 중 삭제 시 요소가 당겨져 바로 다음 요소를 건너뛰는 전형적 함정. |
-| 17 | A | 4 | 어려움 | Merge sort 과정 | `{38, 27, 43, 3, 9, 82, 10}` → 분할: `{38, 27, 43, 3}` / `{9, 82, 10}` → 계속 분할 → 최하위에서 첫 병합은 `{38}`과 `{27}` → `{27, 38}`. 전체 배열 상태: `{27, 38, 43, 3, 9, 82, 10}`. |
-| 18 | D | 4 | 어려움 | Merge sort 전체 추적 | `{5,2,8,1}` → `{5,2}` / `{8,1}` → `{5}`,`{2}` merge → `{2,5}`. `{8}`,`{1}` merge → `{1,8}`. `{2,5}`+`{1,8}` merge → `{1,2,5,8}`. (D)가 가장 정확. |
+| 17 | A | 4 | 어려움 | Selection sort 추적 | `{8,3,6,1,5}`. Pass 1: 최솟값 1(인덱스 3)을 인덱스 0과 교환 → `{1,3,6,8,5}`. Pass 2: [1..4]에서 최솟값 3(인덱스 1, 이미 제자리) → `{1,3,6,8,5}`. |
+| 18 | B | 4 | 어려움 | Insertion sort 추적 | `{5,2,8,1,4}`. Pass 1: arr[1]=2 삽입 → `{2,5,8,1,4}`. Pass 2: arr[2]=8은 제자리 → `{2,5,8,1,4}`. Pass 3: arr[3]=1 삽입 → `{1,2,5,8,4}`. |
 | 19 | B | 4 | 어려움 | 재귀 + String | `mystery("Hello")` → `mystery("ello")+"H"` → `mystery("llo")+"e"+"H"` → ... → `"o"+"l"+"l"+"e"+"H"` = `"olleH"`. 문자열 역순 반환 재귀. |
-| 20 | A | 4 | 보통 | 2D 배열 경계 | 첫 번째 루프: 각 행의 마지막 열(`grid[0].length-1 = 3`): `grid[0][3]=4`, `grid[1][3]=8`, `grid[2][3]=12` → 합 24. 두 번째 루프: 첫 행의 마지막 열 제외(`c=0,1,2`): `grid[0][0]=1`, `grid[0][1]=2`, `grid[0][2]=3` → 합 6. 총합: `24 + 6 = 30`. |
+| 20 | D | 4 | 보통 | 2D 배열 경계 | 첫 번째 루프: 각 행의 마지막 열(`grid[0].length-1 = 3`): `grid[0][3]=4`, `grid[1][3]=8`, `grid[2][3]=12` → 합 24. 두 번째 루프: 첫 행의 마지막 열 제외(`c=0,1,2`): `grid[0][0]=1`, `grid[0][1]=2`, `grid[0][2]=3` → 합 6. 총합: `24 + 6 = 30`. |
 | 21 | C | 4 | 쉬움 | 2D 배열 대각선 | `arr[0][0]=1`, `arr[1][1]=2`, `arr[2][2]=3`. 대각선 합 = `1+2+3 = 6`. |
 
 ---
@@ -619,7 +629,7 @@ public class ScheduleManager {
 
 **합계: 3 + 6 + 3 + 9 = 21문제**
 
-> **참고:** 10번 문제(`this` vs `static`)는 클래스/객체 활용 문제로, AP CSA Unit 5(Writing Classes) 토픽이지만 여기서는 U4로 배치하여 문제 수 균형을 맞춤.
+> **참고:** 10번 문제(`this` vs `static`)는 클래스/객체 활용 문제로, AP CSA Unit 3(Class Creation) 토픽이지만 여기서는 U4로 배치하여 문제 수 균형을 맞춤.
 
 ---
 

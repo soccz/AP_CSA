@@ -659,13 +659,13 @@ What is printed as a result of executing the code segment?
 String s = "racecar";
 boolean isPalin = true;
 for (int i = 0; i < s.length() / 2; i++) {
-    if (s.charAt(i) != s.charAt(s.length() - 1 - i)) {
+    if (!(s.substring(i, i + 1).equals(s.substring(s.length() - 1 - i, s.length() - i)))) {
         isPalin = false;
-        break;
     }
 }
 System.out.println(isPalin);
 ```
+
 (A) true
 (B) false
 (C) A compile-time error occurs
@@ -682,13 +682,13 @@ for (int i = 2; i <= 20; i++) {
     for (int j = 2; j < i; j++) {
         if (i % j == 0) {
             prime = false;
-            break;
         }
     }
     if (prime) count++;
 }
 System.out.println(count);
 ```
+
 (A) 6
 (B) 7
 (C) 8

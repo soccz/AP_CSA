@@ -29,8 +29,8 @@ System.out.println(result);
 What is printed as a result of executing this code segment?
 
 (A) 5.4
-(B) 5.0
-(C) 5.2
+(B) 5.2
+(C) 5.0
 (D) 3.4
 
 ---
@@ -71,8 +71,8 @@ System.out.println(t);
 What is printed as a result of executing this code segment?
 
 (A) 4.030303
-(B) 4.0
-(C) 3.03
+(B) 3.03
+(C) 4.0
 (D) 4.03
 
 ---
@@ -141,13 +141,14 @@ System.out.println(result);
 What is printed as a result of executing this code segment?
 
 (A) `"EDCBA"`
-(B) `"edcba"`
+(B) `"EDcba"`
 (C) `"Edcba"`
-(D) `"EDcba"`
+(D) `"edcba"`
 
 ---
 
 ### 7. [U2 · 어려움]
+> **참고:** String 리터럴 풀(intern pool) 동작은 AP 시험에서 직접 출제되지 않지만, `==` vs `equals` 이해 심화를 위해 포함했습니다.
 
 Consider the following code segment.
 
@@ -211,13 +212,14 @@ System.out.println(count);
 What is printed as a result of executing this code segment?
 
 (A) 1
-(B) 2
-(C) 3
+(B) 3
+(C) 2
 (D) 4
 
 ---
 
 ### 9. [U2 · 어려움]
+> **참고:** `static` 키워드와 정적 변수는 AP CSA 시험 범위 밖이지만, 객체 vs 클래스 개념 이해를 위해 포함했습니다.
 
 Consider the following class.
 
@@ -257,8 +259,8 @@ System.out.println(c1.getMyCount() + " " + Counter.getTotalCount());
 What is printed as a result of executing this code segment?
 
 (A) `1 1`
-(B) `1 3`
-(C) `3 3`
+(B) `3 3`
+(C) `1 3`
 (D) `0 3`
 
 ---
@@ -365,8 +367,8 @@ System.out.println(sum);
 What is printed as a result of executing this code segment?
 
 (A) 10
-(B) 11
-(C) 21
+(B) 21
+(C) 11
 (D) 13
 
 ---
@@ -396,9 +398,9 @@ System.out.println(total);
 What is printed as a result of executing this code segment?
 
 (A) 45
-(B) 15
+(B) 25
 (C) 12
-(D) 25
+(D) 15
 
 ---
 
@@ -581,6 +583,8 @@ while (lo <= hi)
 }
 System.out.println(comparisons);
 ```
+
+> **참고**: 이 코드의 `break`는 AP 시험 범위 밖이지만, 코드 추적 연습을 위해 포함했습니다.
 
 What is printed as a result of executing this code segment?
 
@@ -766,10 +770,8 @@ Complete the `isLocalPeak` method.
 | Call | Return value | Explanation |
 |------|-------------|-------------|
 | `isLocalPeak(1, 1)` | `true` | 9 > 7, 9 > 5, 9 > 4, 9 > 6 |
-| `isLocalPeak(0, 1)` | `true` | 7 > 3, 7 > 2, 7 > 9 is false → `false` |
+| `isLocalPeak(0, 1)` | `false` | 7 > 3, 7 > 2 이지만 7 < 9 → `false` |
 | `isLocalPeak(2, 2)` | `true` | 8 > 4, 8 > 6 (only 2 neighbors) |
-
-*(위 표에서 `isLocalPeak(0, 1)`의 결과는 `false`입니다 — 7 < 9이므로.)*
 
 ### Part (b)
 
@@ -791,20 +793,20 @@ Complete the `getPeakMap` method. You must call `isLocalPeak` in your solution.
 
 | # | 정답 | Unit | 난이도 | 해설 |
 |---|------|------|--------|------|
-| 1 | B | U1 | 쉬움 | `(double)(17/5)` = `(double)(3)` = `3.0`. `17 % 5` = `2`. `3.0 + 2` = `5.0`. |
+| 1 | C | U1 | 쉬움 | `(double)(17/5)` = `(double)(3)` = `3.0`. `17 % 5` = `2`. `3.0 + 2` = `5.0`. |
 | 2 | B | U1 | 보통 | `29 % 7` = `1`. `1 % 3` = `1`. |
-| 3 | B | U1 | 어려움 | `100 / 33` = `3` (int → double = `3.0`). `100 % 33` = `1` (int → double = `1.0`). `3.0 + 1.0` = `4.0`. |
+| 3 | C | U1 | 어려움 | `100 / 33` = `3` (int → double = `3.0`). `100 % 33` = `1` (int → double = `1.0`). `3.0 + 1.0` = `4.0`. |
 | 4 | A | U2 | 쉬움 | `"COMPUTER".substring(3, 6)` → index 3='P', 4='U', 5='T' → `"PUT"`. |
 | 5 | D | U2 | 보통 | `indexOf("nation")` = 5. `substring(0,5)` = `"exami"`. `substring(8)` = `"ion"`. 결과: `"examiion"`. |
-| 6 | B | U2 | 어려움 | i=4→result="E", `indexOf("E")`≥0→"E". i=3→"ED", `indexOf("ED")`=-1→"ed". 이후 계속 indexOf=-1→소문자 변환. 최종: `"edcba"`. |
+| 6 | D | U2 | 어려움 | i=4→result="E", `indexOf("E")`≥0→"E". i=3→"ED", `indexOf("ED")`=-1→"ed". 이후 계속 indexOf=-1→소문자 변환. 최종: `"edcba"`. |
 | 7 | B | U2 | 어려움 | `s2`는 `substring`으로 생성한 새 객체→`==` false. `s3="ja"+"va"`는 컴파일 타임 상수→리터럴 풀 공유→`==` true. `equals`는 true. |
-| 8 | B | U2 | 보통 | `indexOf("ss",0)`=2, `indexOf("ss",3)`=5, `indexOf("ss",6)`=-1 → count=2. |
-| 9 | B | U2 | 어려움 | 객체 3개 생성 후 `totalCount`=3. `c1.myCount`=1 (생성 당시 값). → `"1 3"`. |
+| 8 | C | U2 | 보통 | `indexOf("ss",0)`=2, `indexOf("ss",3)`=5, `indexOf("ss",6)`=-1 → count=2. |
+| 9 | C | U2 | 어려움 | 객체 3개 생성 후 `totalCount`=3. `c1.myCount`=1 (생성 당시 값). → `"1 3"`. |
 | 10 | A | U3 | 보통 | `&&`가 `\|\|`보다 우선순위 높음. 세 조건 모두 `true` → `"XYZ"`. |
 | 11 | A | U3 | 어려움 | De Morgan: `!(A && B)` = `!A \|\| !B`. `!(x > 3 && y < 15)` = `(x <= 3 \|\| y >= 15)`. 이를 두 번째 부분과 결합하면 (A). |
 | 12 | B | U3 | 어려움 | Short-circuit: 첫 if에서 `x>5` true→`++n` 스킵, n=0 출력. 둘째 if에서 `x<5` false→`++n` 스킵. 셋째 if에서 `x<5` false→`++n` 평가, n=1 출력. → `"0 1"`. |
-| 13 | B | U4 | 쉬움 | 홀수: 3 + 7 + 1 = 11. |
-| 14 | B | U4 | 보통 | `r == c`인 대각선만 합산: 1 + 5 + 9 = 15. |
+| 13 | C | U4 | 쉬움 | 홀수: 3 + 7 + 1 = 11. |
+| 14 | D | U4 | 보통 | `r == c`인 대각선만 합산: 1 + 5 + 9 = 15. |
 | 15 | A | U4 | 어려움 | column-major, 행은 아래→위. c=0: 70,40,10. c=1: 80,50,20. c=2: 90,60,30. |
 | 16 | A | U4 | 보통 | 뒤에서부터 삭제→인덱스 밀림 없음. 3 두 개 모두 제거 → `[5, 8, 6]`. |
 | 17 | A | U4 | 어려움 | while 루프에서 삭제 시 i 미증가. "cat" 3개 모두 제거 → `[dog, bird]`. |
@@ -817,20 +819,20 @@ Complete the `getPeakMap` method. You must call `isLocalPeak` in your solution.
 
 | # | 정답 | Unit | 난이도 |
 |---|------|------|--------|
-| 1 | B | U1 | 쉬움 |
+| 1 | C | U1 | 쉬움 |
 | 2 | B | U1 | 보통 |
-| 3 | B | U1 | 어려움 |
+| 3 | C | U1 | 어려움 |
 | 4 | A | U2 | 쉬움 |
 | 5 | D | U2 | 보통 |
-| 6 | B | U2 | 어려움 |
+| 6 | D | U2 | 어려움 |
 | 7 | B | U2 | 어려움 |
-| 8 | B | U2 | 보통 |
-| 9 | B | U2 | 어려움 |
+| 8 | C | U2 | 보통 |
+| 9 | C | U2 | 어려움 |
 | 10 | A | U3 | 보통 |
 | 11 | A | U3 | 어려움 |
 | 12 | B | U3 | 어려움 |
-| 13 | B | U4 | 쉬움 |
-| 14 | B | U4 | 보통 |
+| 13 | C | U4 | 쉬움 |
+| 14 | D | U4 | 보통 |
 | 15 | A | U4 | 어려움 |
 | 16 | A | U4 | 보통 |
 | 17 | A | U4 | 어려움 |

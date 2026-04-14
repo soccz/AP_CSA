@@ -2102,5 +2102,43 @@ int result = add(3, 5);  // result = 8
 
 ---
 
+---
+
+## 추가 FAQ: 2025-26 시험 관련
+
+### Q: 왜 상속(Inheritance)을 안 배우나요? 다른 AP CSA 자료에는 있던데요.
+
+2025-26부터 AP CSA 커리큘럼이 대폭 개편되면서 **상속(Inheritance)이 시험 범위에서 완전히 제거**되었습니다. `extends`, `super`, `override`, `abstract class`, `interface` 등은 더 이상 출제되지 않습니다. 인터넷에서 검색하면 상속이 포함된 옛날 자료가 많으니 주의하세요. 2025-26 이후 자료인지 반드시 확인!
+
+### Q: File/Scanner가 뭔가요? 파일에서 데이터를 읽는 건가요?
+
+네! 2025-26부터 **새로 추가된 토픽**입니다. `File` 클래스로 파일을 지정하고, `Scanner` 클래스로 그 파일의 내용을 한 줄씩 읽을 수 있습니다.
+
+```java
+// 기본 패턴 (반드시 throws IOException 필요!)
+public static void main(String[] args) throws IOException {
+    Scanner sc = new Scanner(new File("data.txt"));
+    while (sc.hasNext()) {
+        String line = sc.nextLine();
+        System.out.println(line);
+    }
+}
+```
+
+주요 메서드:
+- `hasNext()` — 읽을 데이터가 남아있는지 확인
+- `nextLine()` — 한 줄 전체를 String으로 읽기
+- `nextInt()` — 정수 하나 읽기 (주의: 개행문자가 남음!)
+
+### Q: 재귀(Recursion)를 직접 코드로 작성할 줄 알아야 하나요?
+
+아니요! 2025-26부터 재귀 코드를 **직접 작성**하는 것은 시험 범위 밖입니다. MCQ에서 주어진 재귀 코드를 **읽고 추적(tracing)**하여 결과를 예측하는 문제만 나옵니다. FRQ에서는 재귀가 절대 출제되지 않습니다.
+
+### Q: MCQ가 5지선다인가요 4지선다인가요?
+
+2025-26부터 **4지선다(A, B, C, D)**입니다. 이전에는 5개였지만 변경되었습니다. 총 42문제, 90분, 오답 감점 없음!
+
+---
+
 > 이 문서는 AP CSA 2025-26 커리큘럼(CSAwesome2) 기준으로 작성되었습니다.
 > 시험에 나오지 않는 Unit 5(Inheritance)는 보너스로 선수 지식 맵에만 포함되어 있습니다.

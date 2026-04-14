@@ -9,6 +9,8 @@
 
 ## 1.1 Introduction to Algorithms, Programming, and Compilers (2기간)
 
+> **쉽게 말해**: 알고리즘은 **라면 끓이는 순서**와 같다. ① 물 끓이기 ② 면 넣기 ③ 스프 넣기 — 순서를 바꾸면 결과가 달라진다. 프로그래밍도 마찬가지로, 컴퓨터에게 "정확한 순서로 할 일"을 알려주는 것이다.
+
 ### CED 학습목표
 - Skill 1.A: 적절한 프로그램 설계를 선택하고 구현할 수 있다.
 
@@ -272,6 +274,22 @@ y = x;
 
 > **정답: (B)** — `x = y` 후 x는 20. 그 다음 `y = x`에서 x는 이미 20이므로 y도 20. 값 교환 실패!
 
+### Scanner 기본 사용법 (참고)
+
+> **CED 주의**: `Scanner(System.in)` 키보드 입력은 AP 시험 범위 밖이지만, 객체 생성과 메서드 호출의 실습 도구로 유용하다. 시험에서는 `Scanner(new File(...))` 파일 읽기만 출제된다 (Unit 4.6).
+
+```java
+import java.util.Scanner;
+
+Scanner sc = new Scanner(System.in);
+System.out.print("나이를 입력하세요: ");
+int age = sc.nextInt();        // 정수 입력
+System.out.print("이름을 입력하세요: ");
+sc.nextLine();                  // nextInt() 뒤의 남은 개행 소비
+String name = sc.nextLine();   // 문자열 입력
+System.out.println(name + "님은 " + age + "세입니다.");
+```
+
 ---
 
 ## 1.5 Casting and Range of Variables (2기간)
@@ -364,6 +382,8 @@ System.out.println(result);
 
 ## 1.6 Compound Assignment Operators (1기간)
 
+> **쉽게 말해**: `x += 3`은 "지갑에 3만원을 더 넣는 것"이다. 기존 금액에 더하는 것이지 새로 바꾸는 게 아니다. `x = 3`은 "지갑을 비우고 3만원만 넣는 것"과 같다.
+
 ### CED 학습목표
 - 복합 대입 연산자와 증감 연산자를 사용할 수 있다.
 
@@ -434,6 +454,8 @@ n %= 3;
 
 ## 1.7 Application Program Interface (API) and Libraries (1기간)
 
+> **쉽게 말해**: API는 **음식점 메뉴판**과 같다. 주방(라이브러리)이 어떻게 요리하는지 몰라도, 메뉴판(API)에서 원하는 것을 골라 주문(호출)할 수 있다. Java Quick Reference는 시험장에서 제공되는 "메뉴판"이다.
+
 ### CED 학습목표
 - API 문서를 읽고 라이브러리 클래스를 사용할 수 있다.
 
@@ -498,6 +520,8 @@ public static int abs(int a)
 
 - **Precondition** (사전 조건): 메서드 호출 **전에** 충족해야 할 조건
 - **Postcondition** (사후 조건): 메서드 실행 **후에** 보장되는 조건
+
+> **비유**: Precondition은 "이 놀이기구는 키 120cm 이상만 탑승 가능"과 같다. 조건을 지키지 않으면 결과를 보장하지 않는다. 코드에서는 이 조건을 직접 검사할 필요 없이, "지켜졌다고 가정하고" 작성한다.
 
 ### 코드 예제
 
@@ -612,6 +636,15 @@ public static boolean isEven(int number)
 - (D) `isEven(int number)`
 
 > **정답: (C)** — 시그니처는 메서드 이름 + 매개변수 타입 목록만 포함
+
+#### parameter(매개변수) vs argument(인수) 구분
+
+| 용어 | 위치 | 예시 |
+|------|------|------|
+| **parameter** (매개변수, formal parameter) | 메서드 **정의**할 때 | `public int add(int a, int b)` 에서 `a`, `b` |
+| **argument** (인수, actual parameter) | 메서드 **호출**할 때 | `add(3, 5)` 에서 `3`, `5` |
+
+> 쉽게: parameter = 빈 칸, argument = 빈 칸에 넣는 실제 값
 
 ---
 
@@ -732,6 +765,8 @@ System.out.println(Math.abs(-3) + Math.pow(2, 2));
 ---
 
 ## 1.12 Objects: Instances of Classes (1기간)
+
+> **쉽게 말해**: 클래스는 **붕어빵 틀**, 객체는 **붕어빵**이다. 틀(클래스)은 하나지만 붕어빵(객체)은 여러 개 만들 수 있다. 각 붕어빵은 같은 모양이지만, 안에 든 재료(팥, 슈크림 = 인스턴스 변수)는 다를 수 있다.
 
 ### CED 학습목표
 - 클래스와 객체의 관계를 이해할 수 있다.
@@ -876,7 +911,7 @@ public class InstanceMethodDemo {
 
         // 반환값 있는 인스턴스 메서드
         int len = name.length();           // 반환값을 변수에 저장
-        System.out.println(len);           // 출력: 22
+        System.out.println(len);           // 출력: 21
 
         String upper = name.toUpperCase(); // 새 String 반환
         System.out.println(upper);         // 출력: AP COMPUTER SCIENCE A
@@ -923,6 +958,9 @@ System.out.println(result);
 
 ### 핵심 개념
 - **String은 immutable(불변)** — 한번 생성되면 변경 불가. 메서드 호출 시 **새로운 String 반환**
+
+> **비유**: String이 불변(immutable)인 것은 **펜으로 쓴 글씨**와 같다. 지울 수 없고, 수정하려면 새 종이에 다시 써야 한다. `s.toUpperCase()`는 원본을 바꾸지 않고 새 문자열을 만들어 반환한다.
+
 - **인덱스는 0부터 시작!**
 
 ```
@@ -1031,6 +1069,124 @@ System.out.println(2 + 3 + "Java");
 - (D) Java5, 23Java
 
 > **정답: (C)** — 첫 줄: "Java"가 먼저이므로 뒤 숫자도 문자열로 연결 → "Java23". 둘째 줄: 2+3이 먼저 산술연산 → 5, 그 다음 문자열 연결 → "5Java"
+
+---
+
+## FRQ 대비: String 메서드 조합 연습
+
+FRQ Q1은 Unit 1의 String 메서드를 핵심적으로 사용한다. 아래 문제를 "메서드를 구현하시오" 형태로 풀어보자.
+
+### 연습 1: 첫 글자와 마지막 글자 교환
+
+주어진 문자열의 첫 글자와 마지막 글자를 교환한 새 문자열을 반환하는 메서드를 작성하시오.
+
+예: `swapEnds("Hello")` → `"oellH"`, `swapEnds("ab")` → `"ba"`
+
+Precondition: str의 길이는 2 이상
+
+```java
+public static String swapEnds(String str)
+```
+
+<details>
+<summary>모범 답안</summary>
+
+```java
+public static String swapEnds(String str) {
+    String first = str.substring(0, 1);
+    String last = str.substring(str.length() - 1);
+    String middle = str.substring(1, str.length() - 1);
+    return last + middle + first;
+}
+```
+
+**핵심**: `substring(0, 1)` = 첫 글자, `substring(length()-1)` = 마지막 글자, `substring(1, length()-1)` = 중간 부분
+</details>
+
+### 연습 2: 단어 수 세기
+
+공백으로 구분된 문자열에서 단어의 수를 반환하는 메서드를 작성하시오.
+
+예: `countWords("hello world java")` → `3`, `countWords("one")` → `1`
+
+Precondition: str은 빈 문자열이 아니며, 연속 공백 없음
+
+```java
+public static int countWords(String str)
+```
+
+<details>
+<summary>모범 답안</summary>
+
+```java
+public static int countWords(String str) {
+    int count = 1;
+    for (int i = 0; i < str.length(); i++) {
+        if (str.substring(i, i + 1).equals(" ")) {
+            count++;
+        }
+    }
+    return count;
+}
+```
+
+**핵심**: 공백 수 + 1 = 단어 수. `charAt` 대신 `substring(i, i+1).equals(" ")`를 사용 (AP 표준 패턴)
+</details>
+
+---
+
+## 자주 틀리는 코드 모음 (Unit 1)
+
+### 복합 대입 연산자 실수
+
+```java
+// ❌ 잘못된 코드: 타입 불일치
+int x = 10;
+x += "3";  // 컴파일 에러! int에 String을 더할 수 없다
+
+// ❌ 잘못된 코드: 0으로 나누기
+int y = 5;
+y /= 0;    // ArithmeticException! (런타임 에러)
+
+// ✅ 올바른 코드
+int z = 10;
+z += 3;    // z = 13
+z *= 2;    // z = 26
+z %= 5;    // z = 1 (26을 5로 나눈 나머지)
+```
+
+### API/메서드 호출 실수
+
+```java
+// ❌ 잘못된 코드: static 메서드를 객체로 호출
+Math m = new Math();      // 컴파일 에러! Math는 new로 생성 불가
+double r = m.random();
+
+// ✅ 올바른 코드: 클래스 이름으로 호출
+double r = Math.random();  // 0.0 이상 1.0 미만
+
+// ❌ 잘못된 코드: pow/sqrt 반환값을 int에 저장
+int result = Math.pow(2, 10);  // 컴파일 에러! double을 int에 저장 불가
+
+// ✅ 올바른 코드: 캐스팅 필요
+int result = (int) Math.pow(2, 10);  // 1024
+```
+
+### 객체 비교 실수
+
+```java
+// ❌ 잘못된 코드: String을 ==로 비교
+String s1 = new String("hello");
+String s2 = new String("hello");
+if (s1 == s2) {           // false! (주소 비교)
+    System.out.println("같다");
+}
+
+// ✅ 올바른 코드: .equals()로 비교
+if (s1.equals(s2)) {      // true (내용 비교)
+    System.out.println("같다");
+}
+```
 
 ---
 
