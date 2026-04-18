@@ -1,8 +1,37 @@
 # AP Computer Science A 2025 FRQ 풀이 해설서
 
-> AP CSA 과외용 | 2025년 시험 기준 | 총 4문제 (90분)
+> AP CSA 과외용 | 2025년 실제 기출 (구 CED 기준) | 총 4문제 (90분)
 >
-> **배점 주의:** 이 해설은 **2025년 실제 시험** 기출을 다룹니다. 2025년은 구 CED 기준으로 각 문항 9점(총 36점)이 적용되었습니다. **2026년부터는 새 배점(Q1:7점, Q2:7점, Q3:5점, Q4:6점, 총 25점)이 적용**됩니다. 모의시험 세트(Set1~5)는 새 배점을 따르고 있으므로, 이 해설의 배점과 모의시험의 배점이 다른 것은 정상입니다.
+> ## ⚠️ 2025-26 시험 응시자 필독 — 중대한 변경 사항
+>
+> **본 해설서는 2025년 실제 기출** 을 분석한 자료이며, **구 CED 기준**으로 작성됨. **2025-26 시험을 응시하는 학생은 다음 변경 사항을 반드시 숙지해야 함**:
+>
+> ### 1. 배점 변경
+> - **2025년 (구)**: 각 문항 9점 × 4 = 총 36점
+> - **2025-26 (신)**: Q1:7점 / Q2:7점 / Q3:5점 / Q4:6점 = **총 25점**
+> - 모의시험(Set1~5)은 신 배점을 따름 (정상)
+>
+> ### 2. Java Quick Reference 메서드 변경 — 본 해설의 일부 코드는 2025-26 시험에서 사용 금지
+>
+> 다음 메서드들은 **2025-26 Java Quick Reference에 없으므로 사용 금지**:
+>
+> | 메서드 | 본 해설 사용 위치 | 2025-26 대안 |
+> |-------|----------------|-------------|
+> | **`Math.min/max`** | Q1 "더 간결한 버전" | `if (a < b) a else b` 비교 |
+> | **`String.startsWith`** | Q2 `addSignature` | `s.length() >= sig.length() && s.substring(0, sig.length()).equals(sig)` |
+> | **`String.endsWith`** | Q2 `addSignature` | `s.length() >= sig.length() && s.substring(s.length() - sig.length()).equals(sig)` |
+> | **`String.charAt`** | Q2 채점 기준 (대안 언급) | `s.substring(i, i+1)` (CED 1.15.B.3 명시) |
+>
+> **2025-26 공식 String Quick Reference 6개 메서드만 허용**: `length`, `substring(int,int)`, `substring(int)`, `indexOf`, `equals`, `compareTo`, `split`
+>
+> **2025-26 공식 Math Quick Reference 5개 메서드만 허용**: `abs(int)`, `abs(double)`, `pow`, `sqrt`, `random`
+>
+> ### 3. 본 해설서 활용법
+> - **2025년 응시자**: 그대로 학습 (구 CED 기준)
+> - **2025-26 응시자**:
+>   - 알고리즘 + 채점 원칙은 동일하게 학습
+>   - 위 표의 금지 메서드는 **2025-26 대안**으로 치환하여 학습
+>   - 각 코드 섹션의 `[2025-26 주의]` 노트 반드시 확인
 
 ---
 
@@ -129,17 +158,19 @@ public int walkDogs(int hour)
 }
 ```
 
-**더 간결한 버전:**
+**더 간결한 버전 (구 CED만 — 2025-26 시험에서는 사용 금지!):**
 
 ```java
 public int walkDogs(int hour)
 {
     int available = company.numAvailableDogs(hour);
-    int dogsToWalk = Math.min(available, maxDogs);
+    int dogsToWalk = Math.min(available, maxDogs);   // ⚠️ 2025-26 OUT
     company.updateDogs(hour, dogsToWalk);
     return dogsToWalk;
 }
 ```
+
+> **⚠️ [2025-26 주의]** `Math.min`은 2025-26 Java Quick Reference에 **없으므로 사용 금지**. 위 if-else 버전을 사용하거나 삼항 연산자(`int dogsToWalk = (available < maxDogs) ? available : maxDogs;`)로 대체. 2025-26 Math 메서드는 `abs(int)`, `abs(double)`, `pow`, `sqrt`, `random` 5개뿐.
 
 #### Part (b): dogWalkShift
 
@@ -171,7 +202,7 @@ public int dogWalkShift(int startHour, int endHour)
 | 코드 | 왜 필요한가 |
 |------|------------|
 | `company.numAvailableDogs(hour)` | 회사에 해당 시간에 남은 개 수를 질의 (반드시 사용해야 함) |
-| `Math.min(available, maxDogs)` | 산책자가 감당 가능한 수와 남은 수 중 작은 값 선택 |
+| `Math.min(available, maxDogs)` | 산책자가 감당 가능한 수와 남은 수 중 작은 값 선택 ⚠️ **2025-26 OUT** — `if (available < maxDogs) {...} else {...}` 사용 |
 | `company.updateDogs(hour, dogsToWalk)` | 다른 산책자와 중복 배정 방지를 위해 회사에 알림 (반드시 사용해야 함) |
 | `return dogsToWalk` | 실제 산책한 개 수 반환 |
 
@@ -275,11 +306,11 @@ public class SignedText
     {
         String sig = getSignature();
 
-        if (text.endsWith(sig))
+        if (text.endsWith(sig))                       // ⚠️ 2025-26 OUT
         {
             return text;
         }
-        else if (text.startsWith(sig))
+        else if (text.startsWith(sig))                // ⚠️ 2025-26 OUT
         {
             return text.substring(sig.length()) + sig;
         }
@@ -290,6 +321,36 @@ public class SignedText
     }
 }
 ```
+
+> **⚠️ [2025-26 주의]** `endsWith`와 `startsWith`는 2025-26 Java Quick Reference에 **없으므로 사용 금지**. 아래 substring + equals 기반 대안 사용:
+
+**2025-26 호환 버전 (`addSignature`):**
+
+```java
+public String addSignature(String text)
+{
+    String sig = getSignature();
+    int sigLen = sig.length();
+    int txtLen = text.length();
+
+    // text가 sig로 끝나는지 (endsWith 대안)
+    if (txtLen >= sigLen && text.substring(txtLen - sigLen).equals(sig))
+    {
+        return text;
+    }
+    // text가 sig로 시작하는지 (startsWith 대안)
+    else if (txtLen >= sigLen && text.substring(0, sigLen).equals(sig))
+    {
+        return text.substring(sigLen) + sig;
+    }
+    else
+    {
+        return text + sig;
+    }
+}
+```
+
+**핵심**: `s.startsWith(prefix)` ≡ `s.length() >= prefix.length() && s.substring(0, prefix.length()).equals(prefix)`. `endsWith`도 동일한 패턴 (substring으로 뒤쪽 끊어 비교).
 
 ### 4. 코드 설명
 
@@ -309,8 +370,8 @@ public class SignedText
 #### addSignature(String text)
 | 코드 | 왜 필요한가 |
 |------|------------|
-| `text.endsWith(sig)` | 서명이 끝에 있는지 확인 -- 이 경우를 **먼저** 체크해야 함 |
-| `text.startsWith(sig)` | 서명이 앞에 있는지 확인 |
+| `text.endsWith(sig)` | 서명이 끝에 있는지 확인 -- 이 경우를 **먼저** 체크해야 함 ⚠️ **2025-26 OUT** — substring + equals로 대체 |
+| `text.startsWith(sig)` | 서명이 앞에 있는지 확인 ⚠️ **2025-26 OUT** — substring + equals로 대체 |
 | `text.substring(sig.length())` | 앞의 서명을 제거 (서명 길이만큼 잘라냄) |
 | `return text + sig` | 서명이 없으면 끝에 추가 |
 
@@ -329,7 +390,7 @@ public class SignedText
 | +1 | 메서드 헤더 선언: `public String getSignature()` + `public String addSignature(String ___)` | `public` 누락, 잘못된 메서드 이름, 잘못된 반환/파라미터 타입은 불인정 |
 | +1 | firstName을 빈 문자열과 비교 | `length()` 비교 등 암묵적 비교도 인정 |
 | +1 | 두 경우 모두에서 적절한 서명 문자열 결정 (*algorithm*) | 일부 경우 반환 누락이어도 인정 (반환 자체는 여기서 미평가) |
-| +1 | 클래스 전체에서 올바른 구문으로 `String` 메서드 호출 | `substring`을 한 번만 호출해도 인정. `indexOf`, `contains`, `charAt` 등도 인정. `length`/`equals`만 사용하고 문자열 접근 메서드 미사용 시 불인정 |
+| +1 | 클래스 전체에서 올바른 구문으로 `String` 메서드 호출 | `substring`을 한 번만 호출해도 인정. (구 CED는 `indexOf`, `contains`, `charAt` 등도 인정했지만 ⚠️ **2025-26은 `length/substring(2종)/indexOf/equals/compareTo/split` 6개만 허용** — `charAt`/`contains`/`startsWith`/`endsWith` OUT). `length`/`equals`만 사용하고 문자열 접근 메서드 미사용 시 불인정 |
 | +1 | `addSignature`의 세 가지 필수 경우를 적절한 조건으로 식별 | 잘못된 문자열을 반환하는 경우가 있어도 인정 |
 | +1 | `addSignature`가 세 경우 모두에서 적절한 `String` 반환 (*algorithm*) | `getSignature` 잘못 호출/구현해도 세 경우 분기가 맞으면 인정. 세 경우 미식별, 올바른 문자열을 잘못된 경우에 배정, 반환 대신 출력은 불인정 |
 
@@ -338,7 +399,8 @@ public class SignedText
 1. **`class` 선언 누락** -- Q2는 전체 클래스를 써야 한다. `public class SignedText { }` 필수
 2. **인스턴스 변수를 `public`으로 선언** -- 반드시 `private`
 3. **`firstName == ""`로 비교** -- String 비교는 반드시 `.equals()`
-4. **`charAt(0)` 사용 시 주의** -- 반환 타입이 `char`이므로 `+ "-"`와 연결하면 숫자가 될 수 있음. `substring(0,1)`이 안전
+4. **`charAt(0)` 사용 시 주의** -- 반환 타입이 `char`이므로 `+ "-"`와 연결하면 숫자가 될 수 있음. `substring(0,1)`이 안전. ⚠️ **2025-26은 `charAt` 사용 자체가 OUT** — 반드시 `substring(0, 1)` 사용 (CED 1.15.B.3 명시 관용구)
+7. **`endsWith`/`startsWith` 사용 (2025-26 한정)** -- 두 메서드는 2025-26 Quick Reference에 **없음**. 위 "2025-26 호환 버전" 코드처럼 `substring + equals`로 대체
 5. **`endsWith`/`startsWith` 순서 뒤바뀜** -- 서명이 text 전체일 때 두 조건 모두 true가 되므로 순서가 중요
 6. **`addSignature`에서 `getSignature()` 미사용** -- 서명을 직접 재계산하면 중복 코드 + 실수 가능성
 
@@ -640,8 +702,8 @@ public boolean clearPair(int row, int col)
 
 | 문제 | 유형 | 핵심 개념 | 킬러 포인트 |
 |------|------|----------|------------|
-| Q1 | Method/Control | `Math.min`, 보너스 조건 | 보너스가 개당이 아니라 시간당 $3 |
-| Q2 | Class Design | String 메서드, 전체 클래스 | `endsWith`를 `startsWith`보다 먼저 체크 |
+| Q1 | Method/Control | `Math.min` (구 CED) ⚠️ 2025-26은 if 비교, 보너스 조건 | 보너스가 개당이 아니라 시간당 $3 |
+| Q2 | Class Design | String 메서드, 전체 클래스 | `endsWith`를 `startsWith`보다 먼저 체크 ⚠️ 2025-26은 두 메서드 OUT — substring+equals 대안 |
 | Q3 | ArrayList | 생성자, two-pointer 매칭 | 홀수일 때 1위 건너뛰기, `get()` 사용 |
 | Q4 | 2D Array | 랜덤, 이중 루프 탐색 | 같은 행 앞쪽 열도 탐색, 자기 자신 제외 |
 
@@ -653,3 +715,17 @@ public boolean clearPair(int row, int col)
 4. 루프 범위가 inclusive/exclusive 맞는가?
 5. 인스턴스 변수에 타입을 다시 선언하지 않았는가? (지역변수와 혼동 주의)
 6. helper 메서드를 문제에서 요구한 대로 사용했는가?
+
+### ⚠️ 2025-26 응시자 추가 체크리스트
+
+7. **`Math.min/max/floor/ceil/round`** 사용했는가? → **OUT**, if 비교로 변경
+8. **`String.charAt`** 사용했는가? → **OUT**, `substring(i, i+1)`로 변경
+9. **`String.endsWith/startsWith/lastIndexOf/toUpperCase/toLowerCase`** 사용했는가? → 모두 **OUT**, substring 조합으로 대체
+10. **`ArrayList.contains/indexOf/clear/isEmpty`** 사용했는가? → **OUT**, 6대 메서드(`size/add(E)/add(int,E)/get/set/remove(int)`)만 사용
+11. **`Collections.sort/Arrays.sort`** 사용했는가? → **OUT**, 직접 selection/insertion sort 작성
+12. **`break/continue/switch/do-while`** 사용했는가? → **OUT**, if-else + flag 변수로 대체
+13. **`extends/super`** 사용했는가? → **OUT**, 단일 클래스로 작성
+14. **재귀 메서드 작성** 요구받았는가? → **2025-26은 재귀 작성 OUT** (트레이싱만 IN, FRQ에 작성 강제 없음)
+15. **`toString` 오버라이드 작성** 요구받았는가? → **OUT** (1.15.A.5 EXCLUSION) — 별도 메서드명(`getInfo`, `getDisplayString` 등) 사용
+
+**위 메서드/키워드 발견 시 즉시 2025-26 대안으로 교체 후 제출**.

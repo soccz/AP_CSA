@@ -809,12 +809,12 @@ System.out.println(count);
 
 ### 핵심 개념
 
-**문자열 순회 기본**
+**문자열 순회 기본 (CED 1.15.B.3 표준 관용구: `substring(i, i+1)`)**
 
 ```java
 String str = "Hello";
 for (int i = 0; i < str.length(); i++) {
-    char ch = str.charAt(i);
+    String ch = str.substring(i, i + 1);   // 한 글자(String) 추출
     System.out.println(ch);
 }
 ```
@@ -825,7 +825,7 @@ for (int i = 0; i < str.length(); i++) {
 String str = "banana";
 int count = 0;
 for (int i = 0; i < str.length(); i++) {
-    if (str.charAt(i) == 'a') {
+    if (str.substring(i, i + 1).equals("a")) {     // String 비교는 .equals()
         count++;
     }
 }
@@ -838,7 +838,7 @@ System.out.println(count);  // 3
 String str = "Hello";
 String reversed = "";
 for (int i = str.length() - 1; i >= 0; i--) {
-    reversed += str.charAt(i);
+    reversed += str.substring(i, i + 1);
 }
 System.out.println(reversed);  // olleH
 ```
@@ -861,7 +861,7 @@ System.out.println(count);  // 3
 | 메서드 | 설명 | 예시 |
 |--------|------|------|
 | `str.length()` | 문자열 길이 | `"abc".length()` → 3 |
-| `str.charAt(i)` | i번째 문자 | `"abc".charAt(0)` → 'a' |
+| `str.substring(i, i+1)` | i번째 문자 (CED 1.15.B.3 단일 문자 추출 관용구) | `"abc".substring(0, 1)` → `"a"` |
 | `str.substring(a, b)` | 인덱스 a부터 b-1까지 | `"abcde".substring(1, 4)` → "bcd" |
 | `str.substring(a)` | 인덱스 a부터 끝까지 | `"abcde".substring(2)` → "cde" |
 | `str.indexOf(s)` | s의 첫 위치 (-1이면 없음) | `"abc".indexOf("bc")` → 1 |
@@ -873,11 +873,13 @@ System.out.println(count);  // 3
 - 루프 조건: `i <= str.length() - k` (부분문자열 길이만큼 빼야 함)
 - 문자열 연결(`+=`)은 새 String 객체 생성 → 비효율적이지만 AP 시험에서는 OK
 - `charAt`은 `char` 반환 → `==`로 비교. `substring`은 `String` 반환 → `.equals()`로 비교
-- **CED 참고:** `char` 타입을 독립적으로 선언하는 것은 AP CSA 시험 범위 밖이다. String 순회에서 한 글자를 추출할 때는 `substring(i, i+1)`이 AP 시험에서 사용되는 공식 방법이다. `charAt()`은 참고용으로 알아두면 좋지만, 시험에서는 `substring`을 쓰자.
+- **CED 핵심 (필독)**: `char` 타입과 `String.charAt()` 메서드 모두 **AP CSA 2025-26 Quick Reference에 없으므로 시험 출제 안 됨**. 한 글자 추출은 **반드시 `substring(i, i+1)`** 사용 (CED 1.15.B.3 명시 관용구). 위 모든 코드 예시는 `substring`만 사용한다 — 시험 답안도 동일하게 작성할 것.
 
 ### 연습 문제
 
-**Q1.** 문자열에서 대문자의 개수를 세는 코드를 작성하시오.
+**Q1.** 문자열에서 특정 문자 (`"o"`)의 개수를 세는 코드를 작성하시오.
+
+> 참고: 대소문자 비교는 `'A'~'Z'` 같은 char 비교가 필요해 CED 범위 외(char 타입 OUT). 한 문자 일치 검사는 `substring(i, i+1).equals("X")` 패턴이 표준.
 
 <details>
 <summary>정답</summary>
@@ -886,11 +888,11 @@ System.out.println(count);  // 3
 String str = "Hello World";
 int count = 0;
 for (int i = 0; i < str.length(); i++) {
-    if (str.charAt(i) >= 'A' && str.charAt(i) <= 'Z') {
+    if (str.substring(i, i + 1).equals("o")) {
         count++;
     }
 }
-System.out.println(count);  // 2 (H, W)
+System.out.println(count);  // 2 (Hello, World 각각의 o)
 ```
 </details>
 
@@ -900,7 +902,7 @@ System.out.println(count);  // 2 (H, W)
 String s = "racecar";
 String rev = "";
 for (int i = s.length() - 1; i >= 0; i--) {
-    rev += s.charAt(i);
+    rev += s.substring(i, i + 1);
 }
 System.out.println(s.equals(rev));
 ```

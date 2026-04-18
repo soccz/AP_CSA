@@ -195,16 +195,15 @@ System.out.println(idx);
 What is printed as a result of executing the code segment?
 
 ```java
-String a = "Java";
-String b = a.toUpperCase();
-System.out.println(a);
+String a = "Computer";
+String b = a.substring(0, 3) + a.substring(a.length() - 2);
 System.out.println(b);
 ```
 
-(A) `JAVA` `JAVA`
-(B) `Java` `JAVA`
-(C) `Java` `Java`
-(D) `JAVA` `Java`
+(A) `Comer`
+(B) `Coer`
+(C) `Comte`
+(D) `Compter`
 
 ---
 
@@ -504,19 +503,19 @@ public static boolean inRange(int x) {
 What is printed as a result of executing the code segment?
 
 ```java
-int n = 0;
-while (n < 5) {
-    n++;
-    if (n == 3)
-        continue;
-    System.out.print(n + " ");
+int n = 247;
+int sum = 0;
+while (n > 0) {
+    sum += n % 10;
+    n = n / 10;
 }
+System.out.println(sum);
 ```
 
-(A) `1 2 3 4 5 `
-(B) `1 2 4 5 `
-(C) `0 1 2 4 `
-(D) `1 2 3 4 `
+(A) `13`
+(B) `247`
+(C) `9`
+(D) `0`
 
 ---
 
@@ -790,36 +789,29 @@ Each pass finds the minimum value in the unsorted portion and swaps it with the 
 ---
 
 ### 40.
-Which of the following code segments produces the same output as the code segment below?
+What is printed as a result of executing the code segment?
 
 ```java
-ArrayList<String> words = new ArrayList<String>();
-words.add("banana");
-words.add("Apple");
-words.add("cherry");
-Collections.sort(words);
-System.out.println(words);
+ArrayList<Integer> nums = new ArrayList<Integer>();
+nums.add(4);
+nums.add(7);
+nums.add(2);
+nums.add(9);
+nums.add(5);
+
+int count = 0;
+for (int i = 0; i < nums.size(); i++) {
+    if (nums.get(i) > 4) {
+        count++;
+    }
+}
+System.out.println(count);
 ```
 
-(A)
-```java
-String[] arr = {"banana", "Apple", "cherry"};
-Arrays.sort(arr);
-System.out.println(Arrays.toString(arr));
-```
-(B)
-```java
-ArrayList<String> w = new ArrayList<>();
-w.add("Apple"); w.add("banana"); w.add("cherry");
-System.out.println(w);
-```
-(C)
-```java
-ArrayList<String> w = new ArrayList<>();
-w.add("apple"); w.add("banana"); w.add("cherry");
-System.out.println(w);
-```
-(D) Both (A) and (B)
+(A) `2`
+(B) `3`
+(C) `4`
+(D) `5`
 
 ---
 
@@ -868,47 +860,49 @@ What is printed as a result of the method call `recur(12345)`?
 
 ## 정답표
 
+> Unit / 토픽 매핑: AP CSA CED 2025-26 (Effective Fall 2025) 4-Unit 체계 기준.
+
 | 번호 | 정답 | Unit | 토픽 | 해설 |
 |------|------|------|------|------|
 | 1 | B | 1 | 1.3 | `17 / 5`는 정수 나눗셈으로 `3`이 되고, `double`에 저장되므로 `3.0` 출력. |
 | 2 | B | 1 | 1.3 | `10 % 3 = 1`, `10 / 3 = 3` (정수 나눗셈), 합은 `4`. |
 | 3 | A | 1 | 1.2 | `x > 5`이므로 `flag = true`. 코드 기반 문제로 변경. |
-| 4 | A | 1 | 1.4 | `(int)` 캐스팅은 소수점 이하를 버림(truncate). `2.9` → `2`. |
+| 4 | A | 1 | 1.5 | `(int)` 캐스팅은 소수점 이하를 버림(truncate). `2.9` → `2`. |
 | 5 | B | 1 | 1.3 | 왼쪽부터 평가: `5+3=8`, `"8"+"hello"="8hello"`, `"8hello"+"5"="8hello5"`, `+"3"="8hello53"`. |
-| 6 | C | 1 | 1.4 | `(double) a`로 `a`가 `7.0`이 되어 `7.0 / 2 = 3.5`. |
+| 6 | C | 1 | 1.5 | `(double) a`로 `a`가 `7.0`이 되어 `7.0 / 2 = 3.5`. |
 | 7 | C | 1 | 1.2 | `2ndPlace`는 숫자로 시작하여 불가. `my_score`는 합법적(밑줄 허용). `class`는 예약어. `isReady`도 합법. II와 IV만 올바름. |
-| 8 | B | 1 | 1.3 | `Integer.MAX_VALUE + 1`은 오버플로우로 `Integer.MIN_VALUE`(음수)가 됨. `> 0`은 `false`. |
-| 9 | B | 2 | 2.6 | `s1 == s2`는 문자열 리터럴 풀에서 같은 참조, `s1 == s3`는 `new`로 다른 객체. |
-| 10 | B | 2 | 2.7 | `substring(3, 6)`은 인덱스 3~5: `"put"`. |
-| 11 | B | 2 | 2.7 | `"AP Computer Science A"`에서 `"Science"`는 인덱스 12부터 시작. `"AP Computer "`이 12글자. |
-| 12 | B | 2 | 2.7 | `String`은 불변(immutable). `toUpperCase()`는 새 문자열 반환. 원본 `a`는 변하지 않음. |
-| 13 | B | 2 | 2.7 | `"banana"`에서 `"a"`는 인덱스 1, 3, 5에 위치. 총 3개. |
-| 14 | D | 2 | 2.7 | (A) `s.substring(0)`은 원본과 동일하므로 length=11. (B) `indexOf("d")=10`, 10+1=11. (C) `indexOf(" ")=5`, `s.substring(6)`="World"(길이5), 5+5+1=11. 모두 11을 출력. |
-| 15 | B | 2 | 2.2 | `deposit(50.0)` → 잔액 150. `deposit(-20.0)` → amount<=0이므로 무시. 최종 잔액 `150.0`. |
-| 16 | B | 2 | 2.3 | `b = a`는 같은 객체를 참조. `withdraw(50)` → 150, `deposit(30)` → 180. `a.getBalance()` = `180.0`. |
-| 17 | A | 2 | 2.5 | `withdraw(150.0)` → 잔액 100보다 크므로 false, 잔액 불변. `withdraw(50.0)` → true, 잔액 50.0. |
-| 18 | C | 2 | 2.3 | `String name`은 생성자에서 초기화되지 않아 기본값 `null`이 됨. |
-| 19 | B | 2 | 2.9 | `Math.abs(-7.5) = 7.5`. `Math.random()`은 [0, 1) 범위이므로 `(int)(... * 6)`은 0~5, `+1`하면 1~6. |
-| 20 | A | 2 | 2.7 | `"apple".compareTo("banana")`는 음수 반환 (사전순으로 앞). `< 0`은 `true`. |
-| 21 | B | 3 | 3.1 | 독립적인 `if`문 3개. `15 > 10` → A, `15 > 5` → B, `15 > 20` → 실패. 출력: `"AB"`. |
-| 22 | D | 3 | 3.2 | (A)는 삼항 연산자로 동일한 if-else if 로직. (B)는 아래부터 덮어쓰기로 동일 결과. (C)는 score=85일 때 마지막 `if(>=70)`에서 C로 덮어써버림 → 오답. (A)와 (B) 모두 올바름. |
-| 23 | A | 3 | 3.5 | `&&`는 왼쪽이 false면 오른쪽을 평가하지 않음. `s != null`이 false이므로 `s.length()` 호출 안 함. |
-| 24 | A | 3 | 3.5 | `a && !b = true && true = true`. `!a || b = false || false = false`. |
-| 25 | A | 3 | 3.6 | `||`를 사용하면 모든 정수에 대해 true가 됨 (어떤 수든 10 이상이거나 20 이하). `&&`를 써야 범위 검사가 됨. |
-| 26 | B | 3 | 3.7 | `continue`는 현재 반복의 나머지를 건너뜀. `n==3`일 때 출력 건너뜀. 결과: `1 2 4 5 `. |
-| 27 | A | 4 | 4.2 | `i`: 10, 7, 4, 1, -2(종료). 출력: `10 7 4 1 `. |
-| 28 | A | 4 | 4.3 | `i`: 5→`F`, 3→`D`, 1→`B`. 결과: `"FDB"`. |
-| 29 | B | 4 | 4.2 | `n % 10`은 마지막 자릿수를 추출. `4573 % 10 = 3`, `457 % 10 = 7`, ... |
-| 30 | A | 4 | 4.2 | 1~100에서 3과 5의 공배수(15의 배수): 15, 30, 45, 60, 75, 90. 총 6개. |
-| 31 | B | 4 | 4.4 | `i=1`: `*`, `i=2`: `* *`, `i=3`: `* * *`. 삼각형 패턴. |
-| 32 | C | 4 | 4.9 | 짝수: 2, 4, 6. 합: `2 + 4 + 6 = 12`. |
-| 33 | A | 4 | 4.11 | `add(1, 15)`: 인덱스 1에 15 삽입 → `[10, 15, 20, 30]`. `remove(2)`: 인덱스 2 제거(20) → `[10, 15, 30]`. |
-| 34 | A | 4 | 4.11 | enhanced for문에서 리스트를 수정하면 `ConcurrentModificationException` 발생. 뒤에서부터 인덱스로 제거해야 안전. |
-| 35 | D | 4 | 4.5 | 배열 전체를 순회하며 최대값 탐색. 최대값은 `17`. |
+| 8 | B | 1 | 1.5 | `Integer.MAX_VALUE + 1`은 오버플로우로 `Integer.MIN_VALUE`(음수)가 됨. `> 0`은 `false`. |
+| 9 | B | 1 | 1.15 | `s1 == s2`는 문자열 리터럴 풀에서 같은 참조, `s1 == s3`는 `new`로 다른 객체. |
+| 10 | B | 1 | 1.15 | `substring(3, 6)`은 인덱스 3~5: `"put"`. |
+| 11 | B | 1 | 1.15 | `"AP Computer Science A"`에서 `"Science"`는 인덱스 12부터 시작. `"AP Computer "`이 12글자. |
+| 12 | A | 1 | 1.15 | `String`은 불변. `a.substring(0, 3)`="Com", `a.length()=8`이므로 `a.substring(6)`="er". 합: `"Com" + "er" = "Comer"`. |
+| 13 | B | 1 | 1.15 | `"banana"`에서 `"a"`는 인덱스 1, 3, 5에 위치. 총 3개. |
+| 14 | D | 1 | 1.15 | (A) `s.substring(0)`은 원본과 동일하므로 length=11. (B) `indexOf("d")=10`, 10+1=11. (C) `indexOf(" ")=5`, `s.substring(6)`="World"(길이5), 5+5+1=11. 모두 11을 출력. |
+| 15 | B | 1 | 1.14 | `deposit(50.0)` → 잔액 150. `deposit(-20.0)` → amount<=0이므로 무시. 최종 잔액 `150.0`. |
+| 16 | B | 1 | 1.13 | `b = a`는 같은 객체를 참조. `withdraw(50)` → 150, `deposit(30)` → 180. `a.getBalance()` = `180.0`. |
+| 17 | A | 1 | 1.14 | `withdraw(150.0)` → 잔액 100보다 크므로 false, 잔액 불변. `withdraw(50.0)` → true, 잔액 50.0. |
+| 18 | C | 1 | 1.13 | `String name`은 생성자에서 초기화되지 않아 기본값 `null`이 됨. |
+| 19 | B | 1 | 1.11 | `Math.abs(-7.5) = 7.5`. `Math.random()`은 [0, 1) 범위이므로 `(int)(... * 6)`은 0~5, `+1`하면 1~6. |
+| 20 | A | 1 | 1.15 | `"apple".compareTo("banana")`는 음수 반환 (사전순으로 앞). `< 0`은 `true`. |
+| 21 | B | 2 | 2.3 | 독립적인 `if`문 3개. `15 > 10` → A, `15 > 5` → B, `15 > 20` → 실패. 출력: `"AB"`. |
+| 22 | D | 2 | 2.4 | (A)는 삼항 연산자로 동일한 if-else if 로직. (B)는 아래부터 덮어쓰기로 동일 결과. (C)는 score=85일 때 마지막 `if(>=70)`에서 C로 덮어써버림 → 오답. (A)와 (B) 모두 올바름. |
+| 23 | A | 2 | 2.5 | `&&`는 왼쪽이 false면 오른쪽을 평가하지 않음(short-circuit). `s != null`이 false이므로 `s.length()` 호출 안 함. |
+| 24 | A | 2 | 2.5 | `a && !b = true && true = true`. `!a || b = false || false = false`. |
+| 25 | A | 2 | 2.5 | `||`를 사용하면 모든 정수에 대해 true가 됨 (어떤 수든 10 이상이거나 20 이하). `&&`를 써야 범위 검사가 됨. |
+| 26 | A | 2 | 2.7 | `while`로 자릿수 합 추출 (자리수 알고리즘). `247 % 10 = 7`, `n=24`; `24 % 10 = 4`, `n=2`; `2 % 10 = 2`, `n=0`. 합: `7+4+2 = 13`. |
+| 27 | A | 2 | 2.8 | `i`: 10, 7, 4, 1, -2(종료). 출력: `10 7 4 1 `. |
+| 28 | A | 2 | 2.10 | `i`: 5→`F`, 3→`D`, 1→`B`. 결과: `"FDB"`. |
+| 29 | B | 2 | 2.7 | `n % 10`은 마지막 자릿수를 추출 (자리수 추출 표준 알고리즘). `4573 % 10 = 3`, `457 % 10 = 7`, ... |
+| 30 | A | 2 | 2.8 | 1~100에서 3과 5의 공배수(15의 배수): 15, 30, 45, 60, 75, 90. 총 6개 (배수 판정 + 카운트). |
+| 31 | B | 2 | 2.11 | `i=1`: `*`, `i=2`: `* *`, `i=3`: `* * *`. 삼각형 패턴 (중첩 반복). |
+| 32 | C | 4 | 4.12 | 2D 배열 enhanced for 순회. 짝수: 2, 4, 6. 합: `2 + 4 + 6 = 12`. |
+| 33 | A | 4 | 4.8 | `add(1, 15)`: 인덱스 1에 15 삽입 → `[10, 15, 20, 30]`. `remove(2)`: 인덱스 2 제거(20) → `[10, 15, 30]`. |
+| 34 | A | 4 | 4.10 | enhanced for문에서 리스트를 수정하면 `ConcurrentModificationException` 발생. 뒤에서부터 인덱스로 제거해야 안전. |
+| 35 | D | 4 | 4.5 | 배열 전체를 순회하며 최대값 탐색 (max 표준 알고리즘). 최대값은 `17`. |
 | 36 | A | 4 | 4.5 | 양쪽 끝에서 교환하여 배열 반전. `[1,2,3,4,5]` → `[5,4,3,2,1]`. `Arrays.toString()`은 `[]` 형식으로 출력. |
-| 37 | B | 4 | 4.8 | `matrix.length = 3`(행 수), `matrix[0].length = 4`(열 수). |
+| 37 | B | 4 | 4.11 | `matrix.length = 3`(행 수), `matrix[0].length = 4`(열 수). |
 | 38 | C | 4 | 4.16 | 재귀 추적: `mystery(7)`→`mystery(6)`→`mystery(5)+6`→…→`mystery(0)+2+4+6`. 짝수만 합산: `2+4+6=12`. |
-| 39 | A | 4 | 4.14 | 선택 정렬 첫 패스: 전체에서 최솟값 `1`(인덱스 3)을 찾아 인덱스 0의 `8`과 교환 → `{1, 3, 5, 8, 9, 2}`. |
-| 40 | D | 4 | 4.11 | `Collections.sort()`는 유니코드 기준 정렬. 대문자가 소문자보다 앞. 결과: `[Apple, banana, cherry]`. (A)와 (B) 모두 같은 결과를 생성. |
-| 41 | C | 4 | 4.12 | `5 * 4 * 3 * 2 * 1 = 120`. 팩토리얼 재귀. |
-| 42 | B | 4 | 4.12 | 마지막 자릿수부터 출력 후 재귀: `5`, `4`, `3`, `2`, `1`. 결과: `"54321"`. |
+| 39 | A | 4 | 4.15 | 선택 정렬 첫 패스: 전체에서 최솟값 `1`(인덱스 3)을 찾아 인덱스 0의 `8`과 교환 → `{1, 3, 5, 8, 9, 2}`. |
+| 40 | B | 4 | 4.9 | `nums.size()`는 5. 인덱스 순회하며 `> 4` 조건 카운트. 4(no), 7(yes), 2(no), 9(yes), 5(yes). 총 3개. |
+| 41 | C | 4 | 4.16 | `5 * 4 * 3 * 2 * 1 = 120`. 팩토리얼 재귀 (트레이싱). |
+| 42 | B | 4 | 4.16 | 마지막 자릿수부터 출력 후 재귀: `5`, `4`, `3`, `2`, `1`. 결과: `"54321"`. |

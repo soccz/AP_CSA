@@ -7,7 +7,7 @@
 
 ---
 
-## Unit 1: Object-Oriented Design (8 Questions)
+## Unit 1: Using Objects and Methods (8 Questions)
 
 ### Q1.
 What is the result of calling `printInfo()`?
@@ -202,7 +202,7 @@ public class Account {
 
 ---
 
-## Unit 2: Fundamental Data Types, Operators, Control (13 Questions)
+## Unit 2: Selection and Iteration (13 Questions)
 
 ### Q9.
 What is the range of possible values for `x`?
@@ -433,17 +433,19 @@ System.out.println(x);
 What is printed as a result of executing the code segment?
 
 ```java
-for (int i = 0; i < 5; i++) {
-    if (i == 3)
-        continue;
-    System.out.print(i + " ");
+int total = 0;
+for (int i = 1; i <= 6; i++) {
+    if (i % 3 != 0) {
+        total += i;
+    }
 }
+System.out.println(total);
 ```
 
-(A) 0 1 2 4
-(B) 0 1 2 3 4
-(C) 0 1 2
-(D) 0 1 2 3
+(A) 12
+(B) 21
+(C) 9
+(D) 15
 
 ---
 
@@ -465,7 +467,7 @@ System.out.println(n);
 
 ---
 
-## Unit 3: Arrays and 2D Arrays (6 Questions)
+## Unit 3: Class Creation (6 Questions)
 
 ### Q22.
 What is printed as a result of executing the code segment?
@@ -569,7 +571,7 @@ System.out.println(sum);
 
 ---
 
-## Unit 4: ArrayList, Sorting/Searching, Recursion (15 Questions)
+## Unit 4: Data Collections (15 Questions)
 
 ### Q28.
 What is printed as a result of executing the code segment?
@@ -839,7 +841,7 @@ Consider the following recursive method.
 public static String mystery(String s) {
     if (s.length() <= 1)
         return s;
-    return mystery(s.substring(1)) + s.charAt(0);
+    return mystery(s.substring(1)) + s.substring(0, 1);
 }
 ```
 
@@ -858,45 +860,45 @@ What is returned by the method call `mystery("ABCD")`?
 
 | # | 정답 | Unit | 토픽 | 난이도 | 해설 |
 |---|------|------|------|--------|------|
-| 1 | C | U1 | static에서 instance 변수 접근 불가 | ★★☆ | `printInfo()`는 static 메서드이므로 instance 변수 `name`에 접근할 수 없다. 컴파일 에러 발생. |
-| 2 | B | U1 | static 변수와 GC | ★★☆ | `c2 = null`은 참조만 끊을 뿐 static 변수 `count`에 영향 없음. 3개 객체가 생성되었으므로 count=3. |
-| 3 | C | U1 | null 참조 메서드 호출 | ★★☆ | `null` 참조에 `.length()` 호출 시 NullPointerException 발생. 컴파일은 통과한다. |
-| 4 | A | U1 | 클래스와 객체 비교 | ★☆☆ | `getX()`와 `getY()`로 int 값을 비교. `3==3 && 4==4` → `true`. |
-| 5 | B | U1 | 참조 재할당 vs 객체 변경 | ★★★ | `change()` 메서드 안에서 `other = new Foo(99)`는 로컬 매개변수만 재할당. 원래 `b`가 가리키는 객체는 변하지 않음. |
-| 6 | B | U1 | Java 참조 swap 함정 | ★★★ | Java에서 메서드 매개변수로 참조를 swap해도 호출자의 참조는 바뀌지 않음. 로컬 변수만 교환됨. |
-| 7 | B | U1 | == vs .equals() String 비교 | ★★☆ | `s1 == s2`는 false (new로 별도 객체 생성), `s1 == s3`는 true (같은 참조), `s1.equals(s2)`는 true (같은 내용). |
-| 8 | A | U1 | 캡슐화 에러 식별 | ★★☆ | public 필드는 외부에서 직접 수정 가능하여 캡슐화 위반. private + getter가 올바른 패턴. |
-| 9 | C | U2 | Math.random() 범위 | ★★☆ | `Math.random()`은 [0.0, 1.0) → `*6`하면 [0.0, 6.0) → `(int)` 캐스트하면 0~5 → `+1`하면 1~6. |
-| 10 | A | U2 | Math.random() 괄호 위치 | ★★★ | `Math.random()*6+1` → [1.0, 7.0) → `(int)` 캐스트하면 1~6. (D) 0~5는 `(int)(Math.random()*6)` 범위이므로 틀림. |
-| 11 | B | U2 | 정수 나눗셈 | ★★★ | `7/2`는 정수 나눗셈으로 3. 이것이 double에 대입되면 3.0. |
-| 12 | B | U2 | 정수 나눗셈과 나머지 | ★★☆ | `17/5 = 3` (정수), `17%5 = 2`. 출력은 `3 2`. |
-| 13 | C | U2 | String pool vs new | ★★☆ | `s1`과 `s2`는 String pool에서 같은 객체 참조 → `==` true. `s3`는 `new`로 생성한 별도 객체 → `==` false. |
-| 14 | C | U2 | compareTo 해석 | ★★★ | `"apple".compareTo("banana")` → 'a'-'b' = -1 (음수). 사전순으로 apple이 banana 앞이므로 음수 반환. |
-| 15 | A | U2 | Scoreboard 클래스 이해 | ★★★ | `getAverage(0)`: sum=80+90+70=240, 240/3=80.0 (double 캐스팅). |
-| 16 | B | U2 | 메서드 호출 결과 추적 | ★★★ | 전체 배열에서 최대값 탐색. 80,90,70,60,100,80 중 최대는 100. |
-| 17 | B | U2 | 엣지 케이스 / ranking 추적 | ★★★ | 행0 평균=70, 행1 평균=90, 행2 평균=80. 내림차순 정렬: 행1(90) > 행2(80) > 행0(70). rank=[1,2,0]. |
-| 18 | B | U2 | 논리 연산자 우선순위 | ★★☆ | `&&`가 `\|\|`보다 우선. `!a = false`, `b && a = false`. `false \|\| false = false`. |
-| 19 | C | U2 | while 종료 시점 | ★★★ | x: 0→3→6→9→12. x=12일 때 `12<10` false → 루프 종료. 출력은 12. |
-| 20 | A | U2 | continue 문 | ★★☆ | `continue`는 i=3일 때 출력을 건너뛰고 다음 반복으로. 출력: 0 1 2 4. |
-| 21 | C | U2 | 무한루프 함정 | ★★★ | n은 1→4→7→10→...→49→52→55→... n은 절대 50이 되지 않음 (1에서 3씩 더하면 1,4,7,...,49,52,...). 무한루프. |
-| 22 | B | U3 | 배열 기본값 | ★★☆ | int 배열은 0으로 초기화됨. |
-| 23 | B | U3 | 2D 배열 length | ★★★ | `grid.length`=행 수(3), `grid[0].length`=열 수(4). 자주 혼동되는 함정. |
-| 24 | A | U3 | 2D 배열 열 우선 순회 | ★★★ | 외부 루프가 `arr[0].length`(열=3), 내부 루프가 `arr.length`(행=2). 열 우선 순회. `arr[0][0]+arr[1][0]+arr[0][1]+arr[1][1]+arr[0][2]+arr[1][2]` = 1+4+2+5+3+6 = 21. 범위 초과 없음. |
-| 25 | B | U3 | 배열 length (괄호 없음) | ★★☆ | 배열은 `.length` (필드, 괄호 없음). `size()`는 ArrayList. 3개 원소이므로 3. |
-| 26 | B | U3 | off-by-one 에러 | ★★★ | `i <= arr.length`에서 i=5일 때 `arr[5]` 접근 → ArrayIndexOutOfBoundsException. 그 전까지 0~4 인덱스는 정상 출력. |
-| 27 | C | U3 | 2D 배열 마지막 행 합 | ★★☆ | `grid.length - 1` = 2 (마지막 행). 마지막 행 {7, 8, 9}의 합: 7+8+9 = 24. |
-| 28 | A | U4 | ArrayList remove(int) 인덱스 | ★★★ | `remove(1)`은 인덱스 1의 원소(=2)를 제거. 결과: [1, 3]. **핵심 함정**: `Integer` 리스트에서 `remove(1)`은 autoboxing되지 않고 인덱스로 해석됨. |
-| 29 | A | U4 | ArrayList remove(Object) 값 | ★★★ | `remove(Integer.valueOf(1))`은 값 1을 제거. 결과: [2, 3]. Q28과 비교하여 인덱스 vs 값 차이를 이해해야 함. |
-| 30 | A | U4 | ArrayList 기본 연산 | ★★☆ | size()=3, get(1)은 인덱스 1 → "dog". |
-| 31 | A | U4 | ArrayList 순회 중 삭제 함정 | ★★★ | i=1에서 첫 "B" 삭제 → [A,C,B], size=3. i=2에서 "B" 삭제 → [A,C], size=2. i=3≥2 종료. 결과: [A,C]. |
-| 32 | C | U4 | 재귀 거듭제곱 추적 | ★★☆ | `mystery(4)=2*mystery(3)=2*2*mystery(2)=2*2*2*mystery(1)=2*2*2*2*mystery(0)=2*2*2*2*1=16`. |
-| 33 | B | U4 | Selection Sort 1회 pass | ★★★ | arr[0..4]에서 최솟값=1(인덱스2), arr[0]과 swap → {1,8,5,3,7}. |
-| 34 | C | U4 | 2D 배열 테두리 합 | ★★★ | 테두리 원소: 1+2+3+4+6+7+8+9=40. 중앙 5는 테두리가 아님. |
-| 35 | B | U4 | ArrayList 삽입/삭제 추적 | ★★★ | [10,20,30,40]→add(1,15)→[10,15,20,30,40]→remove(3)→[10,15,20,40]. get(2)=20. |
-| 36 | C | U4 | 재귀 base case 미도달 | ★★★ | `mystery(5)` → 5+mystery(3) → 3+mystery(1) → 1+mystery(-1) → -1+mystery(-3)... n이 0이 되지 않으므로 무한 재귀 → StackOverflowError. |
-| 37 | C | U4 | 재귀 base case 없음 | ★★★ | base case가 전혀 없음. `factorial(5)` → `5*factorial(4)` → ... → `1*factorial(0)` → `0*factorial(-1)` → 무한 재귀 → StackOverflowError. |
-| 38 | A | U4 | 재귀 합 | ★★☆ | `sum(4)=4+sum(3)=4+3+sum(2)=4+3+2+sum(1)=4+3+2+1+sum(0)=4+3+2+1+0=10`. |
-| 39 | A | U4 | 이진 탐색 비교 추적 | ★★★ | lo=0,hi=6,mid=3→arr[3]=8<10→lo=4. lo=4,hi=6,mid=5→arr[5]=12>10→hi=4. lo=4,hi=4,mid=4→arr[4]=10 발견. 비교: 8,12,10. |
-| 40 | B | U4 | ArrayList set() | ★★☆ | `set(1, 99)`는 인덱스 1의 값을 99로 교체. `get(1)` = 99. |
-| 41 | D | U4 | 재귀 문자열 생성 | ★★☆ | `build(4)=build(3)+"*"=build(2)+"**"=build(1)+"***"=build(0)+"****"=""+"****"="****"`. |
-| 42 | B | U4 | 재귀 문자열 뒤집기 | ★★★ | `mystery("ABCD")` = mystery("BCD")+"A" = (mystery("CD")+"B")+"A" = ((mystery("D")+"C")+"B")+"A" = "D"+"C"+"B"+"A" = "DCBA". |
+| 1 | C | U1 | 1.10 Calling Class Methods (static 메서드에서 instance 변수 접근 불가) | ★★☆ | `printInfo()`는 static 메서드이므로 instance 변수 `name`에 접근할 수 없다. 컴파일 에러 발생. |
+| 2 | B | U1 | 1.10 Calling Class Methods (static counter) | ★★☆ | `c2 = null`은 참조만 끊을 뿐 static 변수 `count`에 영향 없음. 3개 객체가 생성되었으므로 count=3. |
+| 3 | C | U1 | 1.15 String Manipulation (null 참조 메서드 호출) | ★★☆ | `null` 참조에 `.length()` 호출 시 NullPointerException 발생. 컴파일은 통과한다. |
+| 4 | A | U1 | 1.14 Calling Instance Methods (객체 필드 비교) | ★☆☆ | `getX()`와 `getY()`로 int 값을 비교. `3==3 && 4==4` → `true`. |
+| 5 | B | U1 | 1.13 Object Creation and Storage (참조 재할당 vs 객체 변경) | ★★★ | `change()` 메서드 안에서 `other = new Foo(99)`는 로컬 매개변수만 재할당. 원래 `b`가 가리키는 객체는 변하지 않음. |
+| 6 | B | U1 | 1.13 Object Creation and Storage (참조 매개변수 swap 함정) | ★★★ | Java에서 메서드 매개변수로 참조를 swap해도 호출자의 참조는 바뀌지 않음. 로컬 변수만 교환됨. |
+| 7 | B | U1 | 1.15 String Manipulation (== vs .equals() 비교) | ★★☆ | `s1 == s2`는 false (new로 별도 객체 생성), `s1 == s3`는 true (같은 참조), `s1.equals(s2)`는 true (같은 내용). |
+| 8 | A | U1 | 1.12 Objects: Instances of Classes (캡슐화 에러 식별) | ★★☆ | public 필드는 외부에서 직접 수정 가능하여 캡슐화 위반. private + getter가 올바른 패턴. |
+| 9 | C | U2 | 2.1 Algorithms with Selection (Math.random 범위) | ★★☆ | `Math.random()`은 [0.0, 1.0) → `*6`하면 [0.0, 6.0) → `(int)` 캐스트하면 0~5 → `+1`하면 1~6. |
+| 10 | A | U2 | 2.1 Algorithms with Selection (Math.random 괄호 위치) | ★★★ | `Math.random()*6+1` → [1.0, 7.0) → `(int)` 캐스트하면 1~6. (D) 0~5는 `(int)(Math.random()*6)` 범위이므로 틀림. |
+| 11 | B | U2 | 2.2 Boolean Expressions (정수 나눗셈 결과 트레이싱) | ★★★ | `7/2`는 정수 나눗셈으로 3. 이것이 double에 대입되면 3.0. |
+| 12 | B | U2 | 2.2 Boolean Expressions (정수 나눗셈과 나머지) | ★★☆ | `17/5 = 3` (정수), `17%5 = 2`. 출력은 `3 2`. |
+| 13 | C | U2 | 2.10 Implementing String Algorithms (== vs equals 트레이싱) | ★★☆ | `s1`과 `s2`는 String pool에서 같은 객체 참조 → `==` true. `s3`는 `new`로 생성한 별도 객체 → `==` false. |
+| 14 | C | U2 | 2.10 Implementing String Algorithms (compareTo 해석) | ★★★ | `"apple".compareTo("banana")` → 'a'-'b' = -1 (음수). 사전순으로 apple이 banana 앞이므로 음수 반환. |
+| 15 | A | U2 | 2.11 Nested Iteration (2D 배열 행 평균 추적) | ★★★ | `getAverage(0)`: sum=80+90+70=240, 240/3=80.0 (double 캐스팅). |
+| 16 | B | U2 | 2.11 Nested Iteration (max 알고리즘 트레이싱) | ★★★ | 전체 배열에서 최대값 탐색. 80,90,70,60,100,80 중 최대는 100. |
+| 17 | B | U2 | 2.9 Implementing Iteration Algorithms (정렬 변형 추적) | ★★★ | 행0 평균=70, 행1 평균=90, 행2 평균=80. 내림차순 정렬: 행1(90) > 행2(80) > 행0(70). rank=[1,2,0]. |
+| 18 | B | U2 | 2.5 Compound Boolean Expressions (논리 연산자 우선순위) | ★★☆ | `&&`가 `\|\|`보다 우선. `!a = false`, `b && a = false`. `false \|\| false = false`. |
+| 19 | C | U2 | 2.7 while Loops (종료 시점) | ★★★ | x: 0→3→6→9→12. x=12일 때 `12<10` false → 루프 종료. 출력은 12. |
+| 20 | A | U2 | 2.8 for Loops + 2.3 if Statements (분기 누적) | ★★☆ | i=1,2 → total=1+2=3, i=3 (3의 배수) skip, i=4,5 → total=3+4+5=12, i=6 (3의 배수) skip. 결과: 12. |
+| 21 | C | U2 | 2.7 while Loops (무한루프 함정) | ★★★ | n은 1→4→7→10→...→49→52→55→... n은 절대 50이 되지 않음. 무한루프. |
+| 22 | B | U3 | 3.4 Constructors (인스턴스 변수 기본값) | ★★☆ | int 배열은 0으로 초기화됨. (3.4.A.5 기본값 규칙: int=0, double=0.0, boolean=false, reference=null) |
+| 23 | B | U3 | 3.3 Anatomy of a Class (배열 length 필드 접근) | ★★★ | `grid.length`=행 수(3), `grid[0].length`=열 수(4). 자주 혼동되는 함정. |
+| 24 | A | U3 | 3.5 Methods (2D 배열 열 우선 순회 추적) | ★★★ | 외부 루프가 `arr[0].length`(열=3), 내부 루프가 `arr.length`(행=2). 열 우선 순회. `arr[0][0]+arr[1][0]+arr[0][1]+arr[1][1]+arr[0][2]+arr[1][2]` = 1+4+2+5+3+6 = 21. 범위 초과 없음. |
+| 25 | B | U3 | 3.3 Anatomy of a Class (배열 length vs ArrayList size) | ★★☆ | 배열은 `.length` (필드, 괄호 없음). `size()`는 ArrayList. 3개 원소이므로 3. |
+| 26 | B | U3 | 3.5 Methods (off-by-one 경계 오류) | ★★★ | `i <= arr.length`에서 i=5일 때 `arr[5]` 접근 → ArrayIndexOutOfBoundsException. 그 전까지 0~4 인덱스는 정상 출력. |
+| 27 | C | U3 | 3.5 Methods (마지막 행 인덱스 계산) | ★★☆ | `grid.length - 1` = 2 (마지막 행). 마지막 행 {7, 8, 9}의 합: 7+8+9 = 24. |
+| 28 | A | U4 | 4.8 ArrayList Methods (remove(int) 인덱스) | ★★★ | `remove(1)`은 인덱스 1의 원소(=2)를 제거. 결과: [1, 3]. |
+| 29 | A | U4 | 4.8 ArrayList Methods (remove(Object) 값) | ★★★ | `remove(Integer.valueOf(1))`은 값 1을 제거. 결과: [2, 3]. |
+| 30 | A | U4 | 4.8 ArrayList Methods (size + get) | ★★☆ | size()=3, get(1)은 인덱스 1 → "dog". |
+| 31 | A | U4 | 4.10 Implementing ArrayList Algorithms (순회 중 삭제 함정) | ★★★ | i=1에서 첫 "B" 삭제 → [A,C,B], size=3. i=2에서 "B" 삭제 → [A,C], size=2. i=3≥2 종료. 결과: [A,C]. |
+| 32 | C | U4 | 4.16 Recursion (거듭제곱 추적) | ★★☆ | `mystery(4)=2*mystery(3)=2*2*mystery(2)=2*2*2*mystery(1)=2*2*2*2*mystery(0)=2*2*2*2*1=16`. |
+| 33 | B | U4 | 4.15 Sorting Algorithms (Selection Sort 1회 pass) | ★★★ | arr[0..4]에서 최솟값=1(인덱스2), arr[0]과 swap → {1,8,5,3,7}. |
+| 34 | C | U4 | 4.13 Implementing 2D Array Algorithms (테두리 합) | ★★★ | 테두리 원소: 1+2+3+4+6+7+8+9=40. 중앙 5는 테두리가 아님. |
+| 35 | B | U4 | 4.8 ArrayList Methods (add(int,E) + remove 추적) | ★★★ | [10,20,30,40]→add(1,15)→[10,15,20,30,40]→remove(3)→[10,15,20,40]. get(2)=20. |
+| 36 | C | U4 | 4.16 Recursion (base case 미도달) | ★★★ | `mystery(5)` → 5+mystery(3) → 3+mystery(1) → 1+mystery(-1) → -1+mystery(-3)... n이 0이 되지 않으므로 무한 재귀 → StackOverflowError. |
+| 37 | C | U4 | 4.16 Recursion (base case 없음) | ★★★ | base case가 전혀 없음. `factorial(5)` → `5*factorial(4)` → ... → `1*factorial(0)` → `0*factorial(-1)` → 무한 재귀 → StackOverflowError. |
+| 38 | A | U4 | 4.16 Recursion (재귀 합) | ★★☆ | `sum(4)=4+sum(3)=4+3+sum(2)=4+3+2+sum(1)=4+3+2+1+sum(0)=4+3+2+1+0=10`. |
+| 39 | A | U4 | 4.17 Recursive Searching (Binary Search 추적) | ★★★ | lo=0,hi=6,mid=3→arr[3]=8<10→lo=4. lo=4,hi=6,mid=5→arr[5]=12>10→hi=4. lo=4,hi=4,mid=4→arr[4]=10 발견. 비교: 8,12,10. |
+| 40 | B | U4 | 4.8 ArrayList Methods (set) | ★★☆ | `set(1, 99)`는 인덱스 1의 값을 99로 교체. `get(1)` = 99. |
+| 41 | D | U4 | 4.16 Recursion (재귀 문자열 생성) | ★★☆ | `build(4)=build(3)+"*"=build(2)+"**"=build(1)+"***"=build(0)+"****"=""+"****"="****"`. |
+| 42 | B | U4 | 4.16 Recursion (재귀 문자열 뒤집기, substring) | ★★★ | `mystery("ABCD")` = mystery("BCD")+"A" = (mystery("CD")+"B")+"A" = ((mystery("D")+"C")+"B")+"A" = "D"+"C"+"B"+"A" = "DCBA". |

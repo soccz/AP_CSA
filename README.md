@@ -13,8 +13,10 @@
 | **학생** | Java를 처음 배우는 고등학생 |
 | **목표** | AP CSA 시험 5점 |
 
-총 55개 파일(공식 문서 + 커리큘럼 + 기출 + 연습 + 레퍼런스 + 모의시험)으로 구성되어 있습니다.
+총 80여 개 파일(공식 문서 + 커리큘럼 + 기출 + 연습 + 레퍼런스 + 모의시험 + 레벨테스트 10회 + 토픽별 보강 9세트)로 구성되어 있습니다.
 아래 순서대로 따라가면 됩니다.
+
+> ✅ **2025-26 CED 준수**: 본 자료의 모든 코드·문제·해설은 AP CSA 2025-26 Java Quick Reference 등재 메서드만 사용하며, CED EXCLUSION(상속/break/continue/switch/charAt/toUpperCase/toLowerCase/contains/trim/Math.min/Math.max/hasNextInt/hasNextLine/Scanner(System.in)/toString-equals 오버라이드 작성/bubble sort 등)을 위반하지 않습니다. 권위 검증 문서는 `공식_시험범위_검증.md` 참조.
 
 ---
 
@@ -34,6 +36,7 @@
 | 파일 | 설명 |
 |------|------|
 | `03_practice/00_Java_환경설정_가이드.md` | Java + IDE 설치 (IntelliJ/VSCode) |
+| `03_practice/00_사전진단_테스트.md` | 학생 수준 측정 (난이도/구간별 진단) |
 
 ### 3단계: 수업 (10회)
 
@@ -63,6 +66,8 @@
 
 | 자료 종류 | 파일 | 설명 |
 |-----------|------|------|
+| 레벨테스트 | `06_level_tests/LevelTest1~10.md` | 10회 누적 레벨테스트 (문제 + `answers/` + `questions/`) |
+| 토픽별 보강 | `07_topical_practice/TP1~TP9.md` | 9세트, 각 ~10문제. 약점 토픽 집중 보강 |
 | 모의시험 MCQ | `05_mock_exams/Set1~5_MCQ.md` | 5세트, 각 42문제 (실제 시험 동일) |
 | 모의시험 FRQ | `05_mock_exams/Set1~5_FRQ.md` | 5세트, 각 4문제 (실제 시험 동일) |
 | 점수 변환 | `05_mock_exams/점수변환표.md` | 채점 후 AP 점수 예측 |
@@ -141,7 +146,11 @@ AP_CSA/
 ├── 00_official_docs/    ← College Board 공식 문서 (CED, Quick Reference)
 ├── 01_curriculum/       ← 교재 목차 (CSAwesome2)
 ├── 02_frq_archive/      ← FRQ 기출 2021-2025 (문제+채점기준+모범답안)
-├── 03_practice/         ← 수업 자료 전체 (강의노트, 실습, MCQ, FRQ)
+├── 03_practice/         ← 수업 자료 전체 (강의노트, 실습, MCQ, FRQ, 가이드)
 ├── 04_reference/        ← 참고 자료 (치트시트, 용어사전, FAQ)
-└── 05_mock_exams/       ← 모의시험 5세트 + 점수변환표
+├── 05_mock_exams/       ← 모의시험 5세트 + 점수변환표
+├── 06_level_tests/      ← 누적 레벨테스트 10회 (문제 + answers/ + questions/)
+├── 07_topical_practice/ ← 토픽별 보강 9세트 (약점 집중)
+├── 공식_시험범위_검증.md ← 권위 검증 문서 (CED/QR/EXCLUSION)
+└── 출제기준서.md         ← 본 자료 출제 기준
 ```

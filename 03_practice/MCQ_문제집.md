@@ -478,19 +478,17 @@ System.out.println(s.indexOf("World"));
 
 ### 문제 21 (Unit 1 - 토픽 2.7) [M]
 
-*(참고: `toUpperCase()`는 Quick Reference에 없는 메서드)*
-
 ```java
 String s = "Hello";
-s.toUpperCase();
+s.substring(1, 4);
 System.out.println(s);
 ```
 
 출력 결과는?
 
-(A) `HELLO`
+(A) `ell`
 (B) `Hello`
-(C) `hello`
+(C) `Hllo`
 (D) 컴파일 에러
 
 <details>
@@ -498,7 +496,7 @@ System.out.println(s);
 
 **정답: (B)**
 
-**String은 불변(immutable)** 이다. `toUpperCase()`는 새로운 String 객체를 반환하지, 원본을 수정하지 않는다. 반환값을 사용하지 않았으므로 `s`는 그대로 `"Hello"`이다. 올바른 사용: `s = s.toUpperCase();`.
+**String은 불변(immutable)** 이다. `substring(1, 4)`은 새로운 String 객체 `"ell"`을 반환할 뿐 원본을 수정하지 않는다. 반환값을 변수에 저장하거나 출력하지 않았으므로 `s`는 그대로 `"Hello"`이다. 올바른 사용: `String t = s.substring(1, 4);` 또는 `s = s.substring(1, 4);`.
 </details>
 
 ---
@@ -903,19 +901,17 @@ System.out.println((int)(Math.random() * 10) + 5);
 
 ### 문제 38 (Unit 1 - 토픽 2.3) [E]
 
-*(참고: `toLowerCase()`는 Quick Reference에 없는 메서드)*
-
 ```java
 String s = "Java";
-System.out.println(s.toLowerCase());
+System.out.println(s.substring(1));
 System.out.println(s);
 ```
 
 출력 결과는?
 
-(A) `java` 다음 줄에 `java`
-(B) `java` 다음 줄에 `Java`
-(C) `Java` 다음 줄에 `java`
+(A) `ava` 다음 줄에 `ava`
+(B) `ava` 다음 줄에 `Java`
+(C) `Java` 다음 줄에 `ava`
 (D) `Java` 다음 줄에 `Java`
 
 <details>
@@ -923,7 +919,7 @@ System.out.println(s);
 
 **정답: (B)**
 
-`toLowerCase()`는 **새로운** 문자열 `"java"`를 반환한다. 원본 `s`는 **불변(immutable)** 이므로 변경되지 않는다. 첫 줄은 반환된 새 문자열 `"java"`, 둘째 줄은 원본 `"Java"`.
+`s.substring(1)`은 인덱스 1부터 끝까지의 **새로운** 문자열 `"ava"`를 반환한다. 원본 `s`는 **불변(immutable)** 이므로 변경되지 않는다. 첫 줄은 반환된 새 문자열 `"ava"`, 둘째 줄은 원본 `"Java"`.
 </details>
 
 ---
@@ -954,26 +950,24 @@ int y = x;
 
 ### 문제 40 (Unit 1 - 토픽 2.7) [M]
 
-*(참고: `toUpperCase()`는 Quick Reference에 없는 메서드)*
-
 ```java
 String s = "programming";
-System.out.println(s.substring(3, 7).toUpperCase());
+System.out.println(s.substring(3, 7).indexOf("am"));
 ```
 
 출력 결과는?
 
-(A) `GRAM`
-(B) `gram`
-(C) `OGRA`
-(D) `RAMM`
+(A) `2`
+(B) `5`
+(C) `-1`
+(D) `0`
 
 <details>
 <summary>정답 및 해설</summary>
 
 **정답: (A)**
 
-`s.substring(3, 7)`: p=0, r=1, o=2, g=3, r=4, a=5, m=6, m=7. 인덱스 3~6 → `"gram"`. `.toUpperCase()` → `"GRAM"`. 메서드 체이닝에서 왼쪽부터 순서대로 실행된다.
+`s.substring(3, 7)`: p=0, r=1, o=2, g=3, r=4, a=5, m=6, m=7. 인덱스 3~6 → `"gram"`. 그 다음 `"gram".indexOf("am")`을 호출 — `"gram"` 안에서 `"am"`은 g=0, r=1, a=2, m=3 중 인덱스 2에서 시작 → `2`. 메서드 체이닝에서는 왼쪽부터 순서대로 실행된다.
 </details>
 
 ---
@@ -1667,7 +1661,8 @@ while (x > 0) { x--; }
 ```
 (C)
 ```java
-while (true) { break; } // 참고: break는 AP 시험 범위 밖
+int x = 0;
+while (x < 5) { x = x + 1; }
 ```
 (D)
 ```java
@@ -1675,14 +1670,12 @@ int x = 1;
 while (x > 0) { x++; }
 ```
 
-> **참고**: 선택지 (C)의 `break`는 AP 시험 범위 밖이지만, 코드 추적 연습을 위해 포함했습니다.
-
 <details>
 <summary>정답 및 해설</summary>
 
 **정답: (D)**
 
-(A) `i`가 0에서 9까지 증가하며 10에서 종료. (B) `x`가 10에서 0까지 감소하며 0에서 종료. (C) `while(true)`이지만 `break`로 즉시 탈출. (D) `x`는 1에서 시작하여 계속 증가하므로 항상 `x > 0`이 `true`. 사실 `int` 오버플로우로 음수가 되면 종료될 수 있지만, 의도적으로는 무한 루프이다.
+(A) `i`가 0에서 9까지 증가하며 10에서 종료. (B) `x`가 10에서 0까지 감소하며 0에서 종료. (C) `x`는 0, 1, 2, 3, 4, 5로 증가하다 `x < 5`가 거짓이 되어 종료. (D) `x`는 1에서 시작하여 계속 증가하므로 항상 `x > 0`이 `true`. 사실 `int` 오버플로우로 음수가 되면 종료될 수 있지만, 의도적으로는 무한 루프이다.
 </details>
 
 ---
@@ -2066,17 +2059,15 @@ System.out.println(count);
 
 ### 문제 78 (Unit 2 - 토픽 4.4) [H]
 
-*(참고: `trim()`은 Quick Reference에 없는 메서드)*
-
 ```java
 String result = "";
 for (int i = 1; i <= 3; i++) {
     for (int j = 1; j <= i; j++) {
         result += i;
     }
-    result += " ";
+    if (i < 3) result += " ";
 }
-System.out.println(result.trim());
+System.out.println(result);
 ```
 
 출력 결과는?
@@ -2091,12 +2082,10 @@ System.out.println(result.trim());
 
 **정답: (B)**
 
-외부 루프에서 `i`는 1, 2, 3. 내부 루프에서 `i`를 `j`번(1~`i`번) 반복 출력한다.
-- `i=1`: `j`는 1번 → `"1"` + 공백
-- `i=2`: `j`는 2번 → `"22"` + 공백
-- `i=3`: `j`는 3번 → `"333"` + 공백
-
-`trim()`으로 뒤의 공백 제거 → `"1 22 333"`.
+외부 루프에서 `i`는 1, 2, 3. 내부 루프에서 `i`를 `j`번(1~`i`번) 반복 출력한다. 그리고 `i < 3`인 동안에만 공백을 덧붙여, 마지막 토큰 뒤에 공백이 남지 않게 한다.
+- `i=1`: `j`는 1번 → `"1"` 추가, `i<3`이므로 공백 추가 → `"1 "`
+- `i=2`: `j`는 2번 → `"22"` 추가, `i<3`이므로 공백 추가 → `"1 22 "`
+- `i=3`: `j`는 3번 → `"333"` 추가, `i<3`이 거짓이므로 공백 미추가 → `"1 22 333"`
 </details>
 
 ---
@@ -3065,7 +3054,7 @@ for (int i = 1; i < arr.length; i++) {
 }
 ```
 
-(A) 버블 정렬 (Bubble Sort)
+(A) 선형 검색 (Linear Search)
 (B) 선택 정렬 (Selection Sort)
 (C) 삽입 정렬 (Insertion Sort)
 (D) 병합 정렬 (Merge Sort)
@@ -3075,7 +3064,7 @@ for (int i = 1; i < arr.length; i++) {
 
 **정답: (C)**
 
-이것은 **삽입 정렬(Insertion Sort)** 이다. 핵심 특징: (1) `key = arr[i]`로 현재 원소를 저장, (2) 이미 정렬된 부분에서 `key`보다 큰 원소들을 오른쪽으로 밀어냄, (3) 빈 자리에 `key`를 삽입. 선택 정렬과의 차이: 선택 정렬은 최솟값을 **찾아서 교환**하고, 삽입 정렬은 원소를 **올바른 위치에 삽입**한다.
+이것은 **삽입 정렬(Insertion Sort)** 이다. 핵심 특징: (1) `key = arr[i]`로 현재 원소를 저장, (2) 이미 정렬된 부분에서 `key`보다 큰 원소들을 오른쪽으로 밀어냄, (3) 빈 자리에 `key`를 삽입. 선택 정렬과의 차이: 선택 정렬은 미정렬 부분에서 최솟값을 **찾아서 교환**하고, 삽입 정렬은 원소를 **올바른 위치에 삽입**한다. (A) 선형 검색은 정렬 알고리즘이 아니라 탐색 알고리즘이며, (D) 병합 정렬은 분할 정복 기반의 재귀 구조라 형태가 다르다.
 </details>
 
 ---
@@ -3236,7 +3225,7 @@ sc.close();
 
 Scanner sc = new Scanner(new File("data.txt"));
 int total = 0;
-while (sc.hasNextInt()) {
+while (sc.hasNext()) {
     total += sc.nextInt();
 }
 System.out.println(total);
@@ -3255,7 +3244,7 @@ sc.close();
 
 **정답: (C)**
 
-`hasNextInt()`는 다음에 읽을 정수가 있는지 확인하고, `nextInt()`는 정수를 읽는다. 파일에 `10`, `20`, `30`이 있으므로 세 번 반복하여 `total = 10 + 20 + 30 = 60`. `hasNextInt()`와 `nextInt()`는 함께 사용하여 파일의 모든 정수를 안전하게 읽는 패턴이다.
+`hasNext()`는 읽을 토큰이 더 있는지 확인하고, `nextInt()`는 다음 토큰을 정수로 읽는다. 파일에 `10`, `20`, `30`이 있으므로 세 번 반복하여 `total = 10 + 20 + 30 = 60`. AP CSA Quick Reference에 포함된 Scanner 메서드는 `hasNext()`, `nextInt()`, `nextDouble()`, `nextBoolean()`, `nextLine()`, `next()`, `close()`이며, `hasNext()` + `nextInt()` 조합이 파일의 모든 정수를 읽는 표준 패턴이다.
 </details>
 
 ---

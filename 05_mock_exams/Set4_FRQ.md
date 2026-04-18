@@ -64,12 +64,12 @@ public class GradeCalculator {
      *
      *    "NAME (ID, Grade GRADE): AVG - LETTER"
      *
-     *  Where:
-     *  - NAME is the part of studentInfo before the first "-"
-     *  - ID is the part of studentInfo between the first and last "-"
-     *  - GRADE is the part of studentInfo after the last "-"
-     *  - AVG is the result of getWeightedAverage() (as a double)
-     *  - LETTER is determined by:
+     *  studentInfo has the form "NAME-ID-GRADE" with exactly two "-" characters.
+     *  Use split("-") to obtain the three parts in order:
+     *    parts[0] = NAME, parts[1] = ID, parts[2] = GRADE
+     *
+     *  AVG is the result of getWeightedAverage() (as a double).
+     *  LETTER is determined by:
      *      AVG >= 90: "A"
      *      AVG >= 80: "B"
      *      AVG >= 70: "C"
@@ -82,7 +82,8 @@ public class GradeCalculator {
      *    studentInfo "Lee-20250001-9", weightedAverage 73.0
      *      → "Lee (20250001, Grade 9): 73.0 - C"
      *
-     *  Precondition: studentInfo contains exactly two "-" characters.
+     *  Precondition: studentInfo contains exactly two "-" characters and
+     *                NAME, ID, GRADE are all non-empty.
      */
     public String getGradeReport()
     { /* to be implemented in Part B */ }
@@ -135,12 +136,10 @@ public double getWeightedAverage() {
 ```java
 public String getGradeReport() {
     String info = getStudentInfo();
-    int firstDash = info.indexOf("-");
-    int lastDash = info.lastIndexOf("-");
-
-    String name = info.substring(0, firstDash);
-    String id = info.substring(firstDash + 1, lastDash);
-    String grade = info.substring(lastDash + 1);
+    String[] parts = info.split("-");
+    String name = parts[0];
+    String id = parts[1];
+    String grade = parts[2];
 
     double avg = getWeightedAverage();
     String letter;
@@ -160,6 +159,30 @@ public String getGradeReport() {
 }
 ```
 
+*대안 풀이 (substring + indexOf 사용):*
+```java
+public String getGradeReport() {
+    String info = getStudentInfo();
+    int firstDash = info.indexOf("-");
+    String name = info.substring(0, firstDash);
+
+    String rest = info.substring(firstDash + 1);
+    int secondDash = rest.indexOf("-");
+    String id = rest.substring(0, secondDash);
+    String grade = rest.substring(secondDash + 1);
+
+    double avg = getWeightedAverage();
+    String letter;
+    if (avg >= 90)      letter = "A";
+    else if (avg >= 80) letter = "B";
+    else if (avg >= 70) letter = "C";
+    else if (avg >= 60) letter = "D";
+    else                letter = "F";
+
+    return name + " (" + id + ", Grade " + grade + "): " + avg + " - " + letter;
+}
+```
+
 ### Q1 채점 기준 (7점)
 
 #### Part A (4점)
@@ -168,7 +191,7 @@ public String getGradeReport() {
 |---|---------|---------------|------|
 | 1 | `getNumSubjects()`, `getScore(i)`, `getWeight(i)`를 사용하여 루프로 `score[i] * weight[i]`의 합계 산출 *(algorithm)* | 인스턴스 변수 직접 접근도 earn 가능. 루프 없이 하드코딩하면 earn 불가 | 1점 |
 | 2 | `getIsHonors()` AND `sum >= 80.0` 일 때 5점 보너스 추가 *(algorithm)* | `&&` 대신 `\|\|` 사용 시 earn 불가. 보너스를 무조건 적용하면 earn 불가. 경계값 80.0에서 `>` 대신 `>=` 필요 | 1점 |
-| 3 | 최종 점수가 100.0을 초과하면 100.0으로 보정 *(algorithm)* | `Math.min(sum, 100.0)` 또는 if문 모두 가능. 보정 누락 시 earn 불가 | 1점 |
+| 3 | 최종 점수가 100.0을 초과하면 100.0으로 보정 *(algorithm)* | `if (sum > 100.0) sum = 100.0;` 같은 if 비교로 cap 처리. 보정 누락 시 earn 불가 | 1점 |
 | 4 | 올바른 순서: 가중 합계 → honors 보너스 → 100점 cap → 반환 *(algorithm)* | cap을 보너스 전에 적용하면 결과가 달라질 수 있음 → earn 불가. 반환 누락 시 earn 불가 | 1점 |
 
 **Can still earn:** 헬퍼 메서드 대신 인스턴스 변수 직접 접근해도 알고리즘 포인트는 earn 가능.
@@ -178,12 +201,12 @@ public String getGradeReport() {
 
 | # | 채점 기준 | Decision Rules | 배점 |
 |---|---------|---------------|------|
-| 5 | `indexOf("-")`로 첫 번째 대시 위치를 찾고 `substring(0, firstDash)`로 NAME 추출 + `lastIndexOf("-")`로 마지막 대시 위치를 찾고 `substring(firstDash+1, lastDash)`로 ID 추출 + `substring(lastDash+1)`로 GRADE 추출 *(algorithm)* | `indexOf`와 `lastIndexOf` 모두 사용해야 함. 하드코딩 인덱스는 earn 불가 | 1점 |
+| 5 | `studentInfo`를 NAME / ID / GRADE 세 부분으로 올바르게 분리 *(algorithm)* | `split("-")` 사용 시 `parts[0]`, `parts[1]`, `parts[2]` 세 부분 모두 정확히 추출하면 earn. `indexOf`와 substring을 두 번 적용한 풀이도 동일하게 earn. 하드코딩 인덱스는 earn 불가 | 1점 |
 | 6 | `getWeightedAverage()` 결과에 따라 letter grade 분기 (A/B/C/D/F) *(algorithm)* | 경계값(90, 80, 70, 60) 처리 올바르고 우선순위 맞아야 함. `>` 대신 `>=` 필요 | 1점 |
 | 7 | 올바른 형식의 성적표 문자열 조합 — `"NAME (ID, Grade GRADE): AVG - LETTER"` | 괄호, 콜론, 쉼표 등 형식이 크게 어긋나면 earn 불가. 사소한 공백 오류는 의도 명확하면 earn 가능 | 1점 |
 
 **Can still earn:** Part A의 `getWeightedAverage()`가 틀려도 Part B에서 호출 로직이 올바르면 Part B 점수는 독립적으로 earn 가능.
-**Will not earn:** String 메서드(`substring`, `indexOf`, `lastIndexOf`)를 전혀 사용하지 않으면 포인트 5를 earn 불가.
+**Will not earn:** String 메서드(`split`, `substring`, `indexOf`)를 전혀 사용하지 않고 분리하지 못하면 포인트 5를 earn 불가.
 
 #### 1점 감점 사유 (문항당 최대 3점)
 - v) `[]` vs `.get()` 혼동
@@ -200,8 +223,8 @@ public String getGradeReport() {
 - 가중 합계에서 `getScore(i) * getWeight(i)` 대신 단순 평균 계산
 - honors 보너스를 무조건 적용 (조건 체크 누락)
 - 100점 cap을 보너스 추가 전에 적용
-- `lastIndexOf("-")` 대신 두 번째 `indexOf`를 시도하여 잘못된 위치 추출
-- `substring(firstDash + 1, lastDash)` 에서 `+1` 누락하여 대시가 포함됨
+- `split("-")` 결과 인덱스를 잘못 사용 (parts[1]이 ID인데 parts[2]를 ID로 처리)
+- `substring`을 사용할 때 끝 인덱스에 `+1` 누락하여 대시가 포함됨
 - letter grade 경계값에서 `>` 대신 `>=` 사용해야 함
 
 ---
@@ -243,12 +266,22 @@ public class Temperature {
      */
     public boolean isBelowFreezing()
 
-    /** Returns a string in the format "XX.X°C / YY.Y°F"
-     *  where XX.X is Celsius rounded to 1 decimal and
-     *  YY.Y is Fahrenheit rounded to 1 decimal.
-     *  Use Math.round(value * 10) / 10.0 for rounding.
+    /** Returns a string in the format "C_TENTHS / F_TENTHS"
+     *  where C_TENTHS is Celsius rounded to 1 decimal place and
+     *  F_TENTHS is Fahrenheit rounded to 1 decimal place.
+     *
+     *  Round each value to 1 decimal using the arithmetic idiom:
+     *      (int)(value * 10 + 0.5) / 10.0   (for value >= 0)
+     *      (int)(value * 10 - 0.5) / 10.0   (for value <  0)
+     *
+     *  Examples:
+     *    Temperature with celsius == 100.0  → "100.0 / 212.0"
+     *    Temperature with celsius == -10.0  → "-10.0 / 14.0"
+     *    Temperature with celsius == 36.789 → "36.8 / 98.2"
+     *
+     *  Precondition: -1000.0 <= celsius <= 1000.0.
      */
-    public String toString()
+    public String getDisplayString()
 }
 ```
 
@@ -264,9 +297,11 @@ public class Temperature {
 | `t.getCelsius()` | `-10.0` | 조정 후 섭씨 |
 | `t.getFahrenheit()` | `14.0` | -10°C의 화씨 |
 | `t.isBelowFreezing()` | `true` | -10°C < 0°C |
-| `t.toString()` | `"-10.0°C / 14.0°F"` | 반올림 적용 형식 |
+| `t.getDisplayString()` | `"-10.0 / 14.0"` | 반올림 적용 형식 |
 | `Temperature t2 = new Temperature(0);` | | 0°C로 생성 |
 | `t2.isBelowFreezing()` | `false` | 0°C는 "below"가 아님 |
+| `Temperature t3 = new Temperature(36.789);` | | 36.789°C로 생성 |
+| `t3.getDisplayString()` | `"36.8 / 98.2"` | 36.789→36.8, 98.2202→98.2 |
 
 ---
 
@@ -296,10 +331,23 @@ public class Temperature {
         return celsius < 0;
     }
 
-    public String toString() {
-        double roundedC = Math.round(celsius * 10) / 10.0;
-        double roundedF = Math.round(getFahrenheit() * 10) / 10.0;
-        return roundedC + "°C / " + roundedF + "°F";
+    public String getDisplayString() {
+        double roundedC;
+        if (celsius >= 0) {
+            roundedC = (int)(celsius * 10 + 0.5) / 10.0;
+        } else {
+            roundedC = (int)(celsius * 10 - 0.5) / 10.0;
+        }
+
+        double f = getFahrenheit();
+        double roundedF;
+        if (f >= 0) {
+            roundedF = (int)(f * 10 + 0.5) / 10.0;
+        } else {
+            roundedF = (int)(f * 10 - 0.5) / 10.0;
+        }
+
+        return roundedC + " / " + roundedF;
     }
 }
 ```
@@ -314,7 +362,7 @@ public class Temperature {
 | 4 | **Accessor — getFahrenheit** | `getFahrenheit()`: `celsius * 9.0 / 5 + 32` 변환 공식 올바름 | `9/5` (정수 나눗셈 → 1) 사용 시 earn 불가. `9.0/5` 또는 `(double)9/5` 필요 | 1점 |
 | 5 | **Mutator — adjust** | `adjust(double delta)`: `celsius += delta`로 값 변경 | 새 지역변수에 할당하고 인스턴스 변수 미변경 시 earn 불가 | 1점 |
 | 6 | **Boolean Method** | `isBelowFreezing()`: `celsius < 0` 반환 | `<= 0` 사용 시 earn 불가 (0도는 freezing point이지 below가 아님) | 1점 |
-| 7 | **toString** | `toString()`: 올바른 형식 + `Math.round(value * 10) / 10.0`으로 반올림 | 반올림 누락 시에도 형식이 맞으면 earn 가능하지만 1점 감점 | 1점 |
+| 7 | **getDisplayString** | `getDisplayString()`: `(int)(value * 10 + 0.5) / 10.0` 산술 관용구로 양수/음수 모두 1자리 반올림 + `"C / F"` 형식 문자열 반환 | 반올림 관용구 누락 시 형식이 맞으면 earn 가능하지만 1점 감점. `toString` 메서드 시그니처로 작성하면 EXCLUSION 위반이지만 명세된 시그니처 준수 여부는 채점 외 | 1점 |
 
 #### 1점 감점 사유 (문항당 최대 3점)
 - v) `[]` vs `.get()` 혼동
@@ -326,14 +374,15 @@ public class Temperature {
 #### 감점 안 하는 실수
 - 세미콜론, 괄호, 대소문자 등 사소한 문법 실수 (의도가 명확하면)
 - `this.` 사용 여부는 채점에 영향 없음
-- `°` 기호 누락 — 의도가 명확하면
+- 반올림에서 양수만 처리하고 음수 케이스를 누락 — 명세된 예시가 모두 양/음 동작을 다루므로 1점 감점
 
 ### 흔한 실수
 - `getFahrenheit()`에서 `9/5`로 정수 나눗셈 사용 → 항상 1을 곱하게 됨 (`9/5 = 1`). 반드시 `9.0/5` 또는 `(double)9/5` 사용
 - instance variable을 `public`으로 선언 (캡슐화 위반)
-- `toString()`에서 반올림 로직 빠뜨림
+- `getDisplayString()`에서 반올림 로직 빠뜨림 (그냥 그대로 출력)
 - `isBelowFreezing()`에서 `<=` 사용 (0도는 정확히 freezing point이지 below가 아님)
 - `adjust()`에서 celsius 대신 새 변수에 할당 (원본 미변경)
+- 메서드 이름을 `toString`으로 작성 — 본 명세는 별도 메서드 `getDisplayString`을 요구함 (AP CSA 범위에서 `toString` 오버라이드 작성은 OUT)
 
 ---
 

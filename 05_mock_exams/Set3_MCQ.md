@@ -88,21 +88,15 @@ What value is returned by the method call `mystery(5)`?
 ### 6.
 What is printed as a result of executing the code segment?
 ```java
-int[] arr = {3, 7, 2, 8, 1};
-int max = arr[0];
-int idx = 0;
-for (int i = 1; i < arr.length; i++) {
-    if (arr[i] >= max) {
-        max = arr[i];
-        idx = i;
-    }
-}
-System.out.println(idx);
+double a = Math.pow(2, 3);
+double b = Math.sqrt(16);
+double c = Math.abs(-7.5);
+System.out.println((int)(a + b + c));
 ```
-(A) 3
-(B) 4
-(C) 8
-(D) 1
+(A) 20
+(B) 19.5
+(C) 18
+(D) 19
 
 ---
 
@@ -112,7 +106,7 @@ What is printed as a result of executing the code segment?
 String s = "abcdef";
 String result = "";
 for (int i = s.length() - 1; i >= 0; i -= 2) {
-    result += s.charAt(i);
+    result += s.substring(i, i + 1);
 }
 System.out.println(result);
 ```
@@ -181,38 +175,39 @@ Consider the following method.
 public static String convert(String s) {
     String result = "";
     for (int i = 0; i < s.length(); i++) {
-        if (s.charAt(i) != ' ')
-            result += Character.toLowerCase(s.charAt(i));
-        else
+        String ch = s.substring(i, i + 1);
+        if (ch.equals(" ")) {
             result += "_";
+        } else {
+            result += ch + ch;
+        }
     }
     return result;
 }
 ```
 
-What is returned by the method call `convert("Hello World")`?
+What is returned by the method call `convert("AB C")`?
 
-(A) "hello_world"
-(B) "Hello_World"
-(C) "helloworld"
-(D) "hello world"
+(A) "AABBCC"
+(B) "AB_C"
+(C) "AABB_CC"
+(D) "AABB_C"
 
 ---
 
 ### 12.
-What is the content of `arr` after the code segment executes?
+What is printed as a result of executing the code segment?
 ```java
-int[] arr = {1, 2, 3, 4, 5};
-for (int i = 0; i < arr.length / 2; i++) {
-    int temp = arr[i];
-    arr[i] = arr[arr.length - 1 - i];
-    arr[arr.length - 1 - i] = temp;
-}
+int x = 7;
+int y = 2;
+double r = (double) x / y;
+double p = Math.pow(2, 3);
+System.out.println(r + " " + (int) p);
 ```
-(A) {5, 4, 3, 2, 1}
-(B) {1, 2, 3, 4, 5}
-(C) {5, 2, 3, 4, 1}
-(D) {3, 2, 1, 4, 5}
+(A) 3.0 8
+(B) 3.5 8.0
+(C) 3 8
+(D) 3.5 8
 
 ---
 
@@ -350,8 +345,8 @@ for (int i = 0; i < 3; i++) {
 System.out.println(m[2][1] + m[1][3]);
 ```
 (A) 14
-(B) 16
-(C) 15
+(B) 15
+(C) 16
 (D) 12
 
 ---
@@ -382,32 +377,31 @@ What is printed as a result of executing the code segment?
 String[] words = {"cat", "bat", "rat", "hat"};
 String result = "";
 for (String w : words) {
-    result += w.substring(0, 1).toUpperCase();
+    result += w.substring(0, 1);
 }
 System.out.println(result);
 ```
-(A) "CBRH"
+(A) "tttt"
 (B) "cbrh"
-(C) "Cat Bat Rat Hat"
-(D) "catbatrathat"
+(C) "catbatrathat"
+(D) "cat bat rat hat"
 
 ---
 
 ### 21.
 What is printed as a result of executing the code segment?
 ```java
-int sum = 0;
-for (int i = 1; i <= 100; i++) {
-    if (i % 3 == 0 && i % 5 == 0) {
-        sum++;
-    }
-}
-System.out.println(sum);
+String s = "computer";
+int n = s.length();
+n += 5;
+n -= 2;
+n *= 2;
+System.out.println(n);
 ```
-(A) 6
-(B) 7
-(C) 5
-(D) 33
+(A) 11
+(B) 26
+(C) 22
+(D) 16
 
 ---
 
@@ -424,9 +418,9 @@ for (int i = list.size() - 1; i >= 0; i--) {
     }
 }
 ```
-(A) 5
-(B) 6
-(C) 7
+(A) 6
+(B) 7
+(C) 5
 (D) 4
 
 ---
@@ -442,10 +436,10 @@ while (n > 0) {
 }
 System.out.println(reversed);
 ```
-(A) 4321
-(B) 1234
-(C) 432
-(D) 43210
+(A) 1234
+(B) 432
+(C) 43210
+(D) 4321
 
 ---
 
@@ -528,21 +522,20 @@ What value is returned by the method call `search(arr, 7)`?
 ---
 
 ### 27.
-Which of the following best describes why the code does not work as intended?
-
-The following code is intended to convert a string to uppercase and append " IS FUN".
+What is printed as a result of executing the code segment?
 
 ```java
-String str = "Java";
-str.concat(" is fun");
-str.toUpperCase();
-System.out.println(str);
+String s = "abcdefg";
+int p = s.indexOf("d");
+String left = s.substring(0, p);
+String right = s.substring(p + 1);
+System.out.println(right + left);
 ```
 
-(A) `concat()` and `toUpperCase()` are not valid `String` methods.
-(B) The `String` class does not allow modification; the return values of `concat()` and `toUpperCase()` are not reassigned to `str`.
-(C) `toUpperCase()` should be called before `concat()`.
-(D) The code works as intended and prints `"JAVA IS FUN"`.
+(A) "abcefg"
+(B) "efgdabc"
+(C) "defgabc"
+(D) "efgabc"
 
 ---
 
@@ -571,22 +564,26 @@ System.out.print("D");
 ### 29.
 What is printed as a result of executing the code segment?
 ```java
-ArrayList<Integer> nums = new ArrayList<>();
+ArrayList<Integer> nums = new ArrayList<Integer>();
 nums.add(4);
 nums.add(7);
 nums.add(2);
 nums.add(9);
 nums.add(1);
 
-int min = Integer.MAX_VALUE;
-for (int n : nums) {
-    if (n < min) min = n;
+int min = nums.get(0);
+int minIdx = 0;
+for (int i = 1; i < nums.size(); i++) {
+    if (nums.get(i) < min) {
+        min = nums.get(i);
+        minIdx = i;
+    }
 }
-nums.remove(nums.indexOf(min));
+nums.remove(minIdx);
 System.out.println(nums);
 ```
-(A) [4, 7, 2, 9]
-(B) [7, 2, 9, 1]
+(A) [7, 2, 9, 1]
+(B) [4, 7, 2, 9]
 (C) [4, 7, 9, 1]
 (D) [4, 7, 2, 9, 1]
 
@@ -635,21 +632,23 @@ What value is returned by the method call `power(3, 4)`?
 ---
 
 ### 32.
-What is the state of `arr` after the code segment executes? (One pass of bubble sort)
+What is the state of `arr` after the code segment executes? (One pass of selection sort — finds the minimum in the unsorted portion and swaps it to the front.)
 ```java
 int[] arr = {5, 3, 8, 1, 2};
-for (int i = 0; i < arr.length - 1; i++) {
-    if (arr[i] > arr[i + 1]) {
-        int temp = arr[i];
-        arr[i] = arr[i + 1];
-        arr[i + 1] = temp;
+int minIdx = 0;
+for (int j = 1; j < arr.length; j++) {
+    if (arr[j] < arr[minIdx]) {
+        minIdx = j;
     }
 }
+int temp = arr[0];
+arr[0] = arr[minIdx];
+arr[minIdx] = temp;
 ```
-(A) {3, 5, 1, 2, 8}
-(B) {1, 2, 3, 5, 8}
-(C) {3, 5, 8, 1, 2}
-(D) {5, 3, 1, 2, 8}
+(A) {1, 2, 3, 5, 8}
+(B) {3, 5, 8, 1, 2}
+(C) {1, 3, 8, 5, 2}
+(D) {1, 5, 8, 3, 2}
 
 ---
 
@@ -716,10 +715,10 @@ while (i < list.size()) {
 }
 System.out.println(list);
 ```
-(A) [blue, green, blue]
-(B) [blue, green, red, blue]
-(C) [red, blue, green, blue]
-(D) [blue, green]
+(A) [blue, green, red, blue]
+(B) [red, blue, green, blue]
+(C) [blue, green]
+(D) [blue, green, blue]
 
 ---
 
@@ -750,13 +749,13 @@ public static String compress(String s) {
     String result = "";
     int i = 0;
     while (i < s.length()) {
-        char c = s.charAt(i);
+        String c = s.substring(i, i + 1);
         int cnt = 0;
-        while (i < s.length() && s.charAt(i) == c) {
+        while (i < s.length() && s.substring(i, i + 1).equals(c)) {
             cnt++;
             i++;
         }
-        result += "" + c + cnt;
+        result += c + cnt;
     }
     return result;
 }
@@ -799,20 +798,15 @@ System.out.println(obj1 == obj2);
 ### 39.
 What is printed as a result of executing the code segment?
 ```java
-int[] arr = {10, 20, 30, 40, 50};
-int sum = 0;
-for (int i = 0; i < arr.length; i += 2) {
-    arr[i] = arr[i] / 10;
-}
-for (int val : arr) {
-    sum += val;
-}
-System.out.println(sum);
+String s = "AP-CSA-EXAM";
+String[] parts = s.split("-");
+String result = parts[2] + parts[0] + parts[1];
+System.out.println(result + " (" + result.length() + ")");
 ```
-(A) 66
-(B) 69
-(C) 150
-(D) 15
+(A) APCSAEXAM (9)
+(B) CSAEXAMAP (9)
+(C) EXAM-AP-CSA (11)
+(D) EXAMAPCSA (9)
 
 ---
 
@@ -831,8 +825,8 @@ public static void process(ArrayList<Integer> data) {
 What is the content of `list` after executing `process(list)`, given `list` is initially `[3, 6, 9]`?
 
 (A) [3, 6, 9]
-(B) [6, 12, 18, 100]
-(C) [6, 12, 18]
+(B) [6, 12, 18]
+(C) [6, 12, 18, 100]
 (D) [3, 6, 9, 100]
 
 ---
@@ -883,62 +877,88 @@ Consider the following recursive method.
 ```java
 public static String mystery(String s) {
     if (s.length() <= 1) return s;
-    return mystery(s.substring(1)) + s.charAt(0);
+    return mystery(s.substring(1)) + s.substring(0, 1);
 }
 ```
 
 What is returned by the method call `mystery("abcd")`?
 
 (A) "abcd"
-(B) "dcba"
-(C) "bcda"
+(B) "bcda"
+(C) "dcba"
 (D) "dabc"
 
 ---
 
 ## 정답표
 
+> Unit 매핑: CED 2025-26 4-Unit 체계 — U1 (Using Objects and Methods 1.1-1.15), U2 (Selection and Iteration 2.1-2.12), U3 (Class Creation 3.1-3.9), U4 (Data Collections 4.1-4.17, recursion 포함)
+
 | 번호 | 정답 | Unit | 토픽 | 해설 |
 |------|------|------|------|------|
-| 1 | B | U1 | 정수 나눗셈과 나머지 | `17/5`는 정수 나눗셈으로 3, `17%5`는 2 |
-| 2 | B | U4 | 중첩 루프 카운팅 | i=1→j 4회, i=2→3회, i=3→2회, i=4→1회 = 10 |
-| 3 | B | U2 | String.substring() | `substring(2,5)` = "MPU" (인덱스2,3,4), `substring(0,1)` = "C" → "MPUC" |
-| 4 | A | U1 | 형변환과 정수 캐스팅 | `(double)10/3`=3.333..., ×10=33.333..., `(int)` 캐스팅→33 |
-| 5 | A | U4 | 재귀 호출 추적 | mystery(5)=5+mystery(3)=5+3+mystery(1)=5+3+1=9 |
-| 6 | A | U4 | 배열 최대값 인덱스 | 최대값 8의 인덱스는 3 |
-| 7 | A | U2 | String 역순 접근 | i=5→'f', i=3→'d', i=1→'b' → "fdb" |
-| 8 | B | U4 | while 루프 추적 | 100→33→11→3→1, n=1이면 n>1 거짓이므로 종료. 4회 실행 |
-| 9 | A | U3 | ArrayList add/remove | [5]→[5,10]→[5,10,15]→[5,20,10,15]→인덱스2 제거→[5,20,15] |
-| 10 | B | U4 | 2D 배열 반대 대각선 | grid[0][2]=3, grid[1][1]=5, grid[2][0]=7 → 합=15 |
-| 11 | A | U2 | 문자열 변환 | 공백→'_', 나머지→소문자 → "hello_world" |
-| 12 | A | U4 | 배열 뒤집기 | i=0: 1↔5, i=1: 2↔4 → {5,4,3,2,1} |
-| 13 | A | U4 | 재귀 출력 순서 | 재귀 전 4 3 2 1, 재귀 후 1 2 3 4 → "4 3 2 1 1 2 3 4" |
-| 14 | B | U1 | 논리 연산자 | (true\|\|false)=true, (!true\|\|false)=false, true&&false=false |
-| 15 | B | U2 | WordGame 클래스 이해 | `scramble()`은 문자열을 역순으로 반환. "HELLO" → "OLLEH" |
-| 16 | B | U2 | 메서드 호출 결과 추적 | `hint(2)` → "JA" + "__" = "JA__". `isGuessCorrect("java")` → "JAVA".equals("java") = false (대소문자 구분) |
-| 17 | B | U2 | 엣지 케이스 | `hint(5)` → numChars가 word.length(2)보다 크므로 2로 조정. "AB" 반환(밑줄 없음). `scramble()`="BA", 두 번 호출해도 동일 → "BA".equals("BA") = true |
-| 18 | B | U4 | 2D 배열 인덱싱 | m[2][1]=9, m[1][3]=7, 합=16 |
-| 19 | B | U4 | 피보나치 재귀 | calc(6)=calc(5)+calc(4)=5+3=8 |
-| 20 | A | U2 | String 메서드 조합 | 각 첫 글자 대문자: C+B+R+H = "CBRH" |
-| 21 | A | U4 | 루프+조건 카운팅 | 15의 배수: 15,30,45,60,75,90 = 6개 |
-| 22 | A | U3 | ArrayList 역순 삭제 | i²: 0,1,4,9,16,25,36,49,64,81. 홀수(1,9,25,49,81) 5개 제거 → 5개 남음 |
-| 23 | A | U4 | 정수 역순 | 매 반복 마지막 자릿수 추출하여 조합 → 4321 |
-| 24 | C | U2 | 생성자와 메서드 | increment()×2=+6, decrement()×1=-1, 최종=5 |
-| 25 | A | U4 | 2D 배열 열 순회 | 열0: 1,0,1 / 열1: 0,1,1 / 열2: 1,0,0 — 모든 열에 0 존재 → count=0 |
-| 26 | A | U4 | 이진 탐색 | {1,3,5,7,9,11,13}에서 7은 인덱스 3 |
-| 27 | B | U2 | String 불변성 에러 식별 | concat/toUpperCase 결과를 재할당하지 않아 원본 불변. String은 immutable이므로 반환값을 다시 할당해야 함. |
-| 28 | B | U1 | 중첩 if-else | x=5>3→내부: 5>10 거짓→"B" 출력. 이후 "D" 출력 → "BD" |
-| 29 | A | U3 | ArrayList 최소값 제거 | min=1, indexOf(1)=4, remove(4)→인덱스4 제거 → [4,7,2,9] |
-| 30 | A | U4 | 2D 상삼각 합산 | i<j인 원소: mat[0][1]=3, mat[0][2]=8, mat[1][2]=2 → 합=13 |
-| 31 | A | U4 | 재귀 거듭제곱 | power(3,4)→half=power(3,2)→half=power(3,1)=3→3×3=9→9×9=81 |
-| 32 | A | U4 | 1패스 버블정렬 | 5>3교환→[3,5,8,1,2], 5<8패스, 8>1교환→[3,5,1,8,2], 8>2교환→[3,5,1,2,8] |
-| 33 | A | U2 | 회문 판별 | "racecar"는 회문 → true |
-| 34 | C | U4 | 소수 카운팅 | 2,3,5,7,11,13,17,19 = 8개 |
-| 35 | A | U3 | ArrayList while 삭제 | red 제거 시 인덱스 증가 안 함 → [blue, green, blue] |
-| 36 | C | U4 | 2D 대각선 패턴 | grid[1][2]=2, grid[2][1]=2, grid[0][3]=2, grid[3][0]=2 → 합=8 |
-| 37 | A | U2 | 문자열 압축 | 연속 문자 카운트: a2 b3 c2 a2 → "a2b3c2a2" |
-| 38 | D | U2 | == vs equals 동치 코드 | 원본은 `true` 출력. (A) 리터럴 "hello" == "hello"는 pool에서 같은 참조이므로 true. (B) .equals()로 내용 비교이므로 true. (C) new String끼리 ==는 false. (A)와 (B) 모두 true. |
-| 39 | B | U4 | 배열 수정 후 합산 | arr={1,20,3,40,5}, 합=69 |
-| 40 | B | U3 | ArrayList 참조 전달 | 참조 전달이므로 원본 수정: ×2 후 100 추가 → [6,12,18,100] |
-| 41 | D | U4 | 동치 코드 | 마지막 행 합: 9+10+11+12=42, 42/4=10 (정수 나눗셈). 세 보기 모두 동일한 결과 10을 출력. |
-| 42 | B | U4 | 재귀 문자열 뒤집기 | mystery("bcd")+'a'→mystery("cd")+'b'+'a'→..."dcba" |
+| 1 | B | U1 | 1.3 Expressions (정수 나눗셈/나머지) | `17/5`는 정수 나눗셈으로 3, `17%5`는 2 → "3 2" |
+| 2 | B | U2 | 2.11 Nested Iteration | i=1→j 4회, i=2→3회, i=3→2회, i=4→1회 = 10 |
+| 3 | B | U1 | 1.15 String.substring | `substring(2,5)` = "MPU" (인덱스2,3,4), `substring(0,1)` = "C" → "MPUC" |
+| 4 | A | U1 | 1.5 Casting | `(double)10/3`=3.333..., ×10=33.333..., `(int)` 캐스팅→33 |
+| 5 | A | U4 | 4.16 Recursion (트레이싱) | mystery(5)=5+mystery(3)=5+3+mystery(1)=5+3+1=9 |
+| 6 | D | U1 | 1.11 Math 메서드 | `pow(2,3)`=8.0, `sqrt(16)`=4.0, `abs(-7.5)`=7.5 → 합=19.5, `(int)`=19 |
+| 7 | A | U2 | 2.10 String 알고리즘 (역순) | i=5→"f", i=3→"d", i=1→"b" (substring으로 추출) → "fdb" |
+| 8 | B | U2 | 2.7 while Loops | 100→33→11→3→1, n=1이면 n>1 거짓이므로 종료. 4회 실행 |
+| 9 | A | U4 | 4.8 ArrayList add/remove | [5]→[5,10]→[5,10,15]→add(1,20)→[5,20,10,15]→remove(2)→[5,20,15] |
+| 10 | B | U4 | 4.13 2D Array Algorithms (반대 대각선) | grid[0][2]=3, grid[1][1]=5, grid[2][0]=7 → 합=15 |
+| 11 | C | U2 | 2.10 String 알고리즘 (substring 트레이싱) | "AB C": A→AA, B→BB, " "→"_", C→CC → "AABB_CC" |
+| 12 | D | U1 | 1.5 Casting + 1.11 Math | `(double)7/2`=3.5, `Math.pow(2,3)`=8.0, `(int)`=8 → "3.5 8" |
+| 13 | A | U4 | 4.16 Recursion (트레이싱) | 재귀 전 출력: 4,3,2,1, 재귀 후 출력: 1,2,3,4 → "4 3 2 1 1 2 3 4" |
+| 14 | B | U2 | 2.5 Compound Boolean | (true\|\|false)=true, (!true\|\|false)=false, true&&false=false |
+| 15 | B | U3 | 3.3 Anatomy of a Class + 3.5 Methods | `scramble()`은 문자열을 역순으로 반환. "HELLO" → "OLLEH" |
+| 16 | B | U3 | 3.5 Methods (instance method 결과 추적) | `hint(2)` → "JA"+"__"="JA__"; `isGuessCorrect("java")` → "JAVA".equals("java")=false |
+| 17 | B | U3 | 3.5 Methods (엣지 케이스 추적) | `hint(5)`: numChars(5)>length(2) → 2로 조정 → "AB". `scramble()`="BA" 두 번 동일 → equals=true |
+| 18 | C | U4 | 4.11 2D Array Indexing | m[2][1]=2*4+1=9, m[1][3]=1*4+3=7 → 합=16 |
+| 19 | B | U4 | 4.16 Recursion (피보나치 트레이싱) | calc(6)=calc(5)+calc(4)=5+3=8 |
+| 20 | B | U2 | 2.10 String 알고리즘 (substring 모음) | 각 단어의 첫 글자: c+b+r+h = "cbrh" |
+| 21 | A | U1 | 1.6 Compound Assignment | `length()`=8, +=5→13, -=2→11, *=2→22 |
+| 22 | C | U2 | 2.9 표준 알고리즘 (frequency count) | i² = 0,1,4,9,16,25,36,49,64,81. 홀수(1,9,25,49,81) 5개 제거 → 5개 남음 |
+| 23 | D | U2 | 2.9 자릿수 추출 표준 알고리즘 | 매 반복 마지막 자릿수 추출하여 조합 → 4321 |
+| 24 | C | U3 | 3.4 Constructors + 3.5 Methods | 생성자 내 increment×2=+6, decrement×1=-1, 최종=5 |
+| 25 | A | U4 | 4.12 2D Traversals (열 순회) | 열0: {1,0,1}/열1: {0,1,1}/열2: {1,0,0} — 모든 열에 0 존재 → count=0 |
+| 26 | A | U4 | 4.17.B Binary Search | {1,3,5,7,9,11,13}에서 7은 인덱스 3 |
+| 27 | D | U1 | 1.15 String (substring + indexOf) | indexOf("d")=3, left="abc", right="efg" → "efg"+"abc"="efgabc" |
+| 28 | B | U2 | 2.4 Nested if | x=5>3→내부: 5>10 거짓→"B" 출력. 이후 "D" → "BD" |
+| 29 | B | U4 | 4.10 ArrayList Linear Search | min=1, minIdx=4 (linear search loop), remove(4) → [4,7,2,9] |
+| 30 | A | U4 | 4.13 2D Array Algorithms (상삼각) | i<j인 원소: mat[0][1]=3, mat[0][2]=8, mat[1][2]=2 → 합=13 |
+| 31 | A | U4 | 4.16 Recursion (거듭제곱 트레이싱) | power(3,4)→half=power(3,2)→half=power(3,1)=3→3×3=9, 9×9=81 |
+| 32 | C | U4 | 4.15 Selection Sort (1 pass) | min=arr[3]=1, swap with arr[0]=5 → {1,3,8,5,2} |
+| 33 | A | U2 | 2.10 String 알고리즘 (회문) | "racecar"는 회문 → true |
+| 34 | C | U2 | 2.11 Nested Iteration (소수 카운트) | 2,3,5,7,11,13,17,19 = 8개 |
+| 35 | D | U4 | 4.10 ArrayList while 삭제 | red 제거 시 인덱스 증가 안 함 → [blue, green, blue] |
+| 36 | C | U4 | 4.13 2D Array Algorithms (대각선) | grid[1][2]=2, grid[2][1]=2, grid[0][3]=2, grid[3][0]=2 → 합=8 |
+| 37 | A | U2 | 2.10 String 알고리즘 (압축) | 연속 substring 카운트: a2 b3 c2 a2 → "a2b3c2a2" |
+| 38 | D | U1 | 1.15 String.equals vs == | (A) 리터럴 풀에서 동일 참조 → true. (B) equals는 내용 비교 → true. (C) new String끼리 == → false. (A)와 (B) 모두 true. |
+| 39 | D | U2 | 2.10 String 알고리즘 (split + 결합) | split("-") → ["AP","CSA","EXAM"], parts[2]+parts[0]+parts[1]="EXAMAPCSA" (length=9) |
+| 40 | C | U3 | 3.6 Passing References | 참조 전달이므로 원본 수정: ×2 후 100 추가 → [6,12,18,100] |
+| 41 | D | U4 | 4.13 2D Array Algorithms | 마지막 행 합 9+10+11+12=42, 42/4=10. 세 보기 모두 10 출력 |
+| 42 | C | U4 | 4.16 Recursion (문자열 뒤집기 트레이싱) | mystery("bcd")+"a" → mystery("cd")+"b"+"a" → ... → "dcba" |
+
+### Unit 분포 (CED 2025-26)
+| Unit | 문항 수 | 비율 | CED 기준 | 합치 |
+|------|---------|------|---------|------|
+| U1 (Using Objects and Methods) | 8 | 19.0% | 15-25% | OK |
+| U2 (Selection and Iteration) | 13 | 31.0% | 25-35% | OK |
+| U3 (Class Creation) | 5 | 11.9% | 10-18% | OK |
+| U4 (Data Collections) | 16 | 38.1% | 30-40% | OK |
+| 합계 | 42 | 100.0% | | |
+
+**문항 매핑 요약:**
+- **U1 (8)**: Q1, Q3, Q4, Q6, Q12, Q21, Q27, Q38
+- **U2 (13)**: Q2, Q7, Q8, Q11, Q14, Q20, Q22, Q23, Q28, Q33, Q34, Q37, Q39
+- **U3 (5)**: Q15, Q16, Q17, Q24, Q40
+- **U4 (16)**: Q5, Q9, Q10, Q13, Q18, Q19, Q25, Q26, Q29, Q30, Q31, Q32, Q35, Q36, Q41, Q42
+
+### 정답 분포
+| 정답 | 개수 | 비율 |
+|------|------|------|
+| A | 12 | 28.6% |
+| B | 13 | 31.0% |
+| C | 9 | 21.4% |
+| D | 8 | 19.0% |
+| 합계 | 42 | 100.0% |

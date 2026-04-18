@@ -3,9 +3,16 @@
 > **시험 비중: 30-40% (가장 큰 비중!)** | 약 50-52 수업시간  
 > FRQ Q3 (ArrayList), Q4 (2D Array) 직접 출제 영역
 
+> ⚠️ **2025-26 CED 토픽 번호 안내**:
+> - 본 노트의 4.1(윤리), 4.2(데이터셋 도입)는 CED 2025-26 정식 Unit 4 토픽이 아니라 **수업 도입용 보조 자료**다. 윤리/사회적 이슈는 CED 전반(특히 Big Idea CRD)에 분산 배치되어 있다.
+> - 4.3~4.17은 CED 2025-26 Unit 4의 정식 토픽(Array, ArrayList, 2D Array, Searching, Sorting, Recursion)과 매핑된다.
+> - 4.6 "Using Text Files (Scanner+File)"은 Java Quick Reference에 포함된 토픽으로, FRQ에서 코드 추적/수정 형태로 출제될 수 있다. **`new Scanner(System.in)` 형태의 키보드 입력은 시험 범위 밖**이다.
+
 ---
 
 ## 4.1 Ethical and Social Issues (1기간)
+
+> 📍 **CED 매핑**: CED 2025-26에서는 Unit 4의 정식 토픽이 아니다. 윤리적 컴퓨팅은 Big Idea CRD(Computing in Context)에 흩어져 다뤄지며, MCQ에서 시나리오 문제로 출제될 수 있다. 본 노트에서는 데이터 수집 단원의 도입부로 배치한다.
 
 ### 핵심 개념
 
@@ -31,6 +38,8 @@
 ---
 
 ## 4.2 Introduction to Using Data Sets (1기간)
+
+> 📍 **CED 매핑**: CED 2025-26 Unit 4의 정식 LO 번호에는 없는 **수업 도입용 보조 토픽**이다. 본격적인 배열/ArrayList 학습(4.3 이후)을 시작하기 전에 "왜 데이터 컬렉션이 필요한가"를 동기 부여하는 단원으로 다룬다.
 
 ### 핵심 개념
 
@@ -395,9 +404,9 @@ public class FileExample {
 | `next()` | 다음 토큰(공백 기준) 읽기 | `String` |
 | `nextLine()` | 다음 줄 전체 읽기 | `String` |
 | `hasNext()` | 읽을 토큰이 남았는가? | `boolean` |
-| `hasNextInt()` | 다음 토큰이 정수인가? | `boolean` |
-| `hasNextLine()` | 다음 줄이 있는가? | `boolean` |
 | `close()` | Scanner 닫기 | `void` |
+
+> ⚠️ **2025-26 CED 주의**: Java Quick Reference에는 **`hasNext()`만** 등재되어 있다. `hasNextInt()`, `hasNextLine()`, `hasNextDouble()` 등은 시험에 출제되지 않으므로, 파일 끝까지 읽을 때는 항상 `while (scan.hasNext())` 패턴을 사용한다.
 
 #### 파일 전체 읽기 패턴
 
@@ -406,7 +415,7 @@ public class FileExample {
 public static void main(String[] args) throws IOException {
     Scanner scan = new Scanner(new File("students.txt"));
 
-    while (scan.hasNextLine()) {
+    while (scan.hasNext()) {
         String line = scan.nextLine();
         System.out.println(line);
     }
@@ -418,7 +427,7 @@ public static void main(String[] args) throws IOException {
     Scanner scan = new Scanner(new File("numbers.txt"));
     int sum = 0;
 
-    while (scan.hasNextInt()) {
+    while (scan.hasNext()) {
         sum += scan.nextInt();
     }
     scan.close();
@@ -435,7 +444,7 @@ public static void main(String[] args) throws IOException {
 // Bob,75,B
 
 Scanner scan = new Scanner(new File("data.txt"));
-while (scan.hasNextLine()) {
+while (scan.hasNext()) {
     String line = scan.nextLine();
     String[] parts = line.split(","); // 쉼표로 분할
     String name = parts[0];          // "Alice"
@@ -454,7 +463,7 @@ public static void main(String[] args) throws IOException {
     Scanner scan = new Scanner(new File("scores.txt"));
     ArrayList<Integer> scores = new ArrayList<>();
 
-    while (scan.hasNextInt()) {
+    while (scan.hasNext()) {
         scores.add(scan.nextInt());
     }
     scan.close();
@@ -472,7 +481,7 @@ public static void main(String[] args) throws IOException {
 
 - **`throws IOException`** 빠뜨리면 컴파일 에러
 - `new Scanner(new File("filename"))` 패턴 암기
-- `while(scan.hasNext())` 또는 `while(scan.hasNextLine())` 패턴
+- `while(scan.hasNext())` 패턴 (Quick Reference에 `hasNextInt`/`hasNextLine` 없음)
 - `split()`은 String 메서드, 구분자를 받아 String 배열 반환
 - `Integer.parseInt()`, `Double.parseDouble()`로 문자열→숫자 변환
 - **시험 범위 밖**: 키보드 입력용 Scanner, nextLine과 다른 메서드 혼용 문제, 정규표현식
@@ -487,7 +496,7 @@ public static void main(String[] args) throws IOException {
 // 이 코드의 출력은?
 Scanner scan = new Scanner(new File("data.txt"));
 int total = 0;
-while (scan.hasNextInt()) {
+while (scan.hasNext()) {
     total += scan.nextInt();
 }
 System.out.println(total); // 출력: ?
@@ -752,7 +761,7 @@ original.add("apple"); original.add("banana"); original.add("avocado"); original
 
 ArrayList<String> filtered = new ArrayList<>();
 for (String s : original) {
-    if (s.startsWith("a")) {
+    if (s.substring(0, 1).equals("a")) {  // startsWith는 Quick Reference에 없음 → substring + equals
         filtered.add(s);
     }
 }
@@ -1448,7 +1457,7 @@ public static int fibonacci(int n) {
 // 문자열 뒤집기
 public static String reverse(String s) {
     if (s.length() <= 1) return s;  // Base case
-    return reverse(s.substring(1)) + s.charAt(0);
+    return reverse(s.substring(1)) + s.substring(0, 1);  // charAt 대신 substring(0,1) 사용 (Quick Reference 준수)
 }
 
 // reverse("hello")

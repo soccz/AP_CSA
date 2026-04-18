@@ -118,7 +118,7 @@ public class OrderProcessor {
 | `isAvailable()` | 대출 가능 여부를 반환. 대출 중이 아니면 `true`. |
 | `checkOut(int days)` | 책을 대출. `isCheckedOut`를 `true`로, `dueDate`를 `days`로 설정. 이미 대출 중이면 아무 동작 없이 `false` 반환. 성공하면 `true` 반환. Precondition: `days > 0` |
 | `returnBook()` | 책을 반납. `isCheckedOut`를 `false`로, `dueDate`를 `-1`로 설정. 대출 중이 아니면 아무 동작 없이 `false` 반환. 성공하면 `true` 반환. |
-| `toString()` | `"Title: [title], Status: [Available/Checked Out], Due: [dueDate 또는 N/A]"` 형식의 문자열 반환. |
+| `getInfo()` | `"Title: [title], Status: [Available/Checked Out], Due: [dueDate 또는 N/A]"` 형식의 문자열 반환. |
 
 **실행 예시 (Execution Table):**
 
@@ -130,11 +130,11 @@ public class OrderProcessor {
 | `b.checkOut(14)` | `true` | 14일간 대출 성공 |
 | `b.isAvailable()` | `false` | 현재 대출 중 |
 | `b.checkOut(7)` | `false` | 이미 대출 중 — 무시됨 |
-| `b.toString()` | `"Title: Java, Status: Checked Out, Due: 14"` | 대출 중 상태 출력 |
+| `b.getInfo()` | `"Title: Java, Status: Checked Out, Due: 14"` | 대출 중 상태 출력 |
 | `b.returnBook()` | `true` | 반납 성공 |
 | `b.isAvailable()` | `true` | 다시 대출 가능 |
 | `b.returnBook()` | `false` | 대출 중이 아님 — 무시됨 |
-| `b.toString()` | `"Title: Java, Status: Available, Due: N/A"` | 가용 상태 출력 |
+| `b.getInfo()` | `"Title: Java, Status: Available, Due: N/A"` | 가용 상태 출력 |
 
 `LibraryBook` 클래스를 완성하세요. 위의 모든 인스턴스 변수, 생성자, 메서드를 포함해야 합니다.
 
@@ -395,7 +395,7 @@ public class LibraryBook {
         return true;
     }
 
-    public String toString() {
+    public String getInfo() {
         String status = isCheckedOut ? "Checked Out" : "Available";
         String due = isCheckedOut ? "" + dueDate : "N/A";
         return "Title: " + title + ", Status: " + status + ", Due: " + due;
@@ -413,7 +413,7 @@ public class LibraryBook {
 | 4 | **Accessor Methods** | `getTitle()` + `isAvailable()` 올바르게 구현 | `isAvailable`이 `!isCheckedOut` 반환해야 함. 둘 중 하나만 맞으면 earn 불가 | 1점 |
 | 5 | **Mutator — checkOut** | `checkOut`: 이미 대출 중일 때 `false` 반환 + 성공 시 상태 변경 및 `true` 반환 | 가드 조건 없이 항상 변경하면 earn 불가 | 1점 |
 | 6 | **Mutator — returnBook** | `returnBook`: 대출 중이 아닐 때 `false` 반환 + 성공 시 `isCheckedOut=false`, `dueDate=-1`, `true` 반환 | `dueDate`를 -1로 리셋 안 하면 earn 가능하지만 1점 감점 (penalty y) | 1점 |
-| 7 | **toString** | `toString`: 올바른 형식 문자열 반환 — 대출 상태에 따라 "Available"/"Checked Out" 분기, dueDate 또는 "N/A" | 분기 없이 하나의 형식만 반환하면 earn 불가 | 1점 |
+| 7 | **getInfo** | `getInfo`: 올바른 형식 문자열 반환 — 대출 상태에 따라 "Available"/"Checked Out" 분기, dueDate 또는 "N/A" | 분기 없이 하나의 형식만 반환하면 earn 불가. **`toString` 오버라이드 작성은 CED 1.15.A.5 EXCLUSION이므로 금지** | 1점 |
 
 #### 1점 감점 사유 (문항당 최대 3점)
 - v) `[]` vs `.get()` 혼동
@@ -430,7 +430,7 @@ public class LibraryBook {
 - 인스턴스 변수를 `public`으로 선언
 - 생성자에서 `isCheckedOut`과 `dueDate` 초기화 누락
 - `checkOut`에서 이미 대출 중인 경우의 가드 조건 누락
-- `toString`에서 `dueDate`를 대출 중이 아닐 때도 숫자로 표시
+- `getInfo`에서 `dueDate`를 대출 중이 아닐 때도 숫자로 표시
 
 ---
 

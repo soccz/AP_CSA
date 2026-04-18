@@ -176,7 +176,7 @@ public String getReceipt() {
 | 1 | `getIsMatinee()`에 따라 기본 가격 결정 (8.50 / 13.00) + `getNumTickets()` 곱하여 총액 산출 *(algorithm)* | 헬퍼 메서드를 올바르게 호출해야 함. 인스턴스 변수 직접 접근도 earn 가능. 기본 가격이 뒤바뀌면 earn 불가 | 1점 |
 | 2 | `getCustomerAge() < 13` OR `getCustomerAge() >= 65`일 때 25% 할인 적용 *(algorithm)* | `&&` 대신 `\|\|` 사용 필요. `0.75` 곱하기 또는 `0.25` 빼기 모두 가능. 경계값(13, 65) 처리가 틀리면 earn 불가 | 1점 |
 | 3 | `getNumTickets() >= 5`일 때 `1.50 * numTickets` 추가 할인 (나이 할인 후 적용) *(algorithm)* | 나이 할인 전에 그룹 할인이 적용되면 결과가 다를 수 있음. `>=` 대신 `>` 사용 시 earn 불가 | 1점 |
-| 4 | 최종 가격이 0.0 미만이면 0.0으로 보정 + 반환 *(algorithm)* | `Math.max(0.0, total)` 또는 if문 모두 가능. 보정 누락 시 earn 불가 | 1점 |
+| 4 | 최종 가격이 0.0 미만이면 0.0으로 보정 + 반환 *(algorithm)* | `if (total < 0.0) total = 0.0;` 형태의 if 비교 사용. 보정 누락 시 earn 불가 | 1점 |
 
 **Can still earn:** 헬퍼 메서드 대신 인스턴스 변수 직접 접근해도 알고리즘 포인트는 earn 가능.
 **Will not earn:** 할인 적용 순서가 뒤바뀌어 결과가 달라지면 포인트 3을 earn 불가.
@@ -233,7 +233,7 @@ public String getReceipt() {
 | `isInStock()` | 재고가 1개 이상이면 `true` 반환. |
 | `dispense(int quantity)` | 상품을 `quantity`개 판매. 재고가 충분하면 재고를 줄이고 `totalRevenue`에 `price * quantity`를 더한 뒤 `true` 반환. 재고 부족이면 아무 동작 없이 `false` 반환. Precondition: `quantity > 0` |
 | `restock(int amount)` | 재고를 `amount`만큼 추가. Precondition: `amount > 0` |
-| `toString()` | `"[itemName]: $[price] (stock: [stock], revenue: $[totalRevenue])"` 형식 반환. |
+| `getInfo()` | `"[itemName]: $[price] (stock: [stock], revenue: $[totalRevenue])"` 형식 반환. |
 
 **실행 예시 (Execution Table):**
 
@@ -249,7 +249,7 @@ public String getReceipt() {
 | `vm.getStock()` | `7` | 재고 변화 없음 |
 | `vm.restock(5)` | | 재고 5개 추가 |
 | `vm.getStock()` | `12` | 재고 증가 |
-| `vm.toString()` | `"Cola: $1.5 (stock: 12, revenue: $4.5)"` | 현재 상태 출력 |
+| `vm.getInfo()` | `"Cola: $1.5 (stock: 12, revenue: $4.5)"` | 현재 상태 출력 |
 
 ---
 
@@ -294,7 +294,7 @@ public class VendingMachine {
         stock += amount;
     }
 
-    public String toString() {
+    public String getInfo() {
         return itemName + ": $" + price + " (stock: " + stock
                + ", revenue: $" + totalRevenue + ")";
     }
@@ -311,7 +311,7 @@ public class VendingMachine {
 | 4 | **Mutator — dispense (guard)** | `dispense`: 재고 부족 시 `false` 반환 + 상태 변경 없음 | 가드 조건 없이 항상 판매하면 earn 불가 | 1점 |
 | 5 | **Mutator — dispense (update)** | `dispense`: 성공 시 `stock -= quantity` + `totalRevenue += price * quantity` + `true` 반환 | 매출 계산에서 quantity 곱하기 누락 시 earn 불가 | 1점 |
 | 6 | **Mutator — restock** | `restock`: `stock += amount` 올바르게 구현 | `stock = amount` (덮어쓰기) 시 earn 불가 | 1점 |
-| 7 | **toString** | `toString`: 올바른 형식 문자열 반환 | 형식 오류 시에도 의도가 명확하면 earn 가능 | 1점 |
+| 7 | **getInfo** | `getInfo`: 올바른 형식 문자열 반환 | 형식 오류 시에도 의도가 명확하면 earn 가능. **`toString` 오버라이드 작성은 CED 1.15.A.5 EXCLUSION이므로 금지** | 1점 |
 
 #### 1점 감점 사유 (문항당 최대 3점)
 - v) `[]` vs `.get()` 혼동
@@ -329,7 +329,7 @@ public class VendingMachine {
 - `dispense`에서 재고 부족 체크 없이 항상 판매 → 재고가 음수가 됨
 - `totalRevenue += price` (quantity 곱하기 누락)
 - `restock`에서 `stock = amount` (누적이 아닌 덮어쓰기)
-- `toString`에서 `$` 기호 위치 오류
+- `getInfo`에서 `$` 기호 위치 오류
 
 ---
 

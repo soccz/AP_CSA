@@ -533,28 +533,23 @@ while (sc.hasNext()) {
 
 ---
 
-### `boolean hasNextInt()` / `boolean hasNextDouble()`
-다음 토큰이 **정수/실수로 변환 가능한지** 확인한다.
+### `hasNextInt()` / `hasNextDouble()` / `hasNextBoolean()` / `hasNextLine()`
+
+> ❌ **CED EXCLUSION (시험 범위 밖)**: AP CSA 2025-26 Java Quick Reference에는 **`hasNext()` 한 가지만** 등재되어 있다. `hasNextInt`, `hasNextDouble`, `hasNextBoolean`, `hasNextLine` 등 **타입별 변형은 시험 범위 밖**이며 시험 답안에 사용하면 안 된다.
+>
+> 자세한 검증 근거는 `/mnt/20t/study/AP_CSA/공식_시험범위_검증.md` §5.7을 참조.
+
+**시험 답안 패턴**: 파일 끝까지 읽을 때는 항상 `while (sc.hasNext())` 만 사용한다. 파일 내용의 타입(int/double/String)을 알고 있다고 가정하고 적절한 `nextInt() / nextDouble() / nextLine() / next()` 를 호출하면 된다.
 
 ```java
-Scanner sc = new Scanner(new File("mixed.txt"));
-// 파일 내용: 10 hello 3.14
-while (sc.hasNext()) {
-    if (sc.hasNextInt()) {
-        int n = sc.nextInt();
-        System.out.println("정수: " + n);
-    } else if (sc.hasNextDouble()) {
-        double d = sc.nextDouble();
-        System.out.println("실수: " + d);
-    } else {
-        String s = sc.next();
-        System.out.println("문자열: " + s);
-    }
+// 시험 범위 안 — hasNext() + 알맞은 nextXxx() 조합
+Scanner sc = new Scanner(new File("numbers.txt"));
+int sum = 0;
+while (sc.hasNext()) {        // hasNextInt() ❌ → hasNext() ✅
+    sum += sc.nextInt();
 }
-// 출력: 정수: 10, 문자열: hello, 실수: 3.14
+sc.close();
 ```
-
-> **시험 주의점**: 타입별로 분기하여 읽을 때 사용. `hasNextInt()`가 true이면 `nextInt()`로 안전하게 읽기 가능.
 
 ---
 
@@ -603,26 +598,35 @@ s1.equals(s2); // true (String의 equals()는 내용 비교)
 Object obj = new Object();
 obj.toString(); // "java.lang.Object@1a2b3c" (클래스명@해시코드)
 
-// 커스텀 toString 예시 (2025-26 시험 범위 안 — FRQ Q2에서 요구됨)
+// MCQ 트레이싱 예시 — 이미 오버라이드된 toString의 출력 결과 묻기는 ✅ 시험 범위 안
 class Student {
     private String name;
     private int grade;
 
-    public String toString() {
+    public String toString() {        // ⚠️ 학생이 직접 작성하는 것은 OUT — 문제 코드에 등장만 가능
         return name + " (Grade " + grade + ")";
     }
 }
 
 Student s = new Student("Kim", 11);
-System.out.println(s); // "Kim (Grade 11)"
-// println은 자동으로 toString() 호출
+System.out.println(s);  // "Kim (Grade 11)" — println(객체)이 자동으로 toString() 호출 (1.15.A.5, IN)
 ```
 
+> ❌ **CED EXCLUSION (시험 범위 밖) — 작성 금지**: AP CSA 2025-26에서 학생이 **`toString()` / `equals()` 오버라이드를 직접 작성**하는 것은 시험 범위 밖이다 (CED 1.15, 2.6 EXCLUSION).
+>
+> | 시나리오 | 시험 범위 | 근거 |
+> |---|---|---|
+> | 이미 작성된 `toString` 오버라이드 클래스를 보여주고 `println` 결과 묻기 (트레이싱) | ✅ IN | 1.15.A.5 |
+> | FRQ에서 학생에게 `toString` 오버라이드 작성 요구 | ❌ OUT | 1.15 EXCLUSION |
+> | 표시용 메서드를 학생이 작성해야 할 때 | `getInfo()`, `getDescription()` 등 **명시적 이름**으로 정의 후 호출 | — |
+>
+> 자세한 검증 근거는 `/mnt/20t/study/AP_CSA/공식_시험범위_검증.md` §5.8, §8을 참조.
+
 > **시험 주의점**:
-> - `System.out.println(객체)`는 자동으로 `toString()` 호출
-> - `"문자열" + 객체`도 자동으로 `toString()` 호출
+> - `System.out.println(객체)`는 자동으로 `toString()` 호출 (트레이싱 IN — 출력 결과 묻기는 출제 가능)
+> - `"문자열" + 객체`도 자동으로 `toString()` 호출 (트레이싱 IN)
 > - 기본 `toString()`은 `클래스명@해시코드` 형태로 출력됨 (유용하지 않음)
-> - `toString()` 메서드를 클래스 내에서 직접 작성하는 것은 2025-26 시험 범위 안이다 (FRQ Q2에서 자주 요구됨). 단, `@Override` 어노테이션이나 상속 개념으로서의 오버라이딩은 범위 밖.
+> - **학생이 `toString()` 메서드를 직접 작성하는 것은 2025-26 시험 범위 밖**(CED 1.15 EXCLUSION). FRQ Q2 클래스 설계 문제에서 표시용 메서드가 필요하면 `getInfo()`, `getDescription()` 등 **명시적 이름**으로 작성한 뒤 `obj.getInfo()` 형태로 명시적으로 호출한다. `@Override`, `extends`, `super` 모두 시험 범위 밖.
 
 ---
 

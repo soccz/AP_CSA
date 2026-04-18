@@ -12,7 +12,7 @@ What is printed as a result of executing the code segment?
 
 ```java
 String s = "APCSA";
-System.out.println(s.substring(2, 4) + s.charAt(0));
+System.out.println(s.substring(2, 4) + s.substring(0, 1));
 ```
 
 (A) `CSA`
@@ -206,7 +206,7 @@ What is printed as a result of executing the code segment?
 String word = "racecar";
 String reversed = "";
 for (int i = word.length() - 1; i >= 0; i--) {
-    reversed += word.charAt(i);
+    reversed += word.substring(i, i + 1);
 }
 System.out.println(reversed.equals(word));
 ```
@@ -385,16 +385,23 @@ for (int i = 0; i < names.length - 1; i++) {
 ## Question 19 ★★
 Which of the following best describes why the code does not work as intended?
 
-The following code is intended to read an entire line of user input, but instead only reads the first word.
+The following code is intended to read the **entire first line** of the file `data.txt`, but instead only reads the first word of that line.
 
 ```java
 import java.util.Scanner;
-Scanner sc = new Scanner(System.in);
-String line = sc.next();
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public static String readFirstLine() throws FileNotFoundException {
+    Scanner sc = new Scanner(new File("data.txt"));
+    String line = sc.next();
+    sc.close();
+    return line;
+}
 ```
 
 (A) `Scanner` does not have a `next()` method.
-(B) `sc.next()` reads only the next token (up to whitespace); `sc.nextLine()` should be used to read the entire line.
+(B) `sc.next()` reads only the next whitespace-delimited token; `sc.nextLine()` should be used to read the entire line.
 (C) `sc.next()` always returns `null`.
 (D) The code works as intended and reads the full line.
 
@@ -853,50 +860,50 @@ After one pass of insertion sort (i=1) on the array `{5, 3, 8, 1, 6}`, the array
 
 # 정답표
 
-| # | 정답 | Unit | 토픽 | 난이도 | 해설 |
-|---|------|------|------|--------|------|
-| 1 | A | U2 | String 메서드 | ★ | `substring(2,4)` → `"CS"`, `charAt(0)` → `'A'` → `"CSA"` |
-| 2 | A | U1 | 정수 나눗셈 + 문자열 연결 | ★★ | `17/5`=`3`(정수), `17%5`=`2`, `"3"+"."+"2"` = `"3.2"` |
-| 3 | C | U6 | 배열 최댓값 | ★★ | 순회하며 최댓값 갱신 → 최종 `9` |
-| 4 | A | U3 | boolean과 배열 순회 | ★ | 7과 9가 5보다 크므로 found=true. 코드 기반 문제로 변경. |
-| 5 | B | U10 | 재귀 (피보나치) | ★★★ | `f(0)=0, f(1)=1, f(2)=1, f(3)=2, f(4)=3, f(5)=5, f(6)=8` |
-| 6 | B | U3 | De Morgan 법칙 | ★★ | `!(A&&B)` = `!A||!B` → `a<=b || c>d` |
-| 7 | A | U7 | ArrayList 조작 | ★★ | `remove(1)`→`[A,C,D]`, `add(1,"E")`→`[A,E,C,D]` |
-| 8 | B | U8 | 2D 배열 대각선 | ★★★ | `r==c`인 원소: `1+5+9`=`15` |
-| 9 | B | U6 | 배열 선언 | ★ | `new int[5]`가 올바른 문법 |
-| 10 | A | U6 | 배열 경계 오류 식별 | ★★ | `<=`→`ArrayIndexOutOfBoundsException`. `<`로 수정 |
-| 11 | A | U4 | 문자열 뒤집기/회문 | ★★ | `"racecar"` 뒤집어도 동일 → `true` |
-| 12 | A | U7 | Selection Sort | ★★★ | Pass1: min=1(idx3), swap(0,3)→`{1,3,5,8,9,2}`. Pass2: idx1~5에서 min=2(idx5), swap(1,5)→`{1,2,5,8,9,3}` |
-| 13 | B | U3 | 중첩 if | ★★ | `5<10&&10<15`→`true`. `5+10=15`, `15>15`→`false` → `"Y"` |
-| 14 | B | U3 | De Morgan 법칙 | ★★ | `!(A||B)` = `!A&&!B` → `x==0 && y!=5` |
-| 15 | A | U7 | MusicPlaylist 클래스 이해 | ★★ | 3곡 추가. 합계: 183+125+354=662. |
-| 16 | B | U7 | filterByMinDuration 메서드 추적 | ★★ | minSeconds=200 이상: "Long"(300), "Epic"(420). 결과: [Long, Epic]. |
-| 17 | A | U7 | 엣지 케이스 (빈 playlist) | ★★★ | 빈 playlist: getTotalDuration()=0, shuffle()는 size==0이면 "" 반환, filterByMinDuration(100).size()=0. |
-| 18 | B | U6 | String compareTo | ★★ | `"Kim"<"Lee"`, `"Lee"<"Park"`, `"Park">"Choi"` → `Park` 출력 |
-| 19 | B | U2 | Scanner 메서드 에러 식별 | ★★ | `next()`는 토큰 단위 읽기. `nextLine()`이 한 줄 전체 읽기. |
-| 20 | A | U7 | ArrayList 역순 제거 | ★★ | 20의 배수(20,40) 제거 → `[10,30,50]` |
-| 21 | B | U5 | static 변수와 인스턴스 변수 | ★★★ | static `count`는 3개 객체 생성 후 3. `b`는 두 번째로 생성되어 id=2. 출력: `3 2` |
-| 22 | B | U4 | 조건문 + 반복문 | ★★ | i=0(0%3=0), 3(3%3=0), 5(5%5=0), 6(6%3=0), 9(9%3=0) → 5개 |
-| 23 | B | U5 | 캡슐화 | ★ | `private` → `public` getter로 접근 |
-| 24 | A | U8 | 2D 배열 인덱싱 | ★★★ | `mat[2][3]`=`2*4+3+1`=`12`, `mat[1][0]`=`1*4+0+1`=`5` |
-| 25 | A | U5 | this 키워드 에러 식별 | ★★ | 근본 원인은 `x = x`가 매개변수를 자기 자신에게 대입하는 것(shadowing). `this.x = x`로 수정하면 해결. (B)도 우회적으로 해결 가능하지만 근본 원인을 설명하는 (A)가 가장 적절한 답. |
-| 26 | B | U2 | String == vs equals | ★★ | `==`는 참조(다름), `equals()`는 내용(같음) |
-| 27 | A | U7 | 이진 탐색 구현 | ★★ | (A)는 올바른 binary search. (B)는 lo=mid/hi=mid로 무한루프 가능. (C)는 linear search. |
-| 28 | B | U4 | while 루프 | ★★ | `100→33→11→3→1(종료)`. 1은 `>1` 불만족으로 미출력 |
-| 29 | C | U10 | 이진 탐색 tracing | ★★★ | 배열 idx 0~7. mid=(0+7)/2=3, arr[3]=7 → 한 번에 찾음. 비교 원소: 7만. |
-| 30 | A | U2 | Math.random() | ★ | `0.0 <= x < 1.0` |
-| 31 | A | U7 | ArrayList 조건부 제거 | ★★ | while+조건부 i++ 패턴으로 모든 `"cat"` 제거 → `[dog,bird]` |
-| 32 | C | U8 | 2D 배열 열 합산 | ★★★ | grid[r][1]만 합산: 2+4+6=12 |
-| 33 | C | U6 | 최솟값 인덱스 | ★★ | 최솟값 `1`은 인덱스 `4` |
-| 34 | A | U3 | De Morgan 법칙 | ★★ | `!(p||!q)` = `!p && !!q` = `!p && q` |
-| 35 | A | U2 | Scanner + File | ★★★ | `Scanner(String)`은 문자열 자체를 소스로 사용. 파일은 `File` 객체 필요 |
-| 36 | B | U2 | String indexOf | ★★ | `"Histogram"`: H(0)i(1)s(2)t(3)o(4)g(5)r(6)a(7)m(8). `"gram"` = g(5)r(6)a(7)m(8) → `indexOf` = `5` |
-| 37 | C | U6 | for-each 제한 | ★ | for-each는 인덱스 접근 불가 → 특정 위치 원소 변경 불가 |
-| 38 | B | U7 | ArrayList 역순 조건부 삭제 | ★★★ | 역순 순회로 length<4인 "Hi"(2), "No"(2) 삭제. 결과: [Hello, World] |
-| 39 | B | U5 | 클래스 관계 | ★★ | 필드로 다른 클래스 배열 보유 = has-a |
-| 40 | D | U1 | 정수 나눗셈 오류 수정 동치 코드 | ★★ | 캐스팅/타입변경 세 방법 모두 `(double)sum/arr.length`와 동일한 결과 |
-| 41 | C | U1 | 배열 평균 계산 | ★★ | sum=3+1+4+1+5=14, 14.0/5=2.8 |
-| 42 | A | U7 | Insertion Sort | ★★ | i=1: `3`을 `5` 앞에 삽입 → `{3,5,8,1,6}` |
+| # | 정답 | Unit | 토픽 (CED) | 난이도 | 해설 |
+|---|------|------|-----------|--------|------|
+| 1 | A | Unit 1 | 1.15 String 메서드 (substring) | ★ | `substring(2,4)` → `"CS"`, `substring(0,1)` → `"A"` → `"CSA"` |
+| 2 | A | Unit 1 | 1.3 Expressions (정수 나눗셈 + 문자열 연결) | ★★ | `17/5`=`3`(정수), `17%5`=`2`, `"3"+"."+"2"` = `"3.2"` |
+| 3 | C | Unit 4 | 4.2 Array Standard Algorithms (max) | ★★ | 순회하며 최댓값 갱신 → 최종 `9` |
+| 4 | A | Unit 2 | 2.7-2.8 반복문 (enhanced for + boolean) | ★ | 7과 9가 5보다 크므로 found=true |
+| 5 | B | Unit 4 | 4.16 Recursion 트레이싱 (피보나치) | ★★★ | `f(0)=0, f(1)=1, f(2)=1, f(3)=2, f(4)=3, f(5)=5, f(6)=8` |
+| 6 | B | Unit 2 | 2.5-2.6 De Morgan 법칙 | ★★ | `!(A&&B)` = `!A||!B` → `a<=b || c>d` |
+| 7 | A | Unit 4 | 4.8 ArrayList 메서드 (remove/add) | ★★ | `remove(1)`→`[A,C,D]`, `add(1,"E")`→`[A,E,C,D]` |
+| 8 | B | Unit 4 | 4.12-4.13 2D 배열 대각선 합 | ★★★ | `r==c`인 원소: `1+5+9`=`15` |
+| 9 | B | Unit 4 | 4.1 1D 배열 선언 문법 | ★ | `new int[5]`가 올바른 문법 |
+| 10 | A | Unit 4 | 4.3 배열 순회 경계 오류 식별 | ★★ | `<=`→`ArrayIndexOutOfBoundsException`. `<`로 수정 |
+| 11 | A | Unit 2 | 2.10 String 알고리즘 (역순/회문) | ★★ | `"racecar"` 뒤집어도 동일 → `true` |
+| 12 | A | Unit 4 | 4.15 Selection Sort 트레이싱 | ★★★ | Pass1: min=1(idx3), swap(0,3)→`{1,3,5,8,9,2}`. Pass2: idx1~5에서 min=2(idx5), swap(1,5)→`{1,2,5,8,9,3}` |
+| 13 | B | Unit 2 | 2.4 Nested if | ★★ | `5<10&&10<15`→`true`. `5+10=15`, `15>15`→`false` → `"Y"` |
+| 14 | B | Unit 2 | 2.5-2.6 De Morgan 법칙 | ★★ | `!(A||B)` = `!A&&!B` → `x==0 && y!=5` |
+| 15 | A | Unit 4 | 4.8-4.9 ArrayList 클래스 사용 | ★★ | 3곡 추가. 합계: 183+125+354=662 |
+| 16 | B | Unit 4 | 4.10 ArrayList 알고리즘 (필터링) | ★★ | minSeconds=200 이상: "Long"(300), "Epic"(420). 결과: [Long, Epic] |
+| 17 | A | Unit 4 | 4.8-4.10 ArrayList 엣지 케이스 (size==0) | ★★★ | 빈 playlist: getTotalDuration()=0, shuffle()는 size==0이면 "" 반환, filterByMinDuration(100).size()=0 |
+| 18 | B | Unit 2 | 2.10 String 알고리즘 (compareTo 순회) | ★★ | `"Kim"<"Lee"`, `"Lee"<"Park"`, `"Park">"Choi"` → `Park` 출력 |
+| 19 | B | Unit 4 | 4.6 Scanner 파일 입력 (next vs nextLine) | ★★ | `next()`는 토큰 단위 읽기. `nextLine()`이 한 줄 전체 읽기 |
+| 20 | A | Unit 4 | 4.10 ArrayList 역순 제거 패턴 | ★★ | 20의 배수(20,40) 제거 → `[10,30,50]` |
+| 21 | B | Unit 3 | 3.7 Class Variables (static) | ★★★ | static `count`는 3개 객체 생성 후 3. `b`는 두 번째로 생성되어 id=2. 출력: `3 2` |
+| 22 | B | Unit 2 | 2.5+2.8 복합 조건 + for 루프 | ★★ | i=0(0%3=0), 3(3%3=0), 5(5%5=0), 6(6%3=0), 9(9%3=0) → 5개 |
+| 23 | B | Unit 3 | 3.8 Scope and Access (캡슐화) | ★ | `private` → `public` getter로 접근 |
+| 24 | A | Unit 4 | 4.11 2D 배열 인덱싱 | ★★★ | `mat[2][3]`=`2*4+3+1`=`12`, `mat[1][0]`=`1*4+0+1`=`5` |
+| 25 | A | Unit 3 | 3.9 `this` 키워드 (shadowing) | ★★ | 근본 원인은 `x = x`가 매개변수를 자기 자신에게 대입하는 것(shadowing). `this.x = x`로 수정하면 해결 |
+| 26 | B | Unit 1 | 1.15 String == vs equals | ★★ | `==`는 참조(다름), `equals()`는 내용(같음) |
+| 27 | A | Unit 4 | 4.17 Binary Search 구현 식별 | ★★ | (A)는 올바른 binary search. (B)는 lo=mid/hi=mid로 무한루프 가능. (C)는 linear search |
+| 28 | B | Unit 2 | 2.7 while 루프 트레이싱 | ★★ | `100→33→11→3→1(종료)`. 1은 `>1` 불만족으로 미출력 |
+| 29 | C | Unit 4 | 4.17 Binary Search 트레이싱 | ★★★ | 배열 idx 0~7. mid=(0+7)/2=3, arr[3]=7 → 한 번에 찾음. 비교 원소: 7만 |
+| 30 | A | Unit 1 | 1.11 Math.random() 범위 | ★ | `0.0 <= x < 1.0` |
+| 31 | A | Unit 4 | 4.10 ArrayList 조건부 제거 (while+조건부 i++) | ★★ | while+조건부 i++ 패턴으로 모든 `"cat"` 제거 → `[dog,bird]` |
+| 32 | C | Unit 4 | 4.12 2D 배열 열 합산 | ★★★ | grid[r][1]만 합산: 2+4+6=12 |
+| 33 | C | Unit 4 | 4.2 Array Standard Algorithms (min 인덱스) | ★★ | 최솟값 `1`은 인덱스 `4` |
+| 34 | A | Unit 2 | 2.5-2.6 De Morgan 법칙 | ★★ | `!(p||!q)` = `!p && !!q` = `!p && q` |
+| 35 | A | Unit 4 | 4.6 Scanner + File 생성 | ★★★ | `Scanner(String)`은 문자열 자체를 소스로 사용. 파일은 `File` 객체 필요 |
+| 36 | B | Unit 1 | 1.15 String indexOf | ★★ | `"Histogram"`: H(0)i(1)s(2)t(3)o(4)g(5)r(6)a(7)m(8). `"gram"` = g(5)r(6)a(7)m(8) → `indexOf` = `5` |
+| 37 | C | Unit 4 | 4.4 Enhanced for 제한 | ★ | for-each는 인덱스 접근 불가 → 특정 위치 원소 변경 불가 |
+| 38 | B | Unit 4 | 4.10 ArrayList 역순 조건부 삭제 | ★★★ | 역순 순회로 length<4인 "Hi"(2), "No"(2) 삭제. 결과: [Hello, World] |
+| 39 | B | Unit 3 | 3.6 객체 참조를 필드로 보유 (has-a) | ★★ | 필드로 다른 클래스 배열 보유 = has-a (composition). 상속(is-a)은 범위 외 |
+| 40 | D | Unit 1 | 1.5 Casting (double 캐스팅 동치 표현) | ★★ | 캐스팅/타입변경 세 방법 모두 `(double)sum/arr.length`와 동일한 결과 |
+| 41 | C | Unit 1 | 1.5 Casting + 1.3 평균 계산 | ★★ | sum=3+1+4+1+5=14, 14.0/5=2.8 |
+| 42 | A | Unit 4 | 4.15 Insertion Sort 트레이싱 | ★★ | i=1: `3`을 `5` 앞에 삽입 → `{3,5,8,1,6}` |
 
 ---
 

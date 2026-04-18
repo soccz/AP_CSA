@@ -6,7 +6,7 @@
 
 ---
 
-## Unit 1: Primitive Types (8 Questions)
+## Section A — Unit 1: Using Objects and Methods (Q1-Q8: Primitives & Casting)
 
 ### Q1
 What is printed as a result of executing the code segment?
@@ -146,7 +146,7 @@ What is the type of the result of the following expression?
 
 ---
 
-## Unit 2: Using Objects (13 Questions)
+## Section B — Unit 1: Using Objects and Methods (Q9-Q21: String, Object Refs)
 
 ### Q9
 What is printed as a result of executing the code segment?
@@ -200,16 +200,16 @@ System.out.println(idx);
 What is printed as a result of executing the code segment?
 
 ```java
-String s = "Hello";
-s.toUpperCase();
-s.concat(" World");
-System.out.println(s);
+String s = "programming";
+int idx = s.indexOf("gr");
+String result = s.substring(idx, idx + 4);
+System.out.println(result);
 ```
 
-(A) HELLO World
-(B) HELLO
-(C) Hello World
-(D) Hello
+(A) prog
+(B) gram
+(C) gramm
+(D) ogra
 
 ---
 
@@ -367,14 +367,16 @@ if (str != null && str.length() > 0) {
 ---
 
 ### Q19
-Consider the following code segment, which is intended to check whether a `String` is a palindrome.
+Consider the following code segment, which is intended to check whether a `String` is a palindrome (reads the same forwards and backwards).
 
 ```java
 String word = "racecar";
 int len = word.length();
 boolean isPalindrome = true;
 for (int i = 0; i < len / 2; i++) {
-    if (/* blank */) {
+    String left = word.substring(i, i + 1);
+    String right = word.substring(/* blank */);
+    if (!left.equals(right)) {
         isPalindrome = false;
     }
 }
@@ -382,10 +384,10 @@ for (int i = 0; i < len / 2; i++) {
 
 Which of the following should replace `/* blank */` so that the code works as intended?
 
-(A) `word.substring(i, i+1) != word.substring(len-1-i, len-i)`
-(B) `word.charAt(i) != word.charAt(len - 1 - i)`
-(C) `word.charAt(i) != word.charAt(len - i)`
-(D) `word.substring(i) != word.substring(len - 1 - i)`
+(A) `len - 1 - i, len - i`
+(B) `len - i, len - i + 1`
+(C) `len - i - 1`
+(D) `i, len - 1 - i`
 
 ---
 
@@ -425,7 +427,7 @@ System.out.println(s);
 
 ---
 
-## Unit 3: Boolean Expressions and if Statements (6 Questions)
+## Section C — Unit 2: Selection and Iteration (Q22-Q27: Boolean & if)
 
 ### Q22
 What is printed as a result of executing the code segment?
@@ -521,7 +523,7 @@ Which of the following is equivalent to `!(x > 5 || y < 3)`?
 
 ---
 
-## Unit 4: Iteration, Arrays, ArrayList, 2D Arrays, Recursion, Classes (15 Questions)
+## Section D — Units 2/3/4 (Q28-Q42: Loops, Class, Array, ArrayList, 2D, Recursion)
 
 ### Q28
 What is printed as a result of executing the code segment?
@@ -529,9 +531,9 @@ What is printed as a result of executing the code segment?
 ```java
 int sum = 0;
 for (int i = 1; i <= 10; i++) {
-    if (i % 3 == 0)
-        continue;
-    sum += i;
+    if (i % 3 != 0) {
+        sum += i;
+    }
 }
 System.out.println(sum);
 ```
@@ -596,7 +598,8 @@ int[][] grid = new int[3][4];
 int count = 0;
 for (int c = 0; c < grid[0].length; c++) {
     for (int r = 0; r < grid.length; r++) {
-        grid[r][c] = count++;
+        grid[r][c] = count;
+        count++;
     }
 }
 System.out.println(grid[1][2]);
@@ -708,14 +711,14 @@ System.out.println(result);
 ```java
 String result = "";
 for (int i = 0; i < words.length; i++) {
-    result += words[i].charAt(0);
+    result += words[i].substring(0, 1);
 }
 System.out.println(result);
 ```
 (B)
 ```java
-String result = "" + words[0].charAt(0) + words[1].charAt(0)
-              + words[2].charAt(0) + words[3].charAt(0);
+String result = "" + words[0].substring(0, 1) + words[1].substring(0, 1)
+              + words[2].substring(0, 1) + words[3].substring(0, 1);
 System.out.println(result);
 ```
 (C)
@@ -758,9 +761,9 @@ public static void trace(String s) {
         System.out.print(s);
         return;
     }
-    System.out.print(s.charAt(0));
+    System.out.print(s.substring(0, 1));
     trace(s.substring(2));
-    System.out.print(s.charAt(1));
+    System.out.print(s.substring(1, 2));
 }
 ```
 
@@ -833,27 +836,29 @@ System.out.println(nums);
 ---
 
 ### Q41
-Which of the following best describes why the code does not work as intended?
-
-The following method is intended to count the number of lines in a file, but does not compile.
+Consider the following code segment.
 
 ```java
-public static int countLines(String filename) {
-    Scanner sc = new Scanner(new File(filename));
-    int count = 0;
-    while (sc.hasNextLine()) {
-        sc.nextLine();
-        count++;
+int[][] grid = {{1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}};
+int total = 0;
+for (int r = 0; r < grid.length; r++) {
+    for (int c = 0; c < grid[0].length; c++) {
+        if (r + c >= 2) {
+            total += grid[r][c];
+        }
     }
-    sc.close();
-    return count;
 }
+System.out.println(total);
 ```
 
-(A) `Scanner` does not have a `hasNextLine()` method.
-(B) `new File(filename)` is not valid Java syntax.
-(C) `new Scanner(new File(filename))` can throw a checked exception (`FileNotFoundException`) that must be declared or caught.
-(D) `sc.close()` causes a compile-time error.
+What is printed?
+
+(A) 38
+(B) 35
+(C) 30
+(D) 45
 
 ---
 
@@ -886,50 +891,53 @@ System.out.println(total);
 
 ## 정답표
 
+> Unit 매핑은 **CED 2025-26 4-Unit 체계** 기준:
+> U1 Using Objects and Methods · U2 Selection and Iteration · U3 Class Creation · U4 Data Collections
+
 | # | 정답 | Unit | 토픽 | 해설 |
 |---|------|------|------|------|
-| 1 | B | 1 | 정수 나눗셈 + 캐스팅 | `a / b`는 `7 / 2 = 3` (정수 나눗셈). 이후 `(double)3`은 `3.0`. `(double)`을 나눗셈 전에 적용해야 3.5가 됨. |
-| 2 | B | 1 | 타입 변환 | `double y = 5;`는 int→double 자동 확대(widening) 변환으로 합법. 나머지는 축소 변환이거나 타입 불일치. |
-| 3 | B | 1 | 나머지 연산자 | Java에서 `%` 결과의 부호는 피제수(왼쪽 피연산자)를 따름. `13 % 5 = 3`, `-13 % 5 = -3`. |
-| 4 | B | 1 | 정수 나눗셈 + 캐스팅 순서 | `(double) total`이 먼저 평가되어 7.0이 됨. `7.0 / 2` = `3.5`. 캐스팅이 나눗셈보다 먼저 적용되는 것이 핵심. |
-| 5 | B | 1 | double→int 캐스팅 | `(int)` 캐스팅은 소수점 이하를 버림(truncation). `2.9` → `2`. 반올림이 아님. |
-| 6 | B | 1 | 정수 오버플로우 | I: `MAX_VALUE + 1`은 오버플로우 발생. II: `(long)` 캐스팅 후 덧셈이므로 안전. III: `c++`도 오버플로우 발생. |
-| 7 | B | 1 | 정수 나눗셈 혼합 | `1 / 3 = 0` (정수 나눗셈), `1.0 / 3 ≈ 0.333...`. 합은 약 `0.333...`. |
-| 8 | B | 1 | 자동 타입 승격 | `5 + 3.0`에서 5가 double로 승격 → `8.0 + 2` → `10.0`. 결과는 `double`. |
-| 9 | B | 2 | == vs equals, String pool | `s1`, `s2`는 String pool의 같은 객체 → `==` true. `s3`는 `new`로 별도 객체 생성 → `==` false. |
-| 10 | A | 2 | substring 범위 | `substring(2, 5)`는 인덱스 2부터 4까지(5 미포함). "ABCDEFG"에서 인덱스 2='C', 3='D', 4='E' → "CDE". |
-| 11 | B | 2 | indexOf | "banana"에서 "na"가 처음 나타나는 위치는 인덱스 2 (b=0, a=1, n=2). |
-| 12 | D | 2 | String 불변성 | `toUpperCase()`와 `concat()`은 새 String을 반환하지만 `s`에 재할당하지 않음. `s`는 원래 "Hello" 유지. |
-| 13 | C | 2 | indexOf 반환값 -1 | "cat"은 문자열에 없으므로 `indexOf("cat")`는 `-1` 반환. |
-| 14 | C | 2 | compareTo 사전순 | `"3".compareTo("12")`: '3'(코드 51) vs '1'(코드 49) → 양수. 숫자의 크기가 아닌 문자 코드 비교. |
-| 15 | B | 2 | ShoppingCart 클래스 이해 | `addItem(-3.00)`은 price <= 0이므로 무시. 3개 아이템(5.99+12.50+8.75=27.24) 추가. |
-| 16 | A | 2 | removeExpired 메서드 추적 | maxPrice=10.00보다 큰 15.00과 20.00이 제거됨(2개). 남은 합: 5+8+3=16.0. |
-| 17 | B | 2 | 참조 공유 | `cart2 = cart1`은 같은 객체 참조. `cart2.addItem(30.00)`은 원본도 변경. 3개 아이템, 합 60.0. |
-| 18 | B | 2 | 단축 평가 | `str != null`이 false이므로 `&&` 단축 평가로 `str.length()`를 실행하지 않음. NullPointerException 발생 안 함. |
-| 19 | B | 2 | charAt vs substring | `charAt()`은 char 비교(`!=` 사용 가능). (A)는 `!=`로 String 비교하므로 참조 비교가 됨. (C)는 인덱스 오류. |
-| 20 | A | 2 | indexOf + substring | `indexOf(" ")`는 5 반환. `substring(0,5)` = "hello", `substring(6)` = "world". 결과: "hello-world". |
-| 21 | A | 2 | String 연결 | `s.length()`는 "Java"의 길이 4. `"Java" + " " + 4` → `"Java 4"`. length()는 원래 s 기준. |
-| 22 | B | 3 | dangling else | `else`는 가장 가까운 `if`와 짝을 이룸. `x > 3` true, `x > 10` false → "B" 출력. |
-| 23 | B | 3 | De Morgan's Law | `!(a && !b)` = `!a || !!b` = `!a || b`. |
-| 24 | A | 3 | if vs else-if 에러 식별 | 현재 코드는 독립 `if`문이라 score<70일 때 `grade`가 빈 문자열. `"F"`를 반환하는 조건이 없음. |
-| 25 | B | 3 | 복합 조건 | (A)는 Java 문법 에러. (C)는 모든 수에 대해 true. (D)는 10과 20을 포함하지 않음. |
-| 26 | B | 3 | 부동소수점 비교 | `0.1 + 0.2`는 부동소수점 오차로 정확히 `0.3`이 아님. `==` 비교는 false. |
-| 27 | B | 3 | De Morgan's Law | `!(x > 5 || y < 3)` = `!(x > 5) && !(y < 3)` = `x <= 5 && y >= 3`. |
-| 28 | B | 4 | for 루프 + continue | 1+2+4+5+7+8+10 = 37. `i=3,6,9`일 때 continue로 건너뜀. |
-| 29 | A | 4 | enhanced for 배열 수정 불가 | enhanced for의 `val`은 배열 요소의 복사본. `val = val * 2`는 배열을 변경하지 않음. |
-| 30 | B | 4 | ArrayList remove 인덱스 밀림 | i=1에서 20 제거 → list=[10,30,40], size=3. i=2에서 40 검사(30이 아닌 40). 30은 건너뜀. |
-| 31 | B | 4 | 2D array column-major | column-major 순서: (0,0)=0,(1,0)=1,(2,0)=2,(0,1)=3,(1,1)=4,(2,1)=5,(0,2)=6,(1,2)=7. `grid[1][2]=7`. |
-| 32 | A | 4 | 재귀 tracing | `mystery(5)` = 5 + `mystery(3)` = 5 + 3 + `mystery(1)` = 5 + 3 + 1 = 9. |
-| 33 | B | 4 | while 루프 | 128→64→32→16→8→4→2→1, 7번 나눔. |
-| 34 | A | 4 | 배열 최대값 | `>=` 사용이지만 최대값 9는 한 번만 등장. 인덱스 4에서 9. |
-| 35 | A | 4 | ArrayList add/set | 초기 [Alice, Bob, Charlie]. `add(1, "Diana")` → [Alice, Diana, Bob, Charlie]. `set(3, "Eve")` → [Alice, Diana, Bob, Eve]. |
-| 36 | D | 4 | 동치 코드 | 원본은 각 단어의 첫 글자 추출: "cbrh". (A)는 charAt(0)으로 동일. (B)는 수동으로 동일. (C)는 역순 "hbrc". (A)와 (B) 모두 올바름. |
-| 37 | B | 4 | 2D 배열 대각선 | 대각선 원소: mat[0][0]=1, mat[1][1]=5, mat[2][2]=9. 합 = 15. |
-| 38 | B | 4 | 재귀 + String | `trace("ABCD")`: print 'A' → `trace("CD")` → print 'B'. `trace("CD")`: print 'C' → `trace("")` → print 'D'. `trace("")`: length 0 ≤ 1이므로 print "" 후 return. 출력 순서: A → C → D → B = "ACDB". |
-| 39 | B | 4 | 접근 제어자 private | `name`은 `private`이므로 외부 클래스에서 `d.name` 직접 접근 불가. Line B에서 컴파일 에러. |
-| 40 | A | 4 | ArrayList 역순 삭제 | 역순으로 삭제하면 인덱스 밀림 문제 없음. 0, 20, 40이 `% 20 == 0`이므로 제거 → [10, 30]. |
-| 41 | C | 4 | File/Scanner throws | `new Scanner(new File(...))`에서 `FileNotFoundException`(checked exception) 발생 가능. 이것이 `throws IOException` 필요 이유. |
-| 42 | B | 4 | 2D 배열 패턴 | 주대각선(`r==c`): (0,0),(1,1),(2,2),(3,3) = 4개. 반대각선(`r+c==3`): (0,3),(1,2),(2,1),(3,0) = 4개. 4x4에서 두 조건 동시 만족 점 없음 → 총 8. |
+| 1 | B | 1 | 1.5 캐스팅 + 정수 나눗셈 | `a / b`는 `7 / 2 = 3` (정수 나눗셈). 이후 `(double)3`은 `3.0`. `(double)`을 나눗셈 전에 적용해야 3.5가 됨. |
+| 2 | B | 1 | 1.2 타입 변환 | `double y = 5;`는 int→double 자동 확대(widening) 변환으로 합법. 나머지는 축소 변환이거나 타입 불일치. |
+| 3 | B | 1 | 1.3 나머지 연산자 | Java에서 `%` 결과의 부호는 피제수(왼쪽 피연산자)를 따름. `13 % 5 = 3`, `-13 % 5 = -3`. |
+| 4 | B | 1 | 1.5 캐스팅 우선순위 | `(double) total`이 먼저 평가되어 7.0이 됨. `7.0 / 2` = `3.5`. 캐스팅이 나눗셈보다 먼저 적용되는 것이 핵심. |
+| 5 | B | 1 | 1.5 double→int 캐스팅 | `(int)` 캐스팅은 소수점 이하를 버림(truncation). `2.9` → `2`. 반올림이 아님. |
+| 6 | B | 1 | 1.5 정수 오버플로우 | I: `MAX_VALUE + 1`은 오버플로우 발생. II: `(long)` 캐스팅 후 덧셈이므로 안전. III: `c++`도 오버플로우 발생. |
+| 7 | B | 1 | 1.3 정수/실수 혼합 나눗셈 | `1 / 3 = 0` (정수 나눗셈), `1.0 / 3 ≈ 0.333...`. 합은 약 `0.333...`. |
+| 8 | B | 1 | 1.3 자동 타입 승격 | `5 + 3.0`에서 5가 double로 승격 → `8.0 + 2` → `10.0`. 결과는 `double`. |
+| 9 | B | 1 | 1.15 == vs equals, String pool | `s1`, `s2`는 String pool의 같은 객체 → `==` true. `s3`는 `new`로 별도 객체 생성 → `==` false. |
+| 10 | A | 1 | 1.15 substring 범위 | `substring(2, 5)`는 인덱스 2부터 4까지(5 미포함). "ABCDEFG"에서 인덱스 2='C', 3='D', 4='E' → "CDE". |
+| 11 | B | 1 | 1.15 indexOf | "banana"에서 "na"가 처음 나타나는 위치는 인덱스 2 (b=0, a=1, n=2). |
+| 12 | B | 1 | 1.15 indexOf + substring | `s = "programming"`, `indexOf("gr")` = 3 (p=0,r=1,o=2,g=3). `substring(3, 7)` = "gram". |
+| 13 | C | 1 | 1.15 indexOf 반환값 -1 | "cat"은 문자열에 없으므로 `indexOf("cat")`는 `-1` 반환. |
+| 14 | C | 1 | 1.15 compareTo 사전순 | `"3".compareTo("12")`: '3'(코드 51) vs '1'(코드 49) → 양수. 숫자의 크기가 아닌 문자 코드 비교. |
+| 15 | B | 4 | 4.8 ArrayList add 가드 | `addItem(-3.00)`은 price <= 0이므로 무시. 3개 아이템(5.99+12.50+8.75=27.24) 추가. |
+| 16 | A | 4 | 4.10 ArrayList remove (역순) | maxPrice=10.00보다 큰 15.00과 20.00이 제거됨(2개). 남은 합: 5+8+3=16.0. |
+| 17 | B | 1 | 1.13 객체 참조 공유 | `cart2 = cart1`은 같은 객체 참조. `cart2.addItem(30.00)`은 원본도 변경. 3개 아이템, 합 60.0. |
+| 18 | B | 2 | 2.5 단축 평가 (short-circuit) | `str != null`이 false이므로 `&&` 단축 평가로 `str.length()`를 실행하지 않음. NullPointerException 발생 안 함. |
+| 19 | A | 2 | 2.10 String 트레이싱 (substring) | len=7. i=0: left=substring(0,1)="r", right=substring(6,7)="r". i=1: "a","a". i=2: "c","c". 따라서 right=`substring(len-1-i, len-i)` 즉 (A). |
+| 20 | A | 1 | 1.15 indexOf + substring | `indexOf(" ")`는 5 반환. `substring(0,5)` = "hello", `substring(6)` = "world". 결과: "hello-world". |
+| 21 | A | 1 | 1.15 String 연결 | `s.length()`는 "Java"의 길이 4. `"Java" + " " + 4` → `"Java 4"`. length()는 원래 s 기준. |
+| 22 | B | 2 | 2.4 dangling else | `else`는 가장 가까운 `if`와 짝을 이룸. `x > 3` true, `x > 10` false → "B" 출력. |
+| 23 | B | 2 | 2.6 De Morgan's Law | `!(a && !b)` = `!a || !!b` = `!a || b`. |
+| 24 | A | 2 | 2.3 if-else 결함 | 현재 코드는 독립 `if`문이라 score<70일 때 `grade`가 빈 문자열. `"F"`를 반환하는 조건이 없음. |
+| 25 | B | 2 | 2.5 복합 부울 조건 | (A)는 Java 문법 에러. (C)는 모든 수에 대해 true. (D)는 10과 20을 포함하지 않음. |
+| 26 | B | 2 | 2.2 부동소수점 비교 | `0.1 + 0.2`는 부동소수점 오차로 정확히 `0.3`이 아님. `==` 비교는 false. |
+| 27 | B | 2 | 2.6 De Morgan's Law | `!(x > 5 || y < 3)` = `!(x > 5) && !(y < 3)` = `x <= 5 && y >= 3`. |
+| 28 | B | 2 | 2.8 for 루프 | `i % 3 != 0`인 경우 합산. 1+2+4+5+7+8+10 = 37. `i=3,6,9`는 가산되지 않음. |
+| 29 | A | 4 | 4.4 enhanced for 한계 | enhanced for의 `val`은 배열 요소의 복사본. `val = val * 2`는 배열을 변경하지 않음. |
+| 30 | B | 4 | 4.10 ArrayList remove 인덱스 밀림 | i=1에서 20 제거 → list=[10,30,40], size=3. i=2에서 40 검사(30이 아닌 40). 30은 건너뜀. |
+| 31 | B | 4 | 4.12 2D array column-major 순회 | column-major 순서: (0,0)=0,(1,0)=1,(2,0)=2,(0,1)=3,(1,1)=4,(2,1)=5,(0,2)=6,(1,2)=7. `grid[1][2]=7`. |
+| 32 | A | 4 | 4.16 재귀 tracing | `mystery(5)` = 5 + `mystery(3)` = 5 + 3 + `mystery(1)` = 5 + 3 + 1 = 9. |
+| 33 | B | 2 | 2.7 while 루프 | 128→64→32→16→8→4→2→1, 7번 나눔. |
+| 34 | A | 4 | 4.2 배열 최대값 알고리즘 | `>=` 사용이지만 최대값 9는 한 번만 등장. 인덱스 4에서 9. |
+| 35 | A | 4 | 4.8 ArrayList add(idx)/set | 초기 [Alice, Bob, Charlie]. `add(1, "Diana")` → [Alice, Diana, Bob, Charlie]. `set(3, "Eve")` → [Alice, Diana, Bob, Eve]. |
+| 36 | D | 4 | 4.3 배열 순회 동치성 | 원본은 각 단어의 첫 글자 추출: "cbrh". (A)는 같은 substring(0,1)을 인덱스 for로 사용 → 동일. (B)는 수동 전개 → 동일. (C)는 결과 앞에 붙여 역순 "hbrc". (A)와 (B) 모두 올바름. |
+| 37 | B | 4 | 4.13 2D 배열 대각선 | 대각선 원소: mat[0][0]=1, mat[1][1]=5, mat[2][2]=9. 합 = 15. |
+| 38 | B | 4 | 4.16 재귀 + String 트레이싱 | `trace("ABCD")`: print "A" → `trace("CD")` → print "B". `trace("CD")`: print "C" → `trace("")` → print "D". `trace("")`: length 0 ≤ 1이므로 print "" 후 return. 출력 순서: A → C → D → B = "ACDB". |
+| 39 | B | 3 | 3.8 접근 제어자 private | `name`은 `private`이므로 외부 클래스에서 `d.name` 직접 접근 불가. Line B에서 컴파일 에러. (Line A의 `toString` 오버라이드는 트레이싱 목적으로 IN scope.) |
+| 40 | A | 4 | 4.10 ArrayList 역순 삭제 | 역순으로 삭제하면 인덱스 밀림 문제 없음. 0, 20, 40이 `% 20 == 0`이므로 제거 → [10, 30]. |
+| 41 | A | 4 | 4.13 2D 배열 조건부 합 | `r+c >= 2`인 셀: (0,2)=3, (1,1)=5, (1,2)=6, (2,0)=7, (2,1)=8, (2,2)=9. 합 = 3+5+6+7+8+9 = 38. |
+| 42 | B | 4 | 4.13 2D 배열 패턴 | 주대각선(`r==c`): (0,0),(1,1),(2,2),(3,3) = 4개. 반대각선(`r+c==3`): (0,3),(1,2),(2,1),(3,0) = 4개. 4x4에서 두 조건 동시 만족 점 없음 → 총 8. |
 
 ---
 

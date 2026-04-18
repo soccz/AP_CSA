@@ -274,13 +274,14 @@ y = x;
 
 > **정답: (B)** — `x = y` 후 x는 20. 그 다음 `y = x`에서 x는 이미 20이므로 y도 20. 값 교환 실패!
 
-### Scanner 기본 사용법 (참고)
+### Scanner 기본 사용법 (참고 — 학습 도구만, 시험 출제 안 됨)
 
-> **CED 주의**: `Scanner(System.in)` 키보드 입력은 AP 시험 범위 밖이지만, 객체 생성과 메서드 호출의 실습 도구로 유용하다. 시험에서는 `Scanner(new File(...))` 파일 읽기만 출제된다 (Unit 4.6).
+> **⚠️ CED 주의 (필독)**: `Scanner(System.in)` 키보드 입력은 **CED 1.4.B.1 EXCLUSION**으로 **2025-26 AP CSA 시험에 출제되지 않습니다**. 시험에서 Scanner는 **`Scanner(new File(...))` 파일 읽기만 출제** (Unit 4.6, CED p.186 Quick Reference 명시). 아래 코드는 객체 생성과 메서드 호출의 **실습 학습용**으로만 보고, **시험 답안에는 절대 사용 금지**.
 
 ```java
 import java.util.Scanner;
 
+// ⚠️ 학습용 데모 — 시험 답안 작성 시 절대 사용 금지
 Scanner sc = new Scanner(System.in);
 System.out.print("나이를 입력하세요: ");
 int age = sc.nextInt();        // 정수 입력
@@ -289,6 +290,8 @@ sc.nextLine();                  // nextInt() 뒤의 남은 개행 소비
 String name = sc.nextLine();   // 문자열 입력
 System.out.println(name + "님은 " + age + "세입니다.");
 ```
+
+> **시험 출제 형태 (4.6)**: `Scanner sc = new Scanner(new File("data.txt"));` 같은 파일 입력만 출제. `nextInt()`, `nextDouble()`, `nextBoolean()`, `nextLine()`, `next()`, `hasNext()`, `close()` 메서드만 IN.
 
 ---
 
@@ -476,9 +479,9 @@ public class APIDemo {
         double result = Math.sqrt(16.0);  // Math는 java.lang에 속함
         System.out.println(result);       // 출력: 4.0
 
-        // import가 필요한 클래스 사용
-        Scanner sc = new Scanner(System.in);
-        // sc.nextInt(), sc.nextDouble() 등 사용 가능
+        // import가 필요한 클래스 사용 (시험 형태: 파일 입력)
+        // Scanner sc = new Scanner(new File("data.txt"));   // ← 시험 출제 형태
+        // 학습용 데모: Scanner sc = new Scanner(System.in); ← 시험 출제 안 됨 (CED 1.4 EXCLUSION)
     }
 }
 ```
@@ -844,8 +847,8 @@ import java.util.Scanner;
 
 public class ObjectCreationDemo {
     public static void main(String[] args) {
-        // new 키워드로 객체 생성
-        Scanner sc = new Scanner(System.in);
+        // new 키워드로 객체 생성 (시험 출제 형태: 파일 입력)
+        // Scanner sc = new Scanner(new File("input.txt"));  // ← 시험 형태
         String greeting = new String("Hello");
 
         // Aliasing — 같은 객체를 두 변수가 가리킴
@@ -909,18 +912,18 @@ public class InstanceMethodDemo {
     public static void main(String[] args) {
         String name = "AP Computer Science A";
 
-        // 반환값 있는 인스턴스 메서드
+        // 반환값 있는 인스턴스 메서드 (CED 1.15 Quick Reference 준수)
         int len = name.length();           // 반환값을 변수에 저장
         System.out.println(len);           // 출력: 21
 
-        String upper = name.toUpperCase(); // 새 String 반환
-        System.out.println(upper);         // 출력: AP COMPUTER SCIENCE A
+        String first = name.substring(0, 12);  // 새 String 반환 (인덱스 0~11)
+        System.out.println(first);             // 출력: AP Computer
 
         // void 메서드 예시 (ArrayList에서 볼 수 있음)
         // list.add("item"); → 반환값 없이 동작만 수행
 
         // 메서드 체이닝 (반환값에 바로 메서드 호출)
-        System.out.println("hello".toUpperCase().length()); // 출력: 5
+        System.out.println("hello".substring(1, 4).length()); // 출력: 3 ("ell"의 길이)
     }
 }
 ```
@@ -959,7 +962,7 @@ System.out.println(result);
 ### 핵심 개념
 - **String은 immutable(불변)** — 한번 생성되면 변경 불가. 메서드 호출 시 **새로운 String 반환**
 
-> **비유**: String이 불변(immutable)인 것은 **펜으로 쓴 글씨**와 같다. 지울 수 없고, 수정하려면 새 종이에 다시 써야 한다. `s.toUpperCase()`는 원본을 바꾸지 않고 새 문자열을 만들어 반환한다.
+> **비유**: String이 불변(immutable)인 것은 **펜으로 쓴 글씨**와 같다. 지울 수 없고, 수정하려면 새 종이에 다시 써야 한다. `s.substring(1, 3)`은 원본 `s`를 바꾸지 않고 **새 문자열**을 만들어 반환한다 (잘라낸 부분).
 
 - **인덱스는 0부터 시작!**
 
@@ -1027,18 +1030,18 @@ public class StringDemo {
 
         // String은 불변!
         String original = "Hello";
-        original.toUpperCase();  // 새 String이 반환되지만 저장 안 함!
+        original.substring(1, 3);  // 새 String "el"이 반환되지만 저장 안 함!
         System.out.println(original);  // 출력: Hello (변하지 않음!)
 
-        String changed = original.toUpperCase();
-        System.out.println(changed);   // 출력: HELLO
+        String changed = original.substring(1, 3);
+        System.out.println(changed);   // 출력: el (substring 결과는 changed에 저장됨)
     }
 }
 ```
 
 ### 시험 출제 포인트
 - **`substring(from, to)`에서 to는 미포함!** `"Hello".substring(1, 3)` → `"el"` (인덱스 1, 2만)
-- **String은 불변** — `s.toUpperCase()`를 호출해도 s 자체는 변하지 않는다
+- **String은 불변** — `s.substring(...)`을 호출해도 s 자체는 변하지 않는다 (새 String 반환)
 - **`==` vs `equals()`** — String 비교는 반드시 `equals()` 사용!
 - 문자열 연결 시 **왼쪽에서 오른쪽 순서**로 평가: `1 + 2 + "a"` → `"3a"`, `"a" + 1 + 2` → `"a12"`
 - `indexOf()`가 문자열을 못 찾으면 `-1` 반환
@@ -1208,5 +1211,5 @@ if (s1.equals(s2)) {      // true (내용 비교)
 1. **정수 나눗셈**: `7 / 2` → `3` (3.5가 아님!)
 2. **(int) 캐스팅 = 버림**: `(int) 3.9` → `3` (반올림 아님!)
 3. **substring to는 미포함**: `s.substring(1, 3)` → 인덱스 1, 2만
-4. **String 불변**: `s.toUpperCase()`는 s를 안 바꿈, 새 String 반환
+4. **String 불변**: `s.substring(...)`은 s를 안 바꿈, 새 String 반환
 5. **문자열 비교**: `==`이 아니라 `equals()` 사용

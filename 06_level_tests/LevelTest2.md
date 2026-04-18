@@ -807,7 +807,7 @@ public ArrayList<String> getUniqueMoviesInRange(int startTime, int endTime) {
 | this vs static | 10 | 인스턴스 vs 클래스 변수/메서드 차이 |
 | String 알고리즘 | 4, 5, 6 | substring, indexOf, compareTo 트레이싱 |
 | ArrayList 삭제 함정 | 14, 15, 16 | remove(int) vs remove(Object), ConcurrentModificationException |
-| Merge sort | 17, 18 | 분할-병합 과정 손으로 추적 연습 |
+| Selection / Insertion sort | 17, 18 | 정렬 과정 손으로 추적 연습 |
 | 재귀 + String | 19 | 호출 스택 그려보며 반환값 추적 |
 | 2D 배열 경계 | 20, 21 | 행/열 인덱스, 대각선, 첫 행/마지막 열 패턴 |
 | De Morgan / 연산자 우선순위 | 12, 13 | `&&`가 `\|\|`보다 우선, 드 모르간 변환 연습 |

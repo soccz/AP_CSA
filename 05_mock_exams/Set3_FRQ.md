@@ -66,9 +66,14 @@ public class WeatherAlert {
      *  The message has the format:
      *    "Station REGION-CODE: LEVEL alert (N readings)"
      *
-     *  Where REGION is extracted from stationId as the characters before the
-     *  first "-", CODE is extracted as the characters after the last "-",
-     *  LEVEL is the result of getAlertLevel(), and N is getNumReadings().
+     *  Where:
+     *  - REGION is the substring of stationId before the first "-"
+     *  - CODE is the substring of stationId after the second "-"
+     *  - LEVEL is the result of getAlertLevel()
+     *  - N is getNumReadings()
+     *
+     *  You may only use methods listed in the Java Quick Reference
+     *  (e.g., String.indexOf, String.substring, String.length).
      *
      *  Examples:
      *    stationId "KR-SEL-042", alert "RED", 24 readings
@@ -76,7 +81,7 @@ public class WeatherAlert {
      *    stationId "US-NYC-007", alert "GREEN", 12 readings
      *      → "Station US-007: GREEN alert (12 readings)"
      *
-     *  Precondition: stationId contains at least two "-" characters.
+     *  Precondition: stationId contains exactly two "-" characters.
      */
     public String buildAlertMessage()
     { /* to be implemented in Part B */ }
@@ -141,10 +146,12 @@ public String getAlertLevel() {
 public String buildAlertMessage() {
     String id = getStationId();
     int firstDash = id.indexOf("-");
-    int lastDash = id.lastIndexOf("-");
-
     String region = id.substring(0, firstDash);
-    String code = id.substring(lastDash + 1);
+
+    // 두 번째(마지막) 대시는 첫 대시 다음 부분 문자열에서 indexOf로 다시 찾는다
+    String afterFirst = id.substring(firstDash + 1);
+    int secondDashRel = afterFirst.indexOf("-");
+    String code = afterFirst.substring(secondDashRel + 1);
 
     return "Station " + region + "-" + code + ": "
          + getAlertLevel() + " alert (" + getNumReadings() + " readings)";
@@ -169,12 +176,12 @@ public String buildAlertMessage() {
 
 | # | 채점 기준 | Decision Rules | 배점 |
 |---|---------|---------------|------|
-| 5 | `indexOf("-")`로 첫 번째 대시 위치를 찾고 `substring(0, firstDash)`로 REGION 추출 *(algorithm)* | `indexOf` 또는 `substring`을 사용해야 함. 하드코딩(예: `substring(0, 2)`)은 일반적이지 않으므로 earn 불가 | 1점 |
-| 6 | `lastIndexOf("-")`로 마지막 대시 위치를 찾고 `substring(lastDash + 1)`로 CODE 추출 *(algorithm)* | `lastIndexOf` 사용이 핵심. `indexOf`만으로 마지막 대시를 찾으려면 별도 로직 필요 — 올바르면 earn 가능 | 1점 |
+| 5 | `indexOf("-")`로 첫 번째 대시 위치를 찾고 `substring(0, firstDash)`로 REGION 추출 *(algorithm)* | `indexOf`와 `substring`을 사용해야 함. 하드코딩(예: `substring(0, 2)`)은 일반적이지 않으므로 earn 불가 | 1점 |
+| 6 | 첫 대시 이후 부분 문자열에서 다시 `indexOf("-")` + `substring`을 조합하여 CODE 추출 *(algorithm)* | `id.substring(firstDash+1)`에 대해 다시 `indexOf("-")`를 호출하여 두 번째 대시를 찾고, 그 뒤를 `substring`으로 잘라야 함. `lastIndexOf` 사용은 Java Quick Reference 외 메서드이므로 인정 불가 | 1점 |
 | 7 | 올바른 형식의 메시지 문자열 조합 — `"Station REGION-CODE: LEVEL alert (N readings)"` | `getAlertLevel()` 및 `getNumReadings()` 호출 포함. 형식이 크게 어긋나면 earn 불가 | 1점 |
 
 **Can still earn:** Part A의 `getAlertLevel()`가 틀려도 Part B에서 호출 로직이 올바르면 Part B 점수는 독립적으로 earn 가능.
-**Will not earn:** String 메서드(`substring`, `indexOf`, `lastIndexOf`)를 전혀 사용하지 않으면 포인트 5, 6을 earn 불가.
+**Will not earn:** Java Quick Reference의 String 메서드(`substring`, `indexOf`)를 전혀 사용하지 않으면 포인트 5, 6을 earn 불가. (`lastIndexOf`는 Quick Reference 외 메서드이므로 사용 시 채점 불가)
 
 #### 1점 감점 사유 (문항당 최대 3점)
 - v) `[]` vs `.get()` 혼동
@@ -192,8 +199,9 @@ public String buildAlertMessage() {
 - 평균 계산에서 정수 나눗셈 발생 (`sum`과 `getNumReadings()` 모두 int인 경우)
 - RED와 ORANGE 조건에서 `&&`와 `||` 혼동
 - ORANGE 조건에서 `isCoastal && avg >= 30.0` 부분을 괄호로 묶지 않아 연산자 우선순위 오류
-- `lastIndexOf("-")` 대신 `indexOf("-")`만 사용하여 중간 대시를 마지막으로 잘못 인식
-- `substring(lastDash)` 대신 `substring(lastDash + 1)` 필요 (대시 자체는 제외)
+- 첫 `indexOf("-")` 한 번만 호출하고 그 결과로 마지막 대시를 찾으려 함 (잘못된 위치). 첫 대시 이후 substring에서 다시 `indexOf("-")`를 호출해야 마지막 대시를 찾을 수 있음.
+- `substring(secondDashRel)` 대신 `substring(secondDashRel + 1)` 필요 (대시 자체는 제외)
+- `lastIndexOf` 사용 시 Quick Reference 외 메서드이므로 채점 불가
 
 ---
 
@@ -217,7 +225,7 @@ public String buildAlertMessage() {
 | `isExpired()` | 남은 시간이 0 이하이면 `true` 반환. |
 | `addTime(int minutes)` | 동전 투입. 분 단위 시간을 추가하고, `totalCollected`에 `ratePerHour * minutes / 60.0`을 더함. Precondition: `minutes > 0` |
 | `tick(int minutes)` | 시간 경과. 남은 시간에서 `minutes`를 뺌. 남은 시간이 음수가 되면 0으로 설정. Precondition: `minutes > 0` |
-| `toString()` | `"Meter [meterID]: [minutesRemaining] min remaining ($[totalCollected] collected)"` 형식 반환. |
+| `getDisplayInfo()` | `"Meter [meterID]: [minutesRemaining] min remaining ($[totalCollected] collected)"` 형식의 `String`을 반환하는 일반 메서드. |
 
 **실행 예시 (Execution Table):**
 
@@ -234,7 +242,7 @@ public String buildAlertMessage() {
 | `pm.tick(100)` | | 100분 경과 → 남은 시간 0 (음수 방지) |
 | `pm.isExpired()` | `true` | 시간 만료 |
 | `pm.getMinutesRemaining()` | `0` | 음수가 아닌 0 |
-| `pm.toString()` | `"Meter A-101: 0 min remaining ($3.0 collected)"` | 현재 상태 출력 |
+| `pm.getDisplayInfo()` | `"Meter A-101: 0 min remaining ($3.0 collected)"` | 현재 상태 문자열 |
 
 ```java
 public class ParkingMeter {
@@ -284,7 +292,7 @@ public class ParkingMeter {
         }
     }
 
-    public String toString() {
+    public String getDisplayInfo() {
         return "Meter " + meterID + ": " + minutesRemaining
                + " min remaining ($" + totalCollected + " collected)";
     }
@@ -300,8 +308,8 @@ public class ParkingMeter {
 | 3 | **Accessor Methods** | `getMeterID()` + `getMinutesRemaining()` + `isExpired()` 올바르게 구현 | `isExpired`가 `minutesRemaining <= 0` 반환해야 함. 셋 중 하나라도 틀리면 earn 불가 | 1점 |
 | 4 | **Mutator — addTime (time)** | `addTime`: `minutesRemaining += minutes` 올바르게 구현 | 덮어쓰기(`=`) 사용 시 earn 불가 | 1점 |
 | 5 | **Mutator — addTime (revenue)** | `addTime`: `totalCollected += ratePerHour * minutes / 60.0` 계산 올바름 | `/ 60` (정수 나눗셈) 사용 시 earn 불가. `ratePerHour` 곱하기 누락 시 earn 불가 | 1점 |
-| 6 | **Mutator — tick** | `tick`: `minutesRemaining -= minutes` + 음수 방지 (`< 0`이면 0으로 설정) | 음수 방지 누락 시 earn 불가. `Math.max(0, ...)` 또는 if문 모두 가능 | 1점 |
-| 7 | **toString** | `toString`: 올바른 형식 문자열 반환 | 형식 오류 시에도 의도가 명확하면 earn 가능 | 1점 |
+| 6 | **Mutator — tick** | `tick`: `minutesRemaining -= minutes` + 음수 방지 (`< 0`이면 0으로 설정하는 `if`문) | 음수 방지 누락 시 earn 불가. 반드시 **if 비교**로 음수 방지를 구현해야 함 (예: `if (minutesRemaining < 0) minutesRemaining = 0;`). `Math.max` 사용 시 — Quick Reference 외 메서드(int 버전)이므로 인정 불가 | 1점 |
+| 7 | **getDisplayInfo** | `getDisplayInfo()`: 올바른 형식의 String 반환 (일반 메서드, `toString` 오버라이드 아님) | 형식 오류 시에도 의도가 명확하면 earn 가능. 메서드 이름이 `toString`인 경우(오버라이드) earn 불가 — CED 1.15 EXCLUSION | 1점 |
 
 #### 1점 감점 사유 (문항당 최대 3점)
 - v) `[]` vs `.get()` 혼동
@@ -318,8 +326,10 @@ public class ParkingMeter {
 - 인스턴스 변수를 `public`으로 선언 (캡슐화 위반)
 - `addTime`에서 수금액 계산 시 `/ 60` (정수 나눗셈) 사용 → `/ 60.0` 필요
 - `tick`에서 음수 방지 누락 → 남은 시간이 음수가 됨
+- `tick`에서 `Math.max(0, ...)` 사용 → `Math.max(int,int)`는 Java Quick Reference에 없음 (CED 출제 범위 외). 반드시 `if`로 비교
 - `isExpired`에서 `< 0` 사용 → 정확히 0분일 때 만료로 판단 안 됨 (`<= 0` 필요)
 - `addTime`에서 `minutesRemaining = minutes` (누적이 아닌 덮어쓰기)
+- `getDisplayInfo` 대신 `public String toString()` 오버라이드를 작성 → CED 1.15.A.5 EXCLUSION 위반 (출제 범위 외)
 
 ---
 

@@ -144,15 +144,20 @@ public double getDeliveryFee() {
 public String getTrackingSummary() {
     String code = getTrackingCode();
 
+    // 첫 번째 "-" 위치를 찾고 TYPE 추출
     int firstDash = code.indexOf("-");
-    int lastDash = code.lastIndexOf("-");
-    // second dash: index of "-" starting from firstDash + 1
-    int secondDash = code.indexOf("-", firstDash + 1);
-
     String type = code.substring(0, firstDash);
-    String region = code.substring(firstDash + 1, secondDash);
-    String date = code.substring(secondDash + 1, lastDash);
-    String seq = code.substring(lastDash + 1);
+    String rest1 = code.substring(firstDash + 1);  // "REGION-DATE-SEQ"
+
+    // 두 번째 "-": rest1에서 첫 번째 "-"가 곧 두 번째 "-"
+    int secondDashInRest1 = rest1.indexOf("-");
+    String region = rest1.substring(0, secondDashInRest1);
+    String rest2 = rest1.substring(secondDashInRest1 + 1);  // "DATE-SEQ"
+
+    // 세 번째 "-": rest2에서 첫 번째 "-"
+    int thirdDashInRest2 = rest2.indexOf("-");
+    String date = rest2.substring(0, thirdDashInRest2);
+    String seq = rest2.substring(thirdDashInRest2 + 1);
 
     String typeLabel;
     if (type.equals("EXP")) {
@@ -185,12 +190,14 @@ public String getTrackingSummary() {
 
 | # | 채점 기준 | Decision Rules | 배점 |
 |---|---------|---------------|------|
-| 5 | `indexOf("-")`로 첫 번째 대시, `indexOf("-", firstDash+1)`로 두 번째 대시, `lastIndexOf("-")`로 마지막 대시 위치를 찾아 4개 부분(TYPE, REGION, DATE, SEQ) 추출 *(algorithm)* | `substring`과 `indexOf`/`lastIndexOf`를 올바르게 조합해야 함. 하드코딩 인덱스는 earn 불가 | 1점 |
+| 5 | 1-인자 `indexOf("-")` + `substring`을 반복적으로 사용하여 4개 부분(TYPE, REGION, DATE, SEQ)을 순차 추출 *(algorithm)* | `substring`과 1-인자 `indexOf`만으로 (Quick Reference 한도) 4개 토큰을 분리해야 함. 하드코딩 인덱스는 earn 불가 | 1점 |
 | 6 | TYPE이 "EXP"이면 "Express", "STD"이면 "Standard", 그 외는 원래 값으로 변환 — `equals()`로 비교 *(algorithm)* | `==`로 문자열 비교 시 earn 불가. 변환 로직이 없으면 earn 불가 | 1점 |
 | 7 | 올바른 형식의 요약 문자열 조합 — `"SEQ (REGION) - TYPE delivery on DATE"` | 괄호, 대시, 공백 등 형식이 크게 어긋나면 earn 불가. 사소한 공백 오류는 의도 명확하면 earn 가능 | 1점 |
 
 **Can still earn:** Part A의 `getDeliveryFee()`가 틀려도 Part B 점수는 독립적으로 earn 가능.
-**Will not earn:** String 메서드(`substring`, `indexOf`, `lastIndexOf`, `equals`)를 전혀 사용하지 않으면 포인트 5, 6을 earn 불가.
+**Will not earn:** String 메서드(`substring`, `indexOf`, `equals`)를 전혀 사용하지 않으면 포인트 5, 6을 earn 불가.
+
+> 참고: `lastIndexOf` 및 2-인자 `indexOf(String, int)` 오버로드는 AP CSA Java Quick Reference에 포함되지 않습니다. 정답 코드는 1-인자 `indexOf` + `substring` 조합만 사용합니다 (`split("-")` 사용도 허용 — Quick Reference에 있음).
 
 #### 1점 감점 사유 (문항당 최대 3점)
 - v) `[]` vs `.get()` 혼동
@@ -208,9 +215,9 @@ public String getTrackingSummary() {
 - 200km 초과 시 추가분에서 `getDistanceKm() - 200` 대신 `getDistanceKm()` 사용
 - `(int)` 캐스팅 누락하여 소수 무게가 그대로 할증에 반영됨
 - express 곱셈을 surcharge 추가 전에 적용
-- 두 번째 대시를 찾기 위해 `indexOf("-", firstDash + 1)` 대신 단순 `indexOf("-")` 재호출 (첫 번째 대시를 다시 찾음)
+- 두 번째/세 번째 대시 위치를 찾을 때 원본 문자열 `code`에서 `indexOf("-")`만 반복 호출하여 매번 첫 번째 대시(인덱스 동일)만 찾음 → 남은 부분문자열(`rest1`, `rest2`)에서 다시 `indexOf("-")` 호출 필요
 - `type.equals("EXP")` 대신 `type == "EXP"` 사용 (문자열 비교는 `equals`)
-- `substring(lastDash)` 대신 `substring(lastDash + 1)` 필요 (대시 자체 제외)
+- `substring(dashIndex)` 대신 `substring(dashIndex + 1)` 필요 (대시 자체 제외)
 
 ---
 
@@ -318,7 +325,7 @@ public class FitnessTracker {
 | 4 | **Mutator — update** | `addWorkout`: `totalCalories += calories` + `workoutCount++` | 둘 중 하나 누락 시 earn 불가. `type` 매개변수 미사용은 정상 | 1점 |
 | 5 | **Boolean Method** | `isGoalMet`: `totalCalories >= dailyGoal` 비교 + boolean 반환 | `>` 사용 시 earn 불가 (정확히 같을 때도 목표 달성) | 1점 |
 | 6 | **toString-style** | `getSummary`: `"userName: totalCalories/dailyGoal cal (workoutCount workouts)"` 형식 | 공백/슬래시/괄호 등 형식 오류 시에도 의도 명확하면 earn 가능 | 1점 |
-| 7 | **Computed Value** | `getCaloriesRemaining`: `dailyGoal - totalCalories` 계산 + 음수일 때 0 반환 | `Math.max(0, remaining)` 또는 if문 모두 가능. 음수 방지 누락 시 earn 불가 | 1점 |
+| 7 | **Computed Value** | `getCaloriesRemaining`: `dailyGoal - totalCalories` 계산 + 음수일 때 0 반환 | `if (remaining < 0) return 0;` 또는 동등한 조건문으로 처리. 음수 방지 누락 시 earn 불가 | 1점 |
 
 #### 1점 감점 사유 (문항당 최대 3점)
 - v) `[]` vs `.get()` 혼동
@@ -335,7 +342,7 @@ public class FitnessTracker {
 - 인스턴스 변수를 `public`으로 선언 → 캡슐화 위반 (감점)
 - `totalCalories`와 `workoutCount` 초기화 누락 (Java는 int를 0으로 자동 초기화하지만, 명시적 초기화 권장)
 - `addWorkout`에서 `type` 매개변수를 사용하지 않아도 괜찮음 (문제 요구사항에 저장하라는 말 없음)
-- `getCaloriesRemaining`에서 음수 반환 → `Math.max(0, remaining)` 또는 조건문 필요
+- `getCaloriesRemaining`에서 음수 반환 → `if (remaining < 0) return 0;` 조건문으로 처리 (참고: AP CSA Quick Reference의 `Math` 메서드는 `abs`, `pow`, `sqrt`, `random`만 포함 — `Math.max`/`Math.min`은 범위 외)
 - `getSummary` 형식 오류 (공백, 슬래시 위치 등)
 
 ### 부분점수 팁

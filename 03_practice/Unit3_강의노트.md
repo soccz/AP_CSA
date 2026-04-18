@@ -445,9 +445,18 @@ calc.add(1, 2, 3);    // int add(int, int, int) 호출 → 6
 
 > **주의**: 반환 타입만 다르고 매개변수가 같으면 오버로딩이 **아님** → 컴파일 에러
 
-### toString() 메서드
+### toString() 메서드 — 개념만, 작성 OUT
 
-클래스의 객체를 **문자열로 표현**할 때 사용한다. FRQ Q2에서 자주 요구된다.
+> **⚠️ 중대한 CED 2025-26 변경 (필독)**
+> CED 1.15.A.5 EXCLUSION: *"Overriding the toString method of a class is outside the scope of the AP Computer Science A course and exam."* (CED p.50 명시)
+>
+> - **개념(IN)**: `println(obj)` 또는 `"..." + obj`는 자동으로 `obj.toString()` 호출 — **트레이싱 가능** (MCQ에 출제 가능)
+> - **작성(OUT)**: 학생이 직접 `public String toString()` 오버라이드 작성 → **2025-26 시험 출제 안 됨**
+> - **FRQ Q2 (Class Design)** 에서는 toString 대신 **`getInfo()`, `getDescription()`, `getDisplayString()` 같은 일반 메서드** 사용
+
+#### 트레이싱 학습 예시 (이미 정의된 toString의 동작 이해)
+
+다음 코드는 **이미 정의된** Student 클래스이며, 학생은 println의 출력 결과만 추적한다 (작성 X, 트레이싱 O).
 
 ```java
 public class Student {
@@ -459,38 +468,66 @@ public class Student {
         this.grade = grade;
     }
     
+    // ⚠️ 학습용: toString 오버라이드는 이미 정의되어 있다고 가정
+    //   (CED 1.15.A.5 EXCLUSION으로 학생이 작성하는 것은 시험 범위 외)
     public String toString() {
         return name + " (Grade " + grade + ")";
     }
 }
 
-// 사용
+// 사용 (학생이 트레이싱할 부분)
 Student s = new Student("Kim", 11);
-System.out.println(s);          // "Kim (Grade 11)"
+System.out.println(s);          // "Kim (Grade 11)"   ← 자동 toString() 호출
 System.out.println("학생: " + s); // "학생: Kim (Grade 11)"
-// println과 문자열 연결(+)은 자동으로 toString() 호출
 ```
 
-> **시험 출제 포인트**:
-> - `System.out.println(객체)`는 자동으로 `toString()` 호출
-> - `"문자열" + 객체`도 자동으로 `toString()` 호출
-> - toString()을 작성하지 않으면 `클래스명@해시코드` 형태 출력 (유용하지 않음)
-> - FRQ Q2에서 toString()이 요구되면 반드시 정확한 형식으로 반환해야 함
+#### FRQ Q2 작성 권장 패턴 (toString 대신 일반 메서드)
 
-#### 연습 문제
-다음 코드의 출력은?
+```java
+public class Student {
+    private String name;
+    private int grade;
+    
+    public Student(String name, int grade) {
+        this.name = name;
+        this.grade = grade;
+    }
+    
+    // ✅ 2025-26 권장: 일반 메서드명 사용
+    public String getInfo() {
+        return name + " (Grade " + grade + ")";
+    }
+}
+
+// 사용 (FRQ에서 명시적으로 호출)
+Student s = new Student("Kim", 11);
+System.out.println(s.getInfo());   // "Kim (Grade 11)"
+```
+
+> **시험 출제 포인트 (2025-26 기준)**:
+> - **MCQ 트레이싱 (IN)**: 이미 정의된 toString이 println에서 자동 호출되는 동작 추적
+> - **FRQ 작성 (OUT)**: 학생이 toString 오버라이드 작성 X. 대신 `getInfo()` 등 일반 메서드명 사용
+> - toString을 작성하지 않으면 `클래스명@해시코드` 형태 출력 (Object 클래스 기본 동작) — 이는 트레이싱 문제로 출제 가능
+> - FRQ Q2에서 객체 정보 반환 메서드가 요구되면 **`getInfo()`/`getDisplayString()` 같은 이름** 사용 (CED 1.15 EXCLUSION 회피)
+
+#### 연습 문제 (트레이싱 — 이미 정의된 toString)
+
+다음 코드의 출력은? (Point 클래스의 toString은 이미 정의되어 있다고 가정)
+
 ```java
 public class Point {
     private int x, y;
     public Point(int x, int y) { this.x = x; this.y = y; }
-    public String toString() { return "(" + x + ", " + y + ")"; }
+    public String toString() { return "(" + x + ", " + y + ")"; }   // 트레이싱 대상 (학생 작성 X)
 }
 Point p = new Point(3, 7);
 System.out.println("위치: " + p);
 ```
 **(A)** `위치: Point@1a2b3c` **(B)** `위치: (3, 7)` **(C)** 컴파일 에러 **(D)** `위치: 3, 7`
 
-> **정답: (B)** — 문자열 연결에서 자동으로 toString() 호출. 괄호와 ", "이 포함된 형식 반환.
+> **정답: (B)** — 문자열 연결에서 자동으로 toString() 호출 (CED 1.15.A.5 IN — 트레이싱 가능). 괄호와 ", "이 포함된 형식 반환.
+>
+> ⚠️ **학습 포인트**: 이런 패턴의 MCQ는 출제 가능 (트레이싱). 그러나 FRQ에서 **학생이 toString 오버라이드를 작성하는 것은 OUT**.
 
 ---
 
@@ -1023,7 +1060,9 @@ public class Thermostat {
 - `Library` 객체는 도서관 이름(String)과 총 장서 수(int)를 가진다.
 - 생성자는 도서관 이름과 초기 장서 수를 매개변수로 받는다.
 - `addBooks(int count)` 메서드는 장서 수를 count만큼 증가시킨다.
-- `toString()` 메서드는 `"도서관이름 (N권)"` 형태를 반환한다. 예: `"중앙도서관 (5000권)"`
+- `getInfo()` 메서드는 `"도서관이름 (N권)"` 형태를 반환한다. 예: `"중앙도서관 (5000권)"`
+
+> **⚠️ 2025-26 CED 주의**: 정보 반환 메서드명은 **`toString` 오버라이드 금지** (CED 1.15.A.5 EXCLUSION). 일반 메서드명 (`getInfo`, `getDescription` 등) 사용 필수.
 
 <details>
 <summary>모범 답안</summary>
@@ -1042,7 +1081,7 @@ public class Library {
         bookCount += count;
     }
     
-    public String toString() {
+    public String getInfo() {
         return name + " (" + bookCount + "권)";
     }
 }
@@ -1053,9 +1092,11 @@ public class Library {
 2. private instance variables 2개 — 1점
 3. 생성자가 매개변수를 올바르게 저장 — 1점
 4. addBooks가 bookCount를 올바르게 증가 — 1점
-5. toString이 올바른 형식의 문자열 반환 — 1점
-6. toString에서 문자열 연결이 정확 — 1점
+5. getInfo가 올바른 형식의 문자열 반환 — 1점
+6. getInfo에서 문자열 연결이 정확 — 1점
 7. 전체 알고리즘 정합성 — 1점
+
+> **채점 주의**: `public String toString()` 오버라이드로 작성 시 **CED 1.15.A.5 EXCLUSION 위반**으로 5번/6번 항목 인정 불가. 반드시 일반 메서드명 사용.
 </details>
 
 ---

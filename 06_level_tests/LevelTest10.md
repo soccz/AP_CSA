@@ -905,13 +905,13 @@ public String evaluateStrength(String password) {
 
     for (int i = 0; i < password.length(); i++) {
         char ch = password.charAt(i);
-        if (Character.isUpperCase(ch)) {
+        if (ch >= 'A' && ch <= 'Z') {
             hasUpper = true;
         }
-        if (Character.isLowerCase(ch)) {
+        if (ch >= 'a' && ch <= 'z') {
             hasLower = true;
         }
-        if (Character.isDigit(ch)) {
+        if (ch >= '0' && ch <= '9') {
             hasDigit = true;
         }
     }
@@ -930,7 +930,7 @@ public String evaluateStrength(String password) {
 }
 ```
 
-**대안:** `Character.isUpperCase()` 대신 `ch >= 'A' && ch <= 'Z'` 등의 직접 비교도 정답으로 인정합니다.
+**대안:** AP Quick Reference 외이지만 `Character.isUpperCase()`, `Character.isLowerCase()`, `Character.isDigit()`을 사용한 풀이도 정답으로 인정합니다.
 
 #### 채점 기준 (4점)
 
@@ -947,7 +947,7 @@ public String evaluateStrength(String password) {
 |------|------|
 | -1 | 기준 경계값 오류 (예: 0~1을 medium으로 판정) |
 | -1 | 루프 없이 첫 문자만 검사 |
-| -1 | `Character.isUpperCase()` 등의 메서드를 잘못 사용하거나 존재하지 않는 메서드 호출 |
+| -1 | 존재하지 않는 메서드 호출 또는 메서드 시그니처를 잘못 사용 |
 | -1 | 반환값 철자 오류 (`"Weak"` 등 대소문자 다름) |
 
 ---

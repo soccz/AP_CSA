@@ -651,12 +651,14 @@ sayHello();                         // 호출만 가능
 **비유**: 공용 도구. 특정 사람 것이 아니라 누구나 쓸 수 있는 공용 가위.
 **예시 코드**:
 ```java
-// Math 클래스의 static 메서드들
-double root = Math.sqrt(16);    // 4.0
-int bigger = Math.max(5, 10);   // 10
-double rand = Math.random();    // 0.0 ~ 0.999...
+// Math 클래스의 static 메서드들 (Quick Reference 등재)
+double root  = Math.sqrt(16);      // 4.0
+double power = Math.pow(2, 8);     // 256.0
+int    abs1  = Math.abs(-7);       // 7
+double abs2  = Math.abs(-3.5);     // 3.5
+double rand  = Math.random();      // 0.0 ~ 0.999...
 ```
-**시험에서**: Math.random(), Math.abs(), Math.pow() 등이 자주 출제. 호출 시 클래스이름.메서드이름() 형태.
+**시험에서**: Math.random(), Math.abs(), Math.pow(), Math.sqrt() 4가지가 Quick Reference에 등재. 호출 시 `클래스이름.메서드이름()` 형태. ⚠️ `Math.max`, `Math.min`은 Quick Reference에 **없으므로** 시험 답안에서 사용 금지 — 더 큰/작은 값은 `if`로 직접 비교한다.
 
 ---
 
@@ -666,10 +668,10 @@ double rand = Math.random();    // 0.0 ~ 0.999...
 **예시 코드**:
 ```java
 String s = "Hello";
-int len = s.length();        // s 객체의 instance method
-String upper = s.toUpperCase(); // "HELLO"
+int len = s.length();              // s 객체의 instance method (Quick Reference 등재)
+String first = s.substring(0, 1);  // "H" (Quick Reference 등재)
 ```
-**시험에서**: static method는 클래스이름.메서드(), instance method는 객체이름.메서드()로 호출.
+**시험에서**: static method는 `클래스이름.메서드()`, instance method는 `객체이름.메서드()`로 호출. ⚠️ String의 `toUpperCase`/`toLowerCase`/`charAt`은 Quick Reference에 없으므로 시험 답안 금지 — `substring`, `equals`, `compareTo`, `indexOf`, `split`, `length`만 사용.
 
 ---
 
@@ -795,12 +797,12 @@ System.out.println(s1.length());   // 5
 **예시 코드**:
 ```java
 String s = "Hello";
-s.toUpperCase();            // s는 그대로 "Hello" (원본 안 바뀜!)
-String t = s.toUpperCase(); // t = "HELLO" (새 String 생성)
+s.substring(1);             // s는 그대로 "Hello" (반환값을 받지 않으면 사라짐!)
+String t = s.substring(1);  // t = "ello" (새 String 생성)
 
 s = s + " World";           // 새 "Hello World" 객체가 만들어지고 s가 그걸 가리킴
 ```
-**시험에서**: String 메서드는 원본을 바꾸지 않고 새 String을 리턴한다. s.substring(1)만 쓰면 s는 그대로!
+**시험에서**: Quick Reference 등재 모든 String 메서드(`substring`, `indexOf`, `equals`, `compareTo`, `split`)는 원본을 바꾸지 않고 새 값을 반환한다. `s.substring(1)`만 쓰면 s는 그대로! 결과를 사용하려면 반드시 변수에 다시 대입.
 
 ---
 
@@ -1529,9 +1531,11 @@ list.add(1, "C");     // 인덱스 1에 삽입: ["A", "C", "B"]
 ArrayList<String> list = new ArrayList<String>();
 list.add("A"); list.add("B"); list.add("C");  // ["A", "B", "C"]
 list.remove(1);         // 인덱스 1 제거: ["A", "C"]
-list.remove("A");       // "A" 제거: ["C"]
+// ⚠️ list.remove("A") (값으로 삭제)는 remove(Object) 오버로드이며,
+//    Quick Reference에는 remove(int index) 한 가지만 등재 → 시험 답안 금지.
+//    값으로 삭제하려면 직접 인덱스를 찾는 루프(findIndex 헬퍼) 작성.
 ```
-**시험에서**: remove 후 뒤의 원소들이 앞으로 당겨짐. 루프에서 remove하면 인덱스가 밀려서 버그 발생! 뒤에서부터 삭제하면 안전.
+**시험에서**: Quick Reference의 `remove(int index)` 한 가지만 사용 가능. remove 후 뒤의 원소들이 앞으로 당겨짐 → 루프에서 remove하면 인덱스가 밀려서 버그 발생! 뒤에서부터 삭제하거나 `i--` 패턴 사용.
 
 ---
 
@@ -1881,20 +1885,22 @@ System.out.println(f.exists());  // 파일이 존재하면 true
 **예시 코드**:
 ```java
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 
-// 키보드 입력
-Scanner sc = new Scanner(System.in);
-System.out.print("이름: ");
-String name = sc.nextLine();
-
-// 파일 입력
-Scanner fileSc = new Scanner(new File("data.txt"));
-while (fileSc.hasNext()) {
-    System.out.println(fileSc.nextLine());
+public static void main(String[] args) throws IOException {
+    // 파일 입력 — AP CSA 시험 범위 안 (CED 4.6 + Quick Reference)
+    Scanner fileSc = new Scanner(new File("data.txt"));
+    while (fileSc.hasNext()) {
+        System.out.println(fileSc.nextLine());
+    }
+    fileSc.close();
 }
-fileSc.close();
+
+// ⚠️ 키보드 입력은 시험 범위 밖 (CED 1.4 EXCLUSION):
+//    Scanner sc = new Scanner(System.in);  ← 시험 답안에 절대 사용 금지
 ```
-**시험에서**: AP 시험에서 직접 나오진 않지만, 랩(lab) 과제에서 자주 사용.
+**시험에서**: **`Scanner(File)` 형태는 AP CSA 2025-26 시험 범위 안**(Quick Reference 등재). FRQ에서 코드 추적/수정으로 출제 가능. **`Scanner(System.in)` 키보드 입력은 시험 범위 밖**(CED p.106 EXCLUSION).
 
 ---
 
@@ -1910,7 +1916,7 @@ public static void readFile() throws IOException {
     // 파일이 없으면 IOException 발생 가능
 }
 ```
-**시험에서**: AP 시험에서 직접 출제되진 않지만, 파일 관련 코드 작성 시 필요.
+**시험에서**: **`throws IOException`은 AP CSA 2025-26 시험 범위 안** — 파일 입출력(CED 4.6) 코드 작성 시 메서드 시그니처에 반드시 포함. ⚠️ `try-catch`로 처리하는 패턴은 시험 범위 밖이고, `throw new ...Exception(...)`처럼 직접 던지는 것도 시험 범위 밖. AP CSA에서 허용되는 예외 처리는 **`throws IOException` 위임 한 가지뿐**이다.
 
 ---
 
@@ -1926,7 +1932,7 @@ public static void main(String[] args) throws IOException {
     // 파일이 없으면 FileNotFoundException (IOException의 하위 클래스)
 }
 ```
-**시험에서**: AP 시험에서 직접 출제되진 않음. 실습용으로 알아두자.
+**시험에서**: **AP CSA 2025-26 시험 범위 안** — 파일 입출력 코드(CED 4.6)에서 항상 등장한다. FRQ에서 `throws IOException`을 빠뜨린 코드를 보고 컴파일 에러를 묻는 형태로 출제 가능. ⚠️ `try-catch` 처리는 시험 범위 밖.
 
 ---
 
@@ -1949,11 +1955,10 @@ while (sc.hasNext()) {           // 읽을 게 더 있는 동안
 **비유**: 번호표 기계에서 다음 번호를 뽑는 것.
 **예시 코드**:
 ```java
-Scanner sc = new Scanner(System.in);
-System.out.print("나이: ");
-int age = sc.nextInt();  // 사용자가 입력한 정수를 읽음
+Scanner sc = new Scanner(new File("numbers.txt"));   // 시험 범위: Scanner(File)
+int n = sc.nextInt();   // 파일에서 다음 정수를 읽음
 ```
-**시험에서**: nextInt() 후에 nextLine()을 쓰면 빈 줄이 읽히는 버그가 있다. nextInt() 후 nextLine()을 한 번 더 호출해서 버리자.
+**시험에서**: AP CSA 2025-26 Quick Reference 등재. ⚠️ `Scanner(System.in)` 형태의 키보드 입력용 사용은 시험 범위 밖이다. 또한 **`nextInt()` 후 `nextLine()` 혼용 시 줄바꿈 처리 이슈는 시험 범위 밖**(CED p.106 EXCLUSION) — "Writing or analyzing code that uses both nextLine and other Scanner methods on the same input source is outside the scope." 이 함정은 시험 답안에서 신경 쓰지 않아도 된다.
 
 ---
 
@@ -1962,11 +1967,14 @@ int age = sc.nextInt();  // 사용자가 입력한 정수를 읽음
 **비유**: 메모장의 한 줄을 통째로 읽는 것.
 **예시 코드**:
 ```java
-Scanner sc = new Scanner(System.in);
-System.out.print("이름: ");
-String name = sc.nextLine();  // 한 줄 전체를 읽음
+Scanner sc = new Scanner(new File("data.txt"));   // 시험 범위: Scanner(File)
+while (sc.hasNext()) {                            // hasNext만 Quick Reference 등재
+    String line = sc.nextLine();                  // 한 줄 전체를 읽음
+    System.out.println(line);
+}
+sc.close();
 ```
-**시험에서**: nextInt()와 nextLine()을 섞어 쓸 때 주의. 줄바꿈 문자 처리 이슈.
+**시험에서**: AP CSA 2025-26 Quick Reference 등재. 파일 줄 단위 읽기 패턴 `while (sc.hasNext()) { sc.nextLine(); }`이 핵심. ⚠️ `Scanner(System.in)` 형태와 `hasNextLine()`/`hasNextInt()` 등은 시험 범위 밖. `nextInt()`와 `nextLine()` 혼용 시 줄바꿈 문자 처리 이슈도 CED p.106 EXCLUSION이라 출제되지 않는다.
 
 ---
 
