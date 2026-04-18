@@ -137,6 +137,8 @@ System.out.println(sum);
 
 ### 7. [U2 · 보통]
 
+> **참고:** `toUpperCase()`는 AP CSA Quick Reference에 없으므로 시험 출제 범위 밖이지만, 메서드 동작 비교 연습을 위해 포함.
+
 다음 코드의 출력은?
 
 ```java
@@ -707,14 +709,21 @@ Complete the `hasWinner` method. Check rows, columns, and both main diagonals.
 public static String caesarShift(String text, int shift)
 {
     String result = "";
+    String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    // charAt 대신 substring(i, i+1) + indexOf (Quick Reference 준수)
     for (int i = 0; i < text.length(); i++)
     {
-        char ch = text.charAt(i);
-        if (ch >= 'A' && ch <= 'Z')
+        String ch = text.substring(i, i + 1);
+        int pos = alphabet.indexOf(ch);
+        if (pos >= 0)
         {
-            ch = (char)('A' + (ch - 'A' + shift) % 26);
+            int newPos = (pos + shift) % 26;
+            result += alphabet.substring(newPos, newPos + 1);
         }
-        result += ch;
+        else
+        {
+            result += ch;
+        }
     }
     return result;
 }
@@ -723,13 +732,15 @@ public static String caesarShift(String text, int shift)
 | 점수 | 기준 |
 |------|------|
 | +1 | 문자열을 순회하는 루프 |
-| +1 | 대문자('A'-'Z')만 변환, 나머지는 그대로 |
+| +1 | 대문자('A'-'Z')만 변환, 나머지는 그대로 (`alphabet.indexOf(ch) >= 0`) |
 | +1 | shift 후 % 26으로 wrap-around 처리 |
 | +1 | 올바른 결과 문자열 반환 (algorithm point) |
 
 **감점 사항:**
 - wrap-around 누락 (Z 이후 처리 안 함): -1
 - 소문자도 변환: -1 (문제 조건 위반)
+
+📎 **Quick Reference 준수:** `charAt`은 AP CSA Java Quick Reference에 없으므로 사용 금지. `substring(i, i+1)`로 한 글자 String을 얻고 `alphabet.indexOf(ch)`로 알파벳 위치를 찾는 패턴이 표준.
 
 ---
 

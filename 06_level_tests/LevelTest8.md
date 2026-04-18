@@ -151,6 +151,8 @@ System.out.println(result);
 
 ### 7. [U2 · 보통]
 
+> **참고:** `toUpperCase()`는 AP CSA Quick Reference에 없으므로 시험 출제 범위 밖이지만, 메서드 동작 비교 연습을 위해 포함. 시험 답안에서는 `compareTo`로 알파벳 범위 비교를 사용하세요.
+
 다음 코드의 출력은?
 
 ```java
@@ -352,7 +354,11 @@ int[][] grid = {{1, 2, 3, 4},
                 {5, 6, 7, 8},
                 {9, 10, 11, 12}};
 int sum = 0;
-for (int i = 0; i < Math.min(grid.length, grid[0].length); i++)
+// Math.min 대신 if-else로 직접 비교 (Quick Reference 준수)
+int limit = grid.length;
+if (grid[0].length < limit)
+    limit = grid[0].length;
+for (int i = 0; i < limit; i++)
 {
     sum += grid[i][grid[0].length - 1 - i];
 }
@@ -602,7 +608,7 @@ public class Song
 | `removeSong(String title)` | 주어진 제목과 일치하는 **첫 번째** 노래를 제거. 제거 성공 시 `true`, 없으면 `false`. |
 | `getTotalDuration()` | 모든 노래의 재생 시간 합(분). |
 | `shuffle()` | 마지막 노래를 0 이상 `songs.size()-1` 미만의 랜덤 인덱스 위치에 삽입. 크기 1 이하이면 아무 동작 안 함. `(int)(Math.random() * (songs.size() - 1))` 사용. |
-| `toString()` | `"Playlist: [name] ([size] songs, [duration] min)"` 형식. 예: `"Playlist: Chill (5 songs, 23 min)"` |
+| `getDescription()` | `"Playlist: [name] ([size] songs, [duration] min)"` 형식의 String을 반환. 예: `"Playlist: Chill (5 songs, 23 min)"`. (참고: AP CSA Quick Reference에 `toString` 오버라이드 작성 요구는 없으므로 명시적 메서드를 정의한다.) |
 
 ---
 ---
@@ -789,7 +795,8 @@ public class Playlist
         songs.add(pos, last);
     }
 
-    public String toString()
+    // toString 오버라이드 작성은 Quick Reference 외 → 명시적 getDescription 사용
+    public String getDescription()
     {
         return "Playlist: " + name + " (" + songs.size()
                + " songs, " + getTotalDuration() + " min)";
@@ -803,7 +810,7 @@ public class Playlist
 | +1 | `addSong` + `removeSong` (첫 번째 일치만 제거, boolean 반환) |
 | +1 | `getTotalDuration` (전체 합) |
 | +1 | `shuffle` (마지막 노래를 랜덤 위치에 삽입, 크기 1 이하 처리) |
-| +1 | `toString` 형식 일치 |
+| +1 | `getDescription` 형식 일치 |
 | +1 | 전체 클래스 구조 올바름 (algorithm point) |
 
 **감점 사항:**

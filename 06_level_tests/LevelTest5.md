@@ -308,6 +308,8 @@ for (int val : a)
 System.out.println(common);
 ```
 
+> **참고**: `ArrayList.contains`는 AP CSA 2025-26 Quick Reference에 없으므로 시험 답안 작성 시 사용 금지입니다. 본 문제는 trace 학습용이며, 실제 작성 시에는 `for` 루프 + `equals`로 직접 선형 탐색하세요.
+
 (A) `[10, 20, 30, 40]`
 (B) `[10, 30]`
 (C) `[20]`
@@ -745,7 +747,15 @@ public class BankAccount
 
     public String getStatement()
     {
-        return owner + ": $" + String.format("%.2f", balance)
+        // String.format은 Quick Reference 범위 밖이므로 정수/소수 분리 후 수동 조립
+        int dollars = (int) balance;
+        int cents = (int) ((balance - dollars) * 100 + 0.5);  // 소수 둘째 자리 반올림
+        String centStr = "" + cents;
+        if (cents < 10)
+        {
+            centStr = "0" + cents;
+        }
+        return owner + ": $" + dollars + "." + centStr
                + " (" + transactionCount + " transactions)";
     }
 }

@@ -2345,8 +2345,7 @@ return 0  ✓
 
 1. **새 배열 생성:** `int[] result = new int[grades.length];` — 원본과 같은 길이의 새 배열을 할당. 이 단계가 "원본 불변" 요구사항의 핵심이다.
 2. **각 원소 계산:** 인덱스 `i`에 대해 `grades[i] + bonus`를 계산하되, **100을 넘으면 100으로 제한**.
-   - 방법 A: `if (v > 100) v = 100;` — 명시적 if 체크.
-   - 방법 B: `Math.min(v, 100)` — Quick Reference에 `Math.min`은 없지만 `Math.abs`만 있다. 즉, AP에서는 Math.min 사용이 권장되지 않으니 if 로 쓰는 편이 안전하다 (그러나 쓰더라도 컴파일은 된다).
+   - 표준 방법: `if (v > 100) v = 100;` — 명시적 if 체크. (AP CSA Quick Reference에는 `Math.abs`만 포함되어 있고 `Math.min` / `Math.max`는 없으므로 시험에서는 항상 if 비교로 직접 구현해야 한다.)
 3. **반환:** `return result;`.
 
 ⚠️ 인덱스 기반 for 루프를 써야 한다. for-each로 순회하면 결과 배열의 해당 위치를 알기 위해 별도의 카운터 변수가 필요해지므로 indexed for가 자연스럽다.
@@ -2379,24 +2378,7 @@ public int[] addBonus(int bonus)
 }
 ```
 
-**대안 풀이 (Math.min 사용):**
-
-`Math.min(a, b)`는 두 값 중 작은 쪽을 반환한다. "100을 넘으면 100"이란 표현은 곧 "원값과 100 중 작은 쪽"과 동치다. 한 줄로 압축할 수 있다.
-
-```java
-public int[] addBonus(int bonus)
-{
-    int[] result = new int[grades.length];
-    for (int i = 0; i < grades.length; i++)
-    {
-        // grades[i] + bonus 와 100 중 작은 쪽
-        result[i] = Math.min(grades[i] + bonus, 100);
-    }
-    return result;
-}
-```
-
-📎 AP CSA Quick Reference에 `Math.min`은 포함되어 있지 않지만, Java 표준이므로 컴파일·실행은 정상이다. 채점 기준이 "캡핑을 올바르게 했는가"에 맞춰져 있어 감점 없이 통과한다. 다만 보수적으로 쓰려면 if-기반을 택한다.
+> ⚠️ **주의 — `Math.min` 사용 금지:** `Math.min(grades[i] + bonus, 100)`로 한 줄에 줄이는 풀이가 직관적으로 떠오르지만, **AP CSA Java Quick Reference에는 `Math.min` / `Math.max`가 포함되어 있지 않다**. Quick Reference에 명시된 Math 메서드는 `Math.abs(int/double)`, `Math.pow(double, double)`, `Math.sqrt(double)`, `Math.random()` 단 4개뿐이다. 시험 답안에서는 반드시 위 모범 답안처럼 **`if (v > 100) v = 100;` 형태의 명시적 if 비교**를 사용해야 한다 (CED 2.9.A.1 표준 알고리즘).
 
 **예시 추적 (grades = {85, 60, 92, 55, 78}, bonus = 15):**
 
@@ -2445,7 +2427,7 @@ return {50, 70, 90} (내용은 같지만 별개의 배열 객체)
 | +0.5 | 새 배열 할당 (`new int[grades.length]`) |
 | +0.5 | 인덱스 기반 루프로 순회 |
 | +0.5 | `grades[i] + bonus` 덧셈 수행 |
-| +0.5 | `> 100` 캡핑 로직 (또는 `Math.min(..., 100)`) |
+| +0.5 | `> 100` 캡핑 로직 (`if (v > 100) v = 100;` 형태. Quick Reference에 `Math.min`이 없으므로 if 비교만 인정) |
 | +0.5 | `result[i] = v` 할당 (원본 수정 아님) |
 | +0.5 | 정확한 반환 `return result` + 원본 `grades` 불변 유지 |
 

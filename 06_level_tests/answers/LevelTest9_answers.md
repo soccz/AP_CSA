@@ -1369,7 +1369,7 @@ System.out.println((x > 0) + " " + (y < 0));
 > ⚠️ **함정 2:** `compareTo`가 정확히 `1`이나 `-1`을 반환한다고 단정하면 안 된다. 실제로는 `'b' - 'a' = 1`처럼 차이값이 그대로 나오는 경우가 많지만 구현 의존적이라서 AP에서는 **부호만** 본다. `compareTo(b) == 1`처럼 정확한 값과 비교하는 코드는 위험하다.
 > ⚠️ **함정 3:** `equals`와 `compareTo`를 혼동하지 말자. `equals`는 **boolean 반환(같으면 true)**, `compareTo`는 **int 반환(같으면 0)**. 같은지만 확인할 거라면 `equals`가 더 직관적이고 안전하다. `compareTo(b) == 0`도 같음을 의미하지만 AP 코드에서는 `equals`를 선호.
 
-> 💡 **꿀팁 1:** AP에 출제되는 String 메서드는 **딱 6개**다: `length()`, `substring(int)`, `substring(int, int)`, `indexOf(String)`, `equals(Object)`, `compareTo(String)`. `toUpperCase()`, `charAt()`, `split()`은 AP 범위에 있지만 자주 등장하지 않는 편. 6개를 외우면 거의 모든 String 문제를 풀 수 있다.
+> 💡 **꿀팁 1:** AP CSA Java Quick Reference의 String 메서드는 **딱 6개**다: `length()`, `substring(int)`, `substring(int, int)`, `indexOf(String)`, `equals(Object)`, `compareTo(String)`. `toUpperCase()`, `toLowerCase()`, `charAt()`, `split()`, `replace()`, `trim()`, `contains()` 등은 **Quick Reference 외**이므로 시험에 출제되지 않는다 (사용 시 답안 인정 안 됨). 6개를 정확히 외우면 모든 String 문제를 풀 수 있다.
 > 💡 **꿀팁 2:** 사전순 정렬을 빠르게 판단하려면 **첫 번째 다른 문자만** 보면 된다. `"banana"` vs `"apple"`은 첫 글자 `b` vs `a`에서 끝. 굳이 `"banana"`와 `"apple"` 전체를 비교할 필요 없음.
 > 💡 **꿀팁 3:** `compareTo` 결과를 boolean과 함께 쓸 때는 **부호 검사 패턴**(`> 0`, `< 0`, `== 0`)을 쓰자. `if (a.compareTo(b) > 0)`는 "a가 b보다 사전순으로 뒤"라는 뜻이다. 헷갈리면 `int diff = a.compareTo(b);` 같이 임시 변수에 받아 부호 검사를 분리하면 가독성이 좋아진다.
 

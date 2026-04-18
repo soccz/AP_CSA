@@ -78,7 +78,8 @@ String result = "";
 for (int i = 0; i < s.length(); i++)
 {
     String ch = s.substring(i, i + 1);
-    if (!" ,.!".contains(ch))
+    // contains 대신 indexOf != -1 (Quick Reference 준수)
+    if (" ,.!".indexOf(ch) == -1)
     {
         result += ch;
     }
@@ -394,7 +395,9 @@ System.out.println(list);
 int[] arr = {2, 4, 6, 8};
 int target = 5;
 int lo = 0, hi = arr.length - 1;
-while (lo <= hi)
+boolean found = false;
+// break 대신 boolean 플래그 사용 (Quick Reference 준수)
+while (lo <= hi && !found)
 {
     int mid = (lo + hi) / 2;
     if (arr[mid] < target)
@@ -402,7 +405,7 @@ while (lo <= hi)
     else if (arr[mid] > target)
         hi = mid - 1;
     else
-        break;
+        found = true;
 }
 System.out.println(lo);
 ```
@@ -607,7 +610,7 @@ Complete the `curveAll` method.
 | 5 | B | U2 | 쉬움 | `substring(0, length)` = 전체 문자열. `"programming"`. |
 | 6 | C | U2 | 어려움 | 숫자 뒤집기. 12345 → 54321. |
 | 7 | A | U2 | 보통 | `"banana".indexOf("na")` = 2. `indexOf("na", 3)` = 4. 출력: `"2 4"`. |
-| 8 | D | U2 | 어려움 | 버블 정렬로 문자열 정렬. `"banana"` → `"aaabnn"`. 첫 문자는 `'a'`. |
+| 8 | D | U2 | 어려움 | 선택 정렬 변형으로 문자열 정렬 (Quick Reference 준수: 버블 정렬은 출제 범위 외). `"banana"` → `"aaabnn"`. 첫 문자는 `'a'`. |
 | 9 | B | U2 | 어려움 | `indexOf("")`는 항상 0을 반환. 빈 문자열은 모든 위치에 존재. |
 | 10 | D | U3 | 보통 | `p = true, q = false`: `!p = false`, `!p || q = false`. `p && false = false`. |
 | 11 | A | U3 | 어려움 | 분배법칙: `(a || b) && (a || !b)` = `a || (b && !b)` = `a || false` = `a`. |

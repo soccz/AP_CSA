@@ -129,6 +129,8 @@ for (int i = 0; i < s.length(); i++)
 System.out.println(result);
 ```
 
+> **참고**: `toUpperCase()`는 AP CSA 2025-26 Quick Reference에 없으므로 시험 답안 작성에는 사용 금지입니다. 본 문제는 코드 추적 능력만 평가하기 위한 것이며, `toUpperCase()`는 인덱스 0,3,6 위치 문자를 대문자로 바꿉니다.
+
 (A) `"AbCdEfG"`
 (B) `"ABCdEFg"`
 (C) `"AbcDeFg"`
@@ -334,6 +336,8 @@ list.remove(Integer.valueOf(2));
 System.out.println(list);
 ```
 
+> **참고**: `ArrayList.remove(Object)`와 `Integer.valueOf(...)`는 AP CSA 2025-26 Quick Reference에 없으므로 시험 답안에 사용 금지입니다. 본 문제는 `remove(int)`(인덱스 제거)와 `remove(Object)`(값 제거) 오버로드 구분을 추적하는 학습용입니다.
+
 (A) `[1, 4, 5]`
 (B) `[1, 2, 5]`
 (C) `[1, 3, 5]`
@@ -493,7 +497,7 @@ System.out.println(sum);
 | `setSize(String size)` | 사이즈를 변경. `"S"`, `"M"`, `"L"` 중 하나가 아니면 변경하지 않고 `false` 반환. 성공하면 `true` 반환. |
 | `addShots(int shots)` | 추가 샷 수를 누적. `shots`가 0 이하이면 추가하지 않고 `false` 반환. 성공하면 `true` 반환. |
 | `getTotalPrice()` | 총 가격을 반환. 사이즈 보정: `"S"`이면 `basePrice * 0.8`, `"M"`이면 `basePrice`, `"L"`이면 `basePrice * 1.3`. 추가 샷 하나당 `0.5` 추가. |
-| `toString()` | `"[name] ([size]) - $[totalPrice]"` 형식. 가격은 소수점 둘째 자리까지 (`String.format("%.2f", price)` 사용 가능). 예: `"Latte (L) - $5.85"` |
+| `getDescription()` | `"[name] ([size]) - $[totalPrice]"` 형식의 `String` 반환. 가격은 정수부 + "." + 소수 둘째 자리 형태(예: `5.85`)로 직접 조립합니다. 예: `"Latte (L) - $5.85"`. (참고: `toString` 오버라이드 작성 및 `String.format`은 AP CSA 2025-26 Quick Reference 범위 밖이므로 명시 메서드 `getDescription()`을 사용합니다.) |
 
 `Beverage` 클래스를 완성하세요. 위의 모든 인스턴스 변수, 생성자, 메서드를 포함해야 합니다.
 
@@ -686,8 +690,17 @@ public class Beverage {
         return price;
     }
 
-    public String toString() {
-        return name + " (" + size + ") - $" + String.format("%.2f", getTotalPrice());
+    // getDescription: toString 오버라이드 대신 명시 메서드 사용 (Quick Reference 준수)
+    // String.format 대신 정수/소수 분리 후 수동 조립
+    public String getDescription() {
+        double total = getTotalPrice();
+        int dollars = (int) total;
+        int cents = (int) ((total - dollars) * 100 + 0.5);  // 반올림으로 소수 둘째 자리
+        String centStr = "" + cents;
+        if (cents < 10) {
+            centStr = "0" + cents;
+        }
+        return name + " (" + size + ") - $" + dollars + "." + centStr;
     }
 }
 ```
@@ -699,14 +712,15 @@ public class Beverage {
 - +1: `setSize` — 유효한 사이즈(`"S"`, `"M"`, `"L"`)인지 검증하고 조건부 변경 및 `boolean` 반환
 - +1: `addShots` — `shots <= 0` 가드 조건 처리, 누적 추가, `boolean` 반환
 - +1: `getTotalPrice` — 사이즈별 가격 보정(`0.8`, `1.0`, `1.3`) + 추가 샷 비용(`shots * 0.5`) 올바르게 계산
-- +1: `toString` — 형식에 맞는 문자열 반환, 소수점 둘째 자리 포맷팅
+- +1: `getDescription` — 형식에 맞는 문자열 반환, 소수점 둘째 자리(수동 조립)
 
 #### 흔한 실수
 - `setSize`에서 `==`로 문자열 비교 (`equals` 사용 필요)
 - `addShots`에서 `shots < 0`만 체크하고 `shots == 0`을 허용
 - `getTotalPrice`에서 `extraShots * 0.5` 대신 `extraShots * 0.50`을 별도 계산하지 않고 `basePrice`에 샷 비용을 사이즈 보정 전에 더해버림 (순서 오류)
-- `toString`에서 `getTotalPrice()` 호출 대신 직접 계산하여 중복 로직 발생
+- `getDescription`에서 `getTotalPrice()` 호출 대신 직접 계산하여 중복 로직 발생
 - 인스턴스 변수를 `public`으로 선언
+- `toString` 오버라이드나 `String.format`을 사용 (둘 다 AP CSA 2025-26 Quick Reference 범위 밖)
 
 ---
 
@@ -758,8 +772,16 @@ public ArrayList<String> getUniqueMoviesInRange(int startTime, int endTime) {
 
     for (Screening s : schedule) {
         if (s.getTime() >= startTime && s.getTime() <= endTime) {
-            if (!result.contains(s.getTitle())) {
-                result.add(s.getTitle());
+            // ArrayList.contains는 Quick Reference 범위 밖이므로 직접 선형 탐색
+            String title = s.getTitle();
+            boolean found = false;
+            for (int k = 0; k < result.size(); k++) {
+                if (result.get(k).equals(title)) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                result.add(title);
             }
         }
     }
@@ -777,7 +799,7 @@ public ArrayList<String> getUniqueMoviesInRange(int startTime, int endTime) {
 
 **Part B (2점)**
 - +1: 시간 범위 조건 올바름 (`>= startTime && <= endTime`)
-- +1: 중복 검사 (`contains`) 후 추가, 결과 리스트 생성 및 반환
+- +1: 중복 검사 (Quick Reference의 `equals` + `for` 루프로 직접 구현; `ArrayList.contains` 사용 금지) 후 추가, 결과 리스트 생성 및 반환
 
 #### 흔한 실수
 - **Part A:** 전진 순회 시 `remove` 후 `i++`를 하여 요소를 건너뛰는 버그

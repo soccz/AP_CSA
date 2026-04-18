@@ -2044,10 +2044,10 @@ maxOf(arr, 5) ──────────────────────
 
 > 💡 **꿀팁:** 재귀로 배열 집계(aggregate)를 구현할 때의 3대 패턴:
 > 1. **합 (sum):** `return arr[n-1] + sum(arr, n-1);`, base: `n == 0 → 0`
-> 2. **최댓값 (max):** `return Math.max(arr[n-1], max(arr, n-1));`, base: `n == 1 → arr[0]`
+> 2. **최댓값 (max):** 본 문제처럼 `int rest = max(arr, n-1); if (arr[n-1] > rest) return arr[n-1]; else return rest;` 형태로 if 비교 직접 구현, base: `n == 1 → arr[0]`. (Quick Reference에 `Math.max`가 없으므로 반드시 if 비교.)
 > 3. **존재 여부 (contains):** `return arr[n-1] == target || contains(arr, n-1, target);`, base: `n == 0 → false`
 >
-> **base case 차이 주의:** 합은 빈 배열이 0으로 의미가 있으니 `n == 0`이 base, 최댓값은 빈 배열 정의가 모호하므로 **원소 1개**(`n == 1`)가 base. 이 문제는 (2)번 패턴의 변형(Math.max 대신 직접 if 비교).
+> **base case 차이 주의:** 합은 빈 배열이 0으로 의미가 있으니 `n == 0`이 base, 최댓값은 빈 배열 정의가 모호하므로 **원소 1개**(`n == 1`)가 base.
 >
 > 추가 팁: 재귀 문제에서 **"끝에서 하나씩 줄여가는"** 접근(`n - 1`)과 **"앞에서 하나씩 잘라내는"** 접근(인덱스를 올려가기) 두 가지 방식이 있다. 이 문제는 전자, FRQ Q3 `productRange`는 후자의 예시.
 
@@ -2513,7 +2513,7 @@ songs.size() = 0 → return null  ✓
 
 앞에서부터 `for (int i = maxSongs; i < songs.size(); i++) songs.remove(i);` 식으로 쓰면 **원소가 빠질 때마다 인덱스가 밀려** 원소를 건너뛰거나 IndexOutOfBoundsException이 발생한다 — 전형적인 함정.
 
-제거된 개수는 `songs.size()`의 초기값과 `maxSongs`의 차 (`initialSize - maxSongs`)로 계산해도 된다. 단, 곡이 이미 `maxSongs` 이하면 차가 음수가 될 수 있으므로 `Math.max(0, initialSize - maxSongs)`로 보호하거나 조건 분기 필요.
+제거된 개수는 `songs.size()`의 초기값과 `maxSongs`의 차 (`initialSize - maxSongs`)로 계산해도 된다. 단, 곡이 이미 `maxSongs` 이하면 차가 음수가 될 수 있으므로 `if (diff < 0) diff = 0;` 형태의 조건 분기로 보호해야 한다. (Quick Reference에 `Math.max`가 없으므로 if 비교만 사용.)
 
 **모범 답안:**
 

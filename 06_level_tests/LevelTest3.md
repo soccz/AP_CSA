@@ -729,7 +729,8 @@ public static int countLongRuns(String str, int k) {
     int runLength = 1;
 
     for (int i = 1; i < str.length(); i++) {
-        if (str.charAt(i) == str.charAt(i - 1)) {
+        // charAt 대신 substring(i, i+1) 사용 (Quick Reference 준수)
+        if (str.substring(i, i + 1).equals(str.substring(i - 1, i))) {
             runLength++;
         } else {
             if (runLength >= k) {

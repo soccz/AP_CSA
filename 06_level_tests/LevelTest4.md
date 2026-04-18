@@ -187,10 +187,14 @@ String result = "";
 int pos = s.indexOf("bc", 0);
 while (pos != -1)
 {
-    result += pos + " ";
+    if (result.length() > 0)
+    {
+        result += " ";
+    }
+    result += pos;
     pos = s.indexOf("bc", pos + 1);
 }
-System.out.println(result.trim());
+System.out.println(result);
 ```
 
 (A) `1 4`

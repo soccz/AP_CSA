@@ -2093,13 +2093,16 @@ public void removeDuplicates()
 {
     for (int i = nums.size() - 1; i >= 1; i--)       // 맨 뒤부터 인덱스 1까지 (0은 항상 첫 등장이므로 검사 불필요)
     {
-        for (int j = 0; j < i; j++)                   // 현재 위치(i) 앞의 모든 요소를 검사
+        boolean removed = false;                      // break 대신 boolean 플래그 (Quick Reference 준수)
+        int j = 0;
+        while (j < i && !removed)                     // 중복을 찾으면 더 안 돔
         {
             if (nums.get(i).equals(nums.get(j)))      // 앞에 같은 값이 이미 있으면
             {
                 nums.remove(i);                       // 현재(뒤쪽) 요소를 제거
-                break;                                // 중복 확인됐으므로 내부 루프 탈출
+                removed = true;                       // 중복 확인됐으므로 내부 루프 종료
             }
+            j++;
         }
     }
 }
@@ -2126,13 +2129,23 @@ public void removeDuplicates()
     int i = 0;
     while (i < nums.size())                             // 앞에서부터 순회
     {
-        if (seen.contains(nums.get(i)))                 // 이미 본 값이면
+        // ArrayList.contains는 Quick Reference 범위 밖이므로 직접 선형 탐색
+        Integer cur = nums.get(i);
+        boolean alreadySeen = false;
+        for (int k = 0; k < seen.size(); k++)
+        {
+            if (seen.get(k).equals(cur))
+            {
+                alreadySeen = true;
+            }
+        }
+        if (alreadySeen)                                // 이미 본 값이면
         {
             nums.remove(i);                             // 제거 (i 증가 안 함!)
         }
         else                                            // 처음 보는 값이면
         {
-            seen.add(nums.get(i));                      // seen에 기록
+            seen.add(cur);                              // seen에 기록
             i++;                                        // 다음으로 이동
         }
     }
@@ -2161,7 +2174,7 @@ public void removeDuplicates()
 
 | 배점 | 기준 | 감점 사항 |
 |---|---|---|
-| +1 | `contains`: for 루프(또는 enhanced for)로 nums의 모든 요소 순회 | `nums.contains(target)` 한 줄로 쓰면... 사실 정답이지만 AP FRQ는 직접 구현을 요구함. 확인 필요 |
+| +1 | `contains`: for 루프(또는 enhanced for)로 nums의 모든 요소 순회 | `ArrayList.contains`는 AP CSA 2025-26 Quick Reference 범위 밖이므로 사용 시 부분 점수만 인정. for 루프 + `equals`로 직접 구현해야 함 |
 | +1 | `contains`: target과 일치하면 `true` 반환, 루프 끝나면 `false` 반환 | `return false`를 루프 안에 쓰면 첫 번째 불일치에서 바로 false가 되는 치명적 오류 |
 | +1 | `getEvens`: 새 `ArrayList<Integer>` 생성 | `nums`를 직접 수정하면 원본이 변경되어 감점 |
 | +1 | `getEvens`: `n % 2 == 0` 조건으로 짝수만 추가 후 반환 | `n % 2 == 1`로 쓰면 홀수를 반환. 음수 짝수에 대해 `n % 2 == 0`은 여전히 올바르게 작동 |
@@ -2194,8 +2207,19 @@ public void removeDuplicates()
     ArrayList<Integer> unique = new ArrayList<Integer>();
     for (int n : nums)
     {
-        if (!unique.contains(n))          // unique에 없는 값만 추가
+        // ArrayList.contains 대신 직접 선형 탐색 (Quick Reference 준수)
+        boolean found = false;
+        for (int k = 0; k < unique.size(); k++)
+        {
+            if (unique.get(k) == n)
+            {
+                found = true;
+            }
+        }
+        if (!found)
+        {
             unique.add(n);
+        }
     }
     nums.clear();                          // 원본 비우기
     for (int n : unique)

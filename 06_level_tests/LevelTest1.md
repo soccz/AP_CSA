@@ -138,6 +138,8 @@ for (int i = s.length() - 1; i >= 0; i--)
 System.out.println(result);
 ```
 
+> **참고**: `toUpperCase()`/`toLowerCase()`는 AP CSA 2025-26 Quick Reference에 없으므로 시험 답안 작성 시 사용 금지입니다. 다만 코드 추적(MCQ trace) 능력 평가를 위해 본 문제에 한해 노출했습니다 — 실제 시험 출제 메서드 6종(`length`, `substring(int)`, `substring(int,int)`, `indexOf(String)`, `equals(Object)`, `compareTo(String)`)만 직접 작성에 사용하세요.
+
 What is printed as a result of executing this code segment?
 
 (A) `"EDCBA"`
@@ -417,10 +419,14 @@ for (int c = 0; c < mat[0].length; c++)
 {
     for (int r = mat.length - 1; r >= 0; r--)
     {
-        output += mat[r][c] + " ";
+        if (output.length() > 0)
+        {
+            output += " ";
+        }
+        output += mat[r][c];
     }
 }
-System.out.println(output.trim());
+System.out.println(output);
 ```
 
 What is printed as a result of executing this code segment?
@@ -698,7 +704,7 @@ Complete the `countOverlapping` method.
 
 ### Part (b)
 
-Complete the `removeDuplicates` method. You must use at least one `String` method (`substring`, `indexOf`, `charAt`, `length`, or `equals`) in your solution.
+Complete the `removeDuplicates` method. You must use at least one `String` method (`substring`, `indexOf`, `length`, or `equals`) in your solution. (참고: `charAt`은 AP CSA 2025-26 Quick Reference에 없으므로 사용 금지 — `substring(i, i+1)`로 대체하세요.)
 
 **Examples:**
 | `text` | Return value |

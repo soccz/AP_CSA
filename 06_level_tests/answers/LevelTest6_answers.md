@@ -2236,11 +2236,11 @@ return [Cheese, Donut]  ✓
 
 **풀이 전략:**
 
-두 가지 경우를 하나의 공식으로 묶으면 깔끔해진다: **실제 판매량 = min(count, available)**.
-- available >= count 이면 min은 count → count 판매
-- available < count 이면 min은 available → 전량 판매
+세 가지 케이스를 if/else로 명시적으로 분기하면 된다: **재고가 요청량 이상이면 요청량만큼 판매, 그 미만이면 남은 전량만 판매**.
+- available >= count → count 판매
+- available < count → available 판매
 
-따라서 `Math.min(count, available)`을 계산하여 그 값을 `sellUnits`에 넘기고 동일한 값을 반환하면 2번, 3번 케이스를 한 번에 처리할 수 있다.
+> ⚠️ **`Math.min` 사용 금지:** "실제 판매량 = min(count, available)"이라는 한 줄 압축이 떠오르지만, **AP CSA Java Quick Reference에 `Math.min` / `Math.max`가 없으므로** 시험 답안에서는 사용 금지. 반드시 `if (available >= count) ... else ...` 형태의 if 비교로 직접 구현해야 한다 (CED 2.9.A.1 표준 알고리즘).
 
 이름이 없는 경우(4번)는 루프 종료 후 `return 0`으로 처리한다. **`return 0`은 반드시 루프 밖에 있어야 한다** — 안에 두면 첫 번째 제품부터 이름이 다르면 즉시 0을 반환해 버린다.
 
@@ -2260,10 +2260,16 @@ public int sellProduct(String name, int count)
             // 현재 재고
             int available = p.getQuantity();
 
-            // 실제 판매할 양 = min(요청량, 재고량)
-            // - 재고가 충분하면 count 그대로
-            // - 부족하면 available (남은 전량)
-            int toSell = Math.min(count, available);
+            // 실제 판매할 양을 if 비교로 결정 (Math.min은 Quick Reference 외)
+            int toSell;
+            if (available >= count)
+            {
+                toSell = count;       // 재고 충분
+            }
+            else
+            {
+                toSell = available;   // 재고 부족 → 남은 전량만
+            }
 
             // 재고에서 차감 (Precondition: n <= quantity 준수)
             p.sellUnits(toSell);
@@ -2279,9 +2285,9 @@ public int sellProduct(String name, int count)
 }
 ```
 
-**대안 풀이 (if/else로 명시적 분기):**
+**또 다른 형식 (조기 반환):**
 
-`Math.min`을 쓰지 않고 세 케이스를 명시적으로 분기할 수도 있다.
+같은 if/else 분기를 별도 변수 없이 곧바로 반환할 수도 있다.
 
 ```java
 public int sellProduct(String name, int count)
@@ -2316,7 +2322,7 @@ sellProduct("Bread", 3)
 for Apple:  "Apple".equals("Bread")? false → 다음
 for Bread:  "Bread".equals("Bread")? true
     available = 5
-    toSell = min(3, 5) = 3
+    available(5) >= count(3) → toSell = 3
     Bread.sellUnits(3)  → Bread 수량: 5 → 2
     return 3  ✓
 
@@ -2333,7 +2339,7 @@ for Apple:  "Apple".equals("Cheese")? false → 다음
 for Bread:  "Bread".equals("Cheese")? false → 다음
 for Cheese: "Cheese".equals("Cheese")? true
     available = 2
-    toSell = min(10, 2) = 2   (재고보다 많이 요청했으므로 가능한 만큼만)
+    available(2) >= count(10)? false → toSell = available = 2  (재고보다 많이 요청했으므로 가능한 만큼만)
     Cheese.sellUnits(2)  → Cheese 수량: 2 → 0
     return 2  ✓  (요청 10이 아니라 실제 판매 2)
 
@@ -2359,7 +2365,7 @@ return 0  ✓  (변경 없음)
 | 배점 | 기준 |
 |------|------|
 | +1 | 리스트 순회 + `.equals()`로 이름 일치 검색 |
-| +1 | `Math.min(count, available)` (또는 if/else 분기)로 실제 판매량 결정 + `sellUnits` 호출 |
+| +1 | if/else 분기(`available >= count` ? `count` : `available`)로 실제 판매량 결정 + `sellUnits` 호출 (Quick Reference에 `Math.min`이 없으므로 if 비교만 인정) |
 | +1 | 실제 판매량 반환 (성공 시) + 이름 없을 때 `return 0` (루프 밖) |
 
 **자주 하는 실수:**
@@ -2374,7 +2380,7 @@ return 0  ✓  (변경 없음)
    ```
    이렇게 하면 두 번째 제품부터는 아예 검사조차 되지 않는다. `return 0`은 반드시 루프 **바깥**에.
 3. **재고 부족 시 `count` 반환:** "실제 판매량"을 반환해야 하므로 재고가 부족하면 `available` (= 남은 수량)을 반환해야 한다. `count`를 그대로 반환하면 틀린다.
-4. **`sellUnits`에 잘못된 값 전달:** `sellUnits(count)`를 재고 부족 시에도 호출하면 precondition(`n <= quantity`) 위반으로 수량이 음수가 된다. 반드시 `Math.min`으로 조정한 값을 넘겨야 한다.
+4. **`sellUnits`에 잘못된 값 전달:** `sellUnits(count)`를 재고 부족 시에도 호출하면 precondition(`n <= quantity`) 위반으로 수량이 음수가 된다. 반드시 if 분기로 조정한 값(`available >= count`이면 `count`, 아니면 `available`)을 넘겨야 한다. (참고: `Math.min`은 Quick Reference 외이므로 사용 금지.)
 5. **첫 번째 일치 이후에도 계속 순회:** 문제에서 "the first product whose getName() equals name"이라고 했으므로 찾으면 즉시 `return`. 같은 이름의 제품이 여러 개 있어도 첫 번째 것만 처리.
 
 ---

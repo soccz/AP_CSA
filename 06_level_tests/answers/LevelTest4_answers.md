@@ -1384,7 +1384,7 @@ System.out.println(1 + 2 + "abc" + 3 + 4);
 
 > 💡 **꿀팁 2 — 괄호로 강제:** 숫자끼리 먼저 더하고 싶다면 명시적으로 `(3 + 4)`로 묶어라. `"abc" + (3 + 4)` = `"abc7"`. 시험 문제에서 괄호 위치는 **반드시** 주목해야 할 단서.
 
-> 💡 **꿀팁 3 — 디버깅 트릭:** 출력이 이상하다면 의심부터 하라. `System.out.println("Sum: " + a + b)`는 `"Sum: ab"`처럼 보일 수 있다. `+ (a + b)`로 묶거나 `+ String.format(...)`을 쓰는 것이 안전.
+> 💡 **꿀팁 3 — 디버깅 트릭:** 출력이 이상하다면 의심부터 하라. `System.out.println("Sum: " + a + b)`는 `"Sum: ab"`처럼 보일 수 있다. `+ (a + b)`처럼 **괄호로 우선순위를 명시**하라. (참고: `String.format`은 AP CSA 2025-26 Quick Reference 범위 밖이므로 사용 금지 — 항상 `+` 연결로 처리.)
 
 ---
 
@@ -2216,14 +2216,17 @@ public static String mostFrequent(String word)
     {
         String ch = word.substring(i, i + 1);
         // 이미 확인한 문자인지 체크 (앞에 같은 문자가 있으면 건너뛰기)
-        if (word.indexOf(ch) < i)
-            continue;  // 이 문자는 이전에 이미 처리됨
-        int c = charCount(word, ch);
-        if (c > bestCount)
+        // continue 대신 if-else로 처리 (Quick Reference 준수)
+        if (word.indexOf(ch) >= i)
         {
-            best = ch;
-            bestCount = c;
+            int c = charCount(word, ch);
+            if (c > bestCount)
+            {
+                best = ch;
+                bestCount = c;
+            }
         }
+        // word.indexOf(ch) < i 이면 이미 이전에 처리된 문자이므로 무시
     }
     return best;
 }

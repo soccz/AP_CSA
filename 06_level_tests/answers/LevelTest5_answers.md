@@ -2507,7 +2507,7 @@ i=1: "C".equals("Z")? false
 **풀이 전략:**
 
 - `countInRange`: 표준 카운팅 패턴. for-each로 순회하며 `grade >= low && grade <= high` 조건을 확인.
-- `applyCurve`: 새 배열을 생성(`grades.length` 크기)하고, 각 원소에 대해 `Math.min(grades[i] + curve, 100)`으로 계산. `Math.min`을 사용하면 100 캡을 깔끔하게 처리할 수 있다.
+- `applyCurve`: 새 배열을 생성(`grades.length` 크기)하고, 각 원소에 대해 `if-else`로 100 초과 여부를 검사하여 100으로 캡(cap). (참고: `Math.min`은 AP CSA 2025-26 Quick Reference 범위 밖이므로 `if-else` 비교를 사용한다.)
 
 **모범 답안:**
 
@@ -2539,7 +2539,16 @@ public int[] applyCurve(int curve)
     for (int i = 0; i < grades.length; i++)
     {
         // 커브 적용 후 100 초과 시 100으로 제한
-        curved[i] = Math.min(grades[i] + curve, 100);
+        // Math.min은 Quick Reference 범위 밖이므로 if-else 사용
+        int boosted = grades[i] + curve;
+        if (boosted > 100)
+        {
+            curved[i] = 100;
+        }
+        else
+        {
+            curved[i] = boosted;
+        }
     }
 
     return curved;
@@ -2568,12 +2577,12 @@ applyCurve(10)
 
 curved = new int[6]
 
-i=0: Math.min(72 + 10, 100) = Math.min(82, 100)  = 82   → curved[0] = 82
-i=1: Math.min(85 + 10, 100) = Math.min(95, 100)  = 95   → curved[1] = 95
-i=2: Math.min(91 + 10, 100) = Math.min(101, 100) = 100  → curved[2] = 100  ← 캡 적용!
-i=3: Math.min(60 + 10, 100) = Math.min(70, 100)  = 70   → curved[3] = 70
-i=4: Math.min(95 + 10, 100) = Math.min(105, 100) = 100  → curved[4] = 100  ← 캡 적용!
-i=5: Math.min(99 + 10, 100) = Math.min(109, 100) = 100  → curved[5] = 100  ← 캡 적용!
+i=0: boosted = 72 + 10 = 82   → 82 > 100? false → curved[0] = 82
+i=1: boosted = 85 + 10 = 95   → 95 > 100? false → curved[1] = 95
+i=2: boosted = 91 + 10 = 101  → 101 > 100? true → curved[2] = 100  ← 캡 적용!
+i=3: boosted = 60 + 10 = 70   → 70 > 100? false → curved[3] = 70
+i=4: boosted = 95 + 10 = 105  → 105 > 100? true → curved[4] = 100  ← 캡 적용!
+i=5: boosted = 99 + 10 = 109  → 109 > 100? true → curved[5] = 100  ← 캡 적용!
 
 return {82, 95, 100, 70, 100, 100}  ✓
 ```
@@ -2586,16 +2595,16 @@ return {82, 95, 100, 70, 100, 100}  ✓
 | +1 | `countInRange` — 순회 + 카운트 + 반환 |
 | +1 | `applyCurve` — 새 배열 생성 (`new int[grades.length]`) |
 | +1 | `applyCurve` — 각 원소에 curve 더하기 |
-| +1 | `applyCurve` — 100 초과 시 100으로 캡 (`Math.min` 또는 if문) |
+| +1 | `applyCurve` — 100 초과 시 100으로 캡 (`if-else` 사용; `Math.min`은 Quick Reference 범위 밖이므로 사용 금지) |
 
 **자주 하는 실수:**
 
 1. **`countInRange`에서 경계값 제외:** `> low` 또는 `< high`를 쓰면 경계값이 빠진다. 문제에서 "inclusive"라고 명시했으므로 `>=`와 `<=`를 써야 한다.
 2. **`applyCurve`에서 원본 배열 수정:** `grades[i] += curve`로 하면 원본이 변경된다. 문제에서 "returns a new array"라고 했으므로 새 배열을 만들어야 한다.
 3. **100 캡을 안 함:** `curved[i] = grades[i] + curve`만 하면 100을 초과하는 값이 그대로 들어간다.
-4. **`Math.min` 대신 if문 사용 시 else 누락:**
+4. **if문에서 `else` 누락:** `Math.min`은 Quick Reference 범위 밖이므로 반드시 if-else로 처리한다.
    ```java
-   // 올바른 if문 버전:
+   // 올바른 if-else 버전 (Quick Reference 준수):
    if (grades[i] + curve > 100)
        curved[i] = 100;
    else
@@ -2994,7 +3003,7 @@ return 1 != 3 → return true  ✓
 |------|-----------|-------------|
 | Q1 TextStats | String 처리, indexOf, substring | 마지막 단어 처리, `>` vs `>=` (동률 처리) |
 | Q2 ParkingLot | ArrayList, 클래스 설계 | for-each에서 remove 금지, `.equals()` 사용 |
-| Q3 GradeBook | 배열 순회, Math.min, 조건 분기 | applyCurve 100캡, getMedian 홀짝 분기 |
+| Q3 GradeBook | 배열 순회, if-else 캡 처리, 조건 분기 | applyCurve 100캡(if-else, `Math.min` 금지), getMedian 홀짝 분기 |
 | Q4 TreasureMap | 2D 배열, 메서드 재사용 | treasuresPerRow 활용, min != max 비교 |
 
 **시간 배분 팁:** FRQ 4문제에 120분이므로 문제당 약 30분이다. 각 문제를 읽는 데 5분, 풀이에 20분, 검토에 5분을 할당하자. 특히 Part (a)에서 작성한 메서드를 Part (b)에서 활용할 수 있는지 항상 확인하라 (Q4가 대표적 예시).

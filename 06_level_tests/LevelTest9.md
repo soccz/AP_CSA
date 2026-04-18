@@ -486,7 +486,16 @@ for (String s : a)
 {
     for (String t : b)
     {
-        if (s.equals(t) && !common.contains(s))
+        // ArrayList.contains 대신 findIndex 패턴 (Quick Reference 준수)
+        boolean already = false;
+        for (int k = 0; k < common.size(); k++)
+        {
+            if (common.get(k).equals(s))
+            {
+                already = true;
+            }
+        }
+        if (s.equals(t) && !already)
         {
             common.add(s);
         }

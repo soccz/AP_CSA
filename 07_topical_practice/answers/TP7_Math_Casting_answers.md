@@ -133,10 +133,19 @@
 
 > 💡 **꿀팁 2:** **메서드 오버로드 (CED 1.9)**: 같은 이름 + 다른 파라미터 타입. 컴파일러가 인자 타입 보고 선택. abs는 두 버전 (int, double).
 
-> 💡 **꿀팁 3:** **min/max 직접 구현**:
+> 💡 **꿀팁 3:** **min/max 직접 구현** (3항 연산자 `?:`도 Quick Reference에 없으므로 AP는 항상 `if-else`만 사용):
 > ```java
-> int max = (a > b) ? a : b;       // 또는
-> int max = a; if (b > max) max = b;
+> // 방법 1: if-else 한 줄 분리
+> int max = a;
+> if (b > max) max = b;
+>
+> // 방법 2: if-else 블록
+> int max;
+> if (a > b) {
+>     max = a;
+> } else {
+>     max = b;
+> }
 > ```
 
 ---

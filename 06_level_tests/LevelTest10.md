@@ -82,11 +82,13 @@ Consider the following code segment.
 ```java
 String base = "CODE";
 String result = "";
+// charAt 대신 substring(i, i+1) (Quick Reference 준수)
 for (int i = 0; i < base.length(); i++) {
-    if ("AEIOU".indexOf(base.charAt(i)) >= 0) {
-        result += "[" + base.charAt(i) + "]";
+    String ch = base.substring(i, i + 1);
+    if ("AEIOU".indexOf(ch) >= 0) {
+        result += "[" + ch + "]";
     } else {
-        result += base.charAt(i);
+        result += ch;
     }
 }
 System.out.println(result);
@@ -280,9 +282,17 @@ Kadane 알고리즘의 단순화된 버전입니다. 최대 부분 배열 합을
 int[] arr = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
 int maxSoFar = arr[0];
 int maxEndingHere = arr[0];
+// Math.max 대신 if 비교 (Quick Reference 준수)
 for (int i = 1; i < arr.length; i++) {
-    maxEndingHere = Math.max(arr[i], maxEndingHere + arr[i]);
-    maxSoFar = Math.max(maxSoFar, maxEndingHere);
+    int candidate = maxEndingHere + arr[i];
+    if (arr[i] > candidate) {
+        maxEndingHere = arr[i];
+    } else {
+        maxEndingHere = candidate;
+    }
+    if (maxEndingHere > maxSoFar) {
+        maxSoFar = maxEndingHere;
+    }
 }
 System.out.println(maxSoFar);
 ```
@@ -903,15 +913,16 @@ public String evaluateStrength(String password) {
     boolean hasLower = false;
     boolean hasDigit = false;
 
+    // charAt 대신 substring(i, i+1) + compareTo 알파벳/숫자 범위 (Quick Reference 준수)
     for (int i = 0; i < password.length(); i++) {
-        char ch = password.charAt(i);
-        if (ch >= 'A' && ch <= 'Z') {
+        String ch = password.substring(i, i + 1);
+        if (ch.compareTo("A") >= 0 && ch.compareTo("Z") <= 0) {
             hasUpper = true;
         }
-        if (ch >= 'a' && ch <= 'z') {
+        if (ch.compareTo("a") >= 0 && ch.compareTo("z") <= 0) {
             hasLower = true;
         }
-        if (ch >= '0' && ch <= '9') {
+        if (ch.compareTo("0") >= 0 && ch.compareTo("9") <= 0) {
             hasDigit = true;
         }
     }
@@ -930,7 +941,7 @@ public String evaluateStrength(String password) {
 }
 ```
 
-**대안:** AP Quick Reference 외이지만 `Character.isUpperCase()`, `Character.isLowerCase()`, `Character.isDigit()`을 사용한 풀이도 정답으로 인정합니다.
+> ⚠️ **Quick Reference 준수:** `Character.isUpperCase()`, `Character.isLowerCase()`, `Character.isDigit()`, `charAt()`은 모두 AP CSA Java Quick Reference에 포함되어 있지 않으므로 시험에서는 사용 금지. 위 모범답안처럼 `substring(i, i+1)`로 한 글자 String을 얻고 `compareTo`로 알파벳/숫자 범위를 비교하는 패턴이 표준이다.
 
 #### 채점 기준 (4점)
 
@@ -957,8 +968,10 @@ public String evaluateStrength(String password) {
 ```java
 public String generatePassword(int length, String allowed) {
     String result = "";
+    // charAt 대신 substring(idx, idx+1) (Quick Reference 준수)
     for (int i = 0; i < length; i++) {
-        result += allowed.charAt(i % allowed.length());
+        int idx = i % allowed.length();
+        result += allowed.substring(idx, idx + 1);
     }
     return result;
 }
