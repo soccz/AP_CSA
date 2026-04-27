@@ -378,7 +378,46 @@ img {
 
 
 /* ================================================================
-   HEADER — Glassmorphism
+   TOP CORNER LINKS — minimal (cfa-notes style)
+   ================================================================ */
+.toc-home-link, .toc-gh-link {
+  position: fixed;
+  top: 1.5rem;
+  z-index: 30;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s var(--ease-out);
+}
+.toc-home-link { left: 1.5rem; }
+.toc-gh-link { right: 1.5rem; }
+.toc-home-link:hover, .toc-gh-link:hover { color: var(--text); }
+
+.toc-theme-toggle {
+  position: fixed;
+  top: 1.15rem;
+  right: 5.5rem;
+  z-index: 30;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  font-size: 0.95rem;
+  line-height: 1;
+  color: var(--text-muted);
+  transition: color 0.2s var(--ease-out), transform 0.2s;
+}
+.toc-theme-toggle:hover { color: var(--text); transform: scale(1.1); }
+
+@media (max-width: 480px) {
+  .toc-home-link, .toc-gh-link { font-size: 0.72rem; top: 1rem; }
+  .toc-home-link { left: 1rem; }
+  .toc-gh-link { right: 1rem; }
+  .toc-theme-toggle { display: none; }
+}
+
+/* ================================================================
+   HEADER — Glassmorphism (legacy, kept for any embedded use)
    ================================================================ */
 .site-header {
   position: sticky;
