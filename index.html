@@ -18,29 +18,33 @@
   <link rel="stylesheet" href="css/style.css">
   <style>
     /* ===== AP CSA LANDING ===== */
-    .hero { padding: 80px 0 56px; text-align: center; }
+    .hero { padding: 96px 0 56px; text-align: center; position: relative; }
+    .hero::after {
+      content: ''; display: block;
+      width: 64px; height: 2px; background: var(--accent);
+      margin: 36px auto 0;
+    }
     .hero-eyebrow {
-      display: inline-block; font-size: 0.75rem; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase;
+      display: inline-block; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
       color: var(--accent-text); background: var(--accent-soft);
       border: 1px solid var(--border-accent); border-radius: var(--radius-full);
-      padding: 5px 16px; margin-bottom: 24px;
+      padding: 5px 18px; margin-bottom: 28px;
     }
     .hero-title {
       font-family: 'Noto Serif KR', serif;
-      font-size: clamp(2.4rem, 6vw, 3.6rem);
-      font-weight: 900; line-height: 1.2; letter-spacing: -0.03em;
+      font-size: clamp(2.2rem, 5.5vw, 3.2rem);
+      font-weight: 700; line-height: 1.25; letter-spacing: -0.02em;
       color: var(--text); margin-bottom: 8px;
     }
     .hero-title .accent {
-      background: var(--accent-gradient);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--accent-text); font-style: italic;
     }
     .hero-subtitle-main {
-      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      font-size: clamp(0.96rem, 2.2vw, 1.08rem);
       color: var(--text-secondary); line-height: 1.85;
-      max-width: 620px; margin: 20px auto 0;
+      max-width: 600px; margin: 24px auto 0;
+      font-weight: 400;
     }
     .hero-subtitle-main strong { color: var(--text); font-weight: 700; }
     .hero-cta-group {
@@ -102,11 +106,11 @@
       font-size: 0.62rem; font-weight: 600; padding: 2px 8px;
       border-radius: var(--radius-full); border: 1px solid; letter-spacing: 0.3px;
     }
-    .tag-core { color:#267547; background:#f0f9f4; border-color: rgba(59,155,110,0.25); }
-    .tag-exam { color:#9c4221; background:#fff5ec; border-color: rgba(220,135,80,0.25); }
+    .tag-core { color:#0F2A3F; background:#eef2f6; border-color: rgba(15,42,63,0.18); }
+    .tag-exam { color:#8B6914; background:#fbf6ea; border-color: rgba(201,168,124,0.32); }
     .tag-ref  { color: var(--text-muted); background: var(--surface); border-color: var(--border); }
-    [data-theme="dark"] .tag-core { color:#7ee0a8; background: rgba(59,155,110,0.12); }
-    [data-theme="dark"] .tag-exam { color:#ffb27a; background: rgba(220,135,80,0.12); }
+    [data-theme="dark"] .tag-core { color:#a0b3c5; background: rgba(160,179,197,0.12); border-color: rgba(160,179,197,0.22); }
+    [data-theme="dark"] .tag-exam { color:#e0c69a; background: rgba(212,184,140,0.14); border-color: rgba(212,184,140,0.28); }
 
     .doc-card-title {
       font-size: 1rem; font-weight: 700; margin-bottom: 6px;
