@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <script>try{var t=localStorage.getItem("ap-csa-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AP CSA — Java로 배우는 컴퓨터 과학 A | 2026 시험 완벽 대비</title>
+  <meta name="description" content="AP Computer Science A 한국어 완벽 가이드. CSAwesome2 기반 Unit 1-10 강의노트, FRQ 완전공략, Mock Exam 5세트, Level Test 10회, Topical Practice 9개. 아무것도 모르는 상태에서 5점까지.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AP CSA — Java로 배우는 컴퓨터 과학 A">
+  <meta property="og:description" content="CSAwesome2 기반 한국어 학습 가이드. Unit 강의노트 + 시험개념 딥다이브 + FRQ 공략 + Mock Exam + Level Test + Topical Practice.">
+  <meta property="og:url" content="https://soccz.github.io/AP_CSA/">
+  <meta property="og:site_name" content="AP CSA Study Guide">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://soccz.github.io/AP_CSA/">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== AP CSA LANDING ===== */
+    .hero { padding: 80px 0 56px; text-align: center; }
+    .hero-eyebrow {
+      display: inline-block; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent-text); background: var(--accent-soft);
+      border: 1px solid var(--border-accent); border-radius: var(--radius-full);
+      padding: 5px 16px; margin-bottom: 24px;
+    }
+    .hero-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      font-weight: 900; line-height: 1.2; letter-spacing: -0.03em;
+      color: var(--text); margin-bottom: 8px;
+    }
+    .hero-title .accent {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-subtitle-main {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--text-secondary); line-height: 1.85;
+      max-width: 620px; margin: 20px auto 0;
+    }
+    .hero-subtitle-main strong { color: var(--text); font-weight: 700; }
+    .hero-cta-group {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 36px;
+    }
+    .btn-primary, .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      border-radius: var(--radius-sm); padding: 13px 26px;
+      font-size: 0.95rem; font-weight: 700; text-decoration: none; cursor: pointer;
+      transition: all 0.25s var(--ease-out); font-family: 'Noto Sans KR', sans-serif;
+    }
+    .btn-primary { background: var(--accent-hover); color:#fff; border: none; box-shadow: var(--shadow-sm); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-md), 0 0 0 4px var(--accent-soft); color:#fff; }
+    .btn-secondary { background: var(--bg-elevated); color: var(--text-secondary); border: 1px solid var(--border); }
+    .btn-secondary:hover { color: var(--text); border-color: var(--border-accent); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+
+    .stats-row {
+      display: flex; gap: 0; justify-content: center;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--bg-elevated); overflow: hidden;
+      margin: 48px 0 0; box-shadow: var(--shadow-sm);
+    }
+    .stat-item { flex: 1; text-align: center; padding: 20px 12px; border-right: 1px solid var(--border); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: 'Noto Serif KR', serif; font-size: 1.7rem; font-weight: 900; color: var(--accent-text); line-height: 1; display: block; }
+    .stat-label { font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; display: block; letter-spacing: 0.5px; }
+
+    .section-divider { border:none; height:1px; background: var(--border); margin: 56px 0; }
+
+    .section-header { text-align: center; margin-bottom: 28px; }
+    .section-header h2 { font-size: 1.55rem; font-weight: 900; margin-bottom: 8px; }
+    .section-header p { color: var(--text-secondary); font-size: 0.9rem; }
+
+    .card-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px; margin-bottom: 56px;
+    }
+    .doc-card {
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 20px;
+      text-decoration: none; color: inherit;
+      transition: all 0.25s var(--ease-out);
+      box-shadow: var(--shadow-xs); display: block;
+      border-left: 3px solid transparent;
+    }
+    .doc-card:hover {
+      transform: translateY(-3px); box-shadow: var(--shadow-md);
+      border-color: var(--border-accent); border-left-color: var(--accent);
+      color: inherit;
+    }
+    .doc-card-meta {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+    }
+    .doc-card-num {
+      font-size: 0.7rem; font-weight: 700; color: var(--accent-text);
+      text-transform: uppercase; letter-spacing: 1.5px;
+    }
+    .doc-card-tag {
+      font-size: 0.62rem; font-weight: 600; padding: 2px 8px;
+      border-radius: var(--radius-full); border: 1px solid; letter-spacing: 0.3px;
+    }
+    .tag-core { color:#267547; background:#f0f9f4; border-color: rgba(59,155,110,0.25); }
+    .tag-exam { color:#9c4221; background:#fff5ec; border-color: rgba(220,135,80,0.25); }
+    .tag-ref  { color: var(--text-muted); background: var(--surface); border-color: var(--border); }
+    [data-theme="dark"] .tag-core { color:#7ee0a8; background: rgba(59,155,110,0.12); }
+    [data-theme="dark"] .tag-exam { color:#ffb27a; background: rgba(220,135,80,0.12); }
+
+    .doc-card-title {
+      font-size: 1rem; font-weight: 700; margin-bottom: 6px;
+      line-height: 1.4; color: var(--text);
+    }
+    .doc-card-desc {
+      font-size: 0.82rem; color: var(--text-secondary); line-height: 1.65;
+    }
+
+    /* Sub-grid for compact mock/level/tp lists */
+    .compact-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 8px; margin-bottom: 56px;
+    }
+    .mini-card {
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px 14px;
+      text-decoration: none; color: inherit;
+      transition: all 0.2s var(--ease-out); display: block;
+      text-align: center;
+    }
+    .mini-card:hover {
+      transform: translateY(-2px); box-shadow: var(--shadow-sm);
+      border-color: var(--border-accent); color: inherit;
+    }
+    .mini-card-num { font-size: 0.66rem; font-weight: 700; color: var(--accent-text); letter-spacing: 1.2px; text-transform: uppercase; }
+    .mini-card-title { font-size: 0.85rem; font-weight: 700; margin-top: 4px; color: var(--text); }
+    .mini-card-sub { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
+
+    .pill-row { display:flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .pill {
+      font-size: 0.7rem; padding: 3px 10px; border-radius: var(--radius-full);
+      background: var(--surface); border: 1px solid var(--border); color: var(--text-secondary);
+    }
+
+    .footer { padding: 40px 0 60px; text-align: center; color: var(--text-muted); font-size: 0.82rem; border-top: 1px solid var(--border); margin-top: 32px; }
+    .footer a { color: var(--text-secondary); text-decoration: none; border-bottom: 1px dotted var(--border-accent); }
+  </style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">본문 바로가기</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="https://soccz.github.io" class="home-btn" title="soccz.github.io" aria-label="포트폴리오 홈"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+      <a href="index.html" class="site-title">AP CSA</a>
+    </div>
+    <div class="header-nav">
+      <a href="https://github.com/soccz/AP_CSA" target="_blank" rel="noopener" class="nav-btn">GitHub</a>
+      <button class="theme-toggle" aria-label="테마 전환"><span aria-hidden="true">🌙</span></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrapper">
+<main id="main-content" class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="hero-eyebrow">AP Computer Science A · 2026</span>
+    <h1 class="hero-title">Java로 배우는 <span class="accent">컴퓨터 과학 A</span></h1>
+    <p class="hero-subtitle-main">
+      CSAwesome2 공식 커리큘럼을 기반으로 한 <strong>한국어 학습 가이드</strong>.<br>
+      <strong>Unit 1-4 강의노트 · 시험개념 딥다이브 · FRQ 완전공략 · Mock Exam 5세트 · Level Test 10회 · Topical Practice 9개</strong>까지.<br>
+      아무것도 모르는 상태에서 <strong>5점</strong>까지 — 모든 것을 한 곳에.
+    </p>
+    <div class="hero-cta-group">
+      <a href="#units" class="btn-primary">단원 학습 시작 →</a>
+      <a href="#mock" class="btn-secondary">실전 Mock Exam</a>
+    </div>
+    <div class="stats-row">
+      <div class="stat-item"><span class="stat-num">10</span><span class="stat-label">UNITS</span></div>
+      <div class="stat-item"><span class="stat-num">5</span><span class="stat-label">MOCK SETS</span></div>
+      <div class="stat-item"><span class="stat-num">10</span><span class="stat-label">LEVEL TESTS</span></div>
+      <div class="stat-item"><span class="stat-num">9</span><span class="stat-label">TOPICAL</span></div>
+      <div class="stat-item"><span class="stat-num">∞</span><span class="stat-label">DEEP DIVE</span></div>
+    </div>
+  </section>
+
+  <hr class="section-divider" id="curriculum">
+
+  <!-- 1. CURRICULUM -->
+  <div class="section-header">
+    <h2>커리큘럼 & 학습 가이드</h2>
+    <p>CSAwesome2 공식 목차 · 출제 기준서 · 학습 전략</p>
+  </div>
+  <div class="card-grid" id="grid-curriculum"></div>
+
+  <!-- 2. UNITS -->
+  <div class="section-header" id="units">
+    <h2>Unit 1 — 4 · 강의노트 + 시험개념 딥다이브</h2>
+    <p>각 단원별 강의노트와 시험개념 딥다이브로 구성. 개념부터 함정까지.</p>
+  </div>
+  <div class="card-grid" id="grid-units"></div>
+
+  <!-- 3. PRACTICE -->
+  <div class="section-header" id="practice">
+    <h2>Practice · FRQ · 코딩 실습</h2>
+    <p>FRQ Q1 완전공략, MCQ 문제집, 5점 고급드릴, 코드트레이싱 워크시트</p>
+  </div>
+  <div class="card-grid" id="grid-practice"></div>
+
+  <!-- 4. MOCK -->
+  <div class="section-header" id="mock">
+    <h2>Mock Exams · 실전 모의고사 5세트</h2>
+    <p>Set 1 — Set 5 · MCQ + FRQ 동시 제공 · 점수변환표 포함</p>
+  </div>
+  <div class="compact-grid" id="grid-mock"></div>
+
+  <!-- 5. LEVEL TESTS -->
+  <div class="section-header" id="level">
+    <h2>Level Tests · 진단 테스트 10회</h2>
+    <p>난이도별 Level Test 1 — 10 · 정답 해설 포함</p>
+  </div>
+  <div class="compact-grid" id="grid-level"></div>
+
+  <!-- 6. TOPICAL -->
+  <div class="section-header" id="topical">
+    <h2>Topical Practice · 주제별 집중 9개</h2>
+    <p>File·Wrapper / Searching / Sorting / Recursion / Static·Scope / Boolean·RTA / Math·Casting / References·Null / Ethics</p>
+  </div>
+  <div class="card-grid" id="grid-topical"></div>
+
+  <!-- 7. REFERENCE -->
+  <div class="section-header" id="reference">
+    <h2>Reference · 빠른 참고자료</h2>
+    <p>Java 용어사전 · 초보자 FAQ · 치트시트 · 출제자 기준 분석</p>
+  </div>
+  <div class="card-grid" id="grid-reference"></div>
+
+  <footer class="footer">
+    <p>© soccz · AP CSA Study Guide · CSAwesome2 기반 한국어 가이드</p>
+    <p style="margin-top:6px;"><a href="https://github.com/soccz/AP_CSA" target="_blank" rel="noopener">GitHub Repository</a> · <a href="https://soccz.github.io" target="_blank" rel="noopener">soccz.github.io</a></p>
+  </footer>
+
+</main>
+</div>
+
+<script>
+const DATA = {
+  curriculum: [
+    {file: '01_curriculum/CSAwesome2_목차.md',  num:'01', title:'CSAwesome2 목차', desc:'공식 커리큘럼 전체 구조 (Unit 1-10 매핑)', tag:'core'},
+    {file: '출제기준서.md',                     num:'02', title:'출제기준서',       desc:'College Board 공식 시험범위 한국어 정리', tag:'exam'},
+    {file: '03_practice/수업계획서_10회.md',    num:'03', title:'수업계획서 10회',   desc:'10회차 수업 계획안 (교사용/자기학습용)', tag:'core'},
+    {file: '03_practice/시험전략_가이드.md',    num:'04', title:'시험전략 가이드',   desc:'시험 직전 점검·시간 분배·실수 줄이기', tag:'exam'},
+    {file: '03_practice/00_사전진단_테스트.md', num:'05', title:'사전진단 테스트',   desc:'학습 시작 전 자가 진단', tag:'core'},
+    {file: '03_practice/00_Java_환경설정_가이드.md', num:'06', title:'Java 환경설정', desc:'JDK·IDE 설정부터 Hello World까지', tag:'ref'},
+    {file: '20x20_평가보고서.md',               num:'07', title:'20×20 평가보고서', desc:'전체 자료 다층 평가 (커버리지·정확성·난이도)', tag:'core'},
+    {file: '공식_시험범위_검증.md',             num:'08', title:'공식 시험범위 검증', desc:'College Board CED와 자료 1:1 매핑', tag:'exam'},
+  ],
+  units: [
+    {n:1, lecture:'03_practice/Unit1_강의노트.md',    deep:'03_practice/Unit1_시험개념_딥다이브.md', title:'Primitive Types & 입출력', desc:'기본 자료형, 변수, 연산자, Math 클래스, Casting'},
+    {n:2, lecture:'03_practice/Unit2_강의노트.md',    deep:'03_practice/Unit2_시험개념_딥다이브.md', title:'Using Objects',           desc:'String, Wrapper, 참조 vs 값, .equals() vs =='},
+    {n:3, lecture:'03_practice/Unit3_강의노트.md',    deep:'03_practice/Unit3_시험개념_딥다이브.md', title:'Boolean & if/else',       desc:'논리 연산, 단축평가, 중첩 조건문, 복합 boolean'},
+    {n:4, lecture:'03_practice/Unit4_강의노트.md',    deep:'03_practice/Unit4_시험개념_딥다이브.md', title:'Iteration (반복문)',       desc:'while/for/foreach, 무한루프, break/continue, 중첩반복'},
+  ],
+  practice: [
+    {file: '03_practice/FRQ_Q1_완전공략.md',         num:'P-01', title:'FRQ Q1 완전공략',     desc:'AP CSA FRQ Question 1 만점 전략 + 템플릿', tag:'exam'},
+    {file: '03_practice/FRQ_풀이해설.md',            num:'P-02', title:'FRQ 풀이해설',         desc:'대표 FRQ 단계별 풀이와 채점 기준', tag:'exam'},
+    {file: '03_practice/MCQ_문제집.md',              num:'P-03', title:'MCQ 문제집',           desc:'단원별 MCQ + 함정 포인트 해설', tag:'core'},
+    {file: '03_practice/5점_고급드릴.md',            num:'P-04', title:'5점 고급드릴',         desc:'5점을 노리는 학생을 위한 고난도 드릴', tag:'exam'},
+    {file: '03_practice/코드트레이싱_워크시트.md',   num:'P-05', title:'코드트레이싱 워크시트', desc:'손으로 추적하는 변수 상태 변화 연습', tag:'core'},
+    {file: '03_practice/코딩실습_과제.md',           num:'P-06', title:'코딩실습 과제',        desc:'단원별 실습 과제 + 제출 기준', tag:'core'},
+    {file: '03_practice/QuickReference_한국어해설.md', num:'P-07', title:'Quick Reference 해설', desc:'시험 제공 Quick Ref 한국어 완전 분석', tag:'ref'},
+    {file: '03_practice/교사용_수업진행_가이드.md',  num:'P-08', title:'교사용 수업진행 가이드', desc:'10회차 수업 진행 노트', tag:'ref'},
+  ],
+  mock: [1,2,3,4,5].map(i => ({ n:i, mcq:`05_mock_exams/Set${i}_MCQ.md`, frq:`05_mock_exams/Set${i}_FRQ.md` })),
+  level: Array.from({length:10}, (_,i)=>({ n:i+1, file:`06_level_tests/LevelTest${i+1}.md` })),
+  topical: [
+    {n:1, file:'07_topical_practice/TP1_File_Wrapper.md',        title:'File · Wrapper',       desc:'파일 입출력 + Wrapper 클래스 (Integer, Double…)'},
+    {n:2, file:'07_topical_practice/TP2_Searching.md',           title:'Searching',            desc:'선형/이진 탐색, 시간복잡도'},
+    {n:3, file:'07_topical_practice/TP3_Sorting.md',             title:'Sorting',              desc:'Selection · Insertion · Merge sort'},
+    {n:4, file:'07_topical_practice/TP4_Recursion_Advanced.md',  title:'Recursion (고급)',     desc:'재귀 호출, base case, stack trace'},
+    {n:5, file:'07_topical_practice/TP5_Static_Scope_This.md',   title:'Static · Scope · this',desc:'static 멤버, 가시성, this 키워드'},
+    {n:6, file:'07_topical_practice/TP6_Boolean_RTA.md',         title:'Boolean · RTA',        desc:'Boolean 연산 + Run-Time Analysis'},
+    {n:7, file:'07_topical_practice/TP7_Math_Casting.md',        title:'Math · Casting',       desc:'Math 클래스 + 형변환 함정'},
+    {n:8, file:'07_topical_practice/TP8_References_Null.md',     title:'References · Null',    desc:'참조 변수 + Null 처리'},
+    {n:9, file:'07_topical_practice/TP9_Ethics_Impact.md',       title:'Ethics · Impact',      desc:'AP CSA Ethics 영역 (10문항 출제)'},
+  ],
+  reference: [
+    {file:'04_reference/Java_용어사전.md',     num:'R-01', title:'Java 용어사전',     desc:'AP CSA 출제 범위 모든 Java 용어', tag:'ref'},
+    {file:'04_reference/초보자_FAQ.md',        num:'R-02', title:'초보자 FAQ',         desc:'자주 묻는 질문 모음', tag:'ref'},
+    {file:'04_reference/치트시트_전체요약.md', num:'R-03', title:'치트시트 전체요약', desc:'시험 전 한 장으로 보는 핵심 정리', tag:'exam'},
+    {file:'04_reference/출제자_기준_분석.md',  num:'R-04', title:'출제자 기준 분석',   desc:'College Board가 보는 채점 관점', tag:'exam'},
+    {file:'04_reference/학습자료_가이드.md',   num:'R-05', title:'학습자료 가이드',   desc:'어떤 자료를 언제 봐야 하는가', tag:'ref'},
+    {file:'04_reference/학습추적_오답노트.md', num:'R-06', title:'학습추적 오답노트', desc:'오답 패턴 추적 템플릿', tag:'ref'},
+  ],
+};
+
+function viewerLink(file, title) {
+  return `viewer.html?file=${encodeURIComponent(file)}&title=${encodeURIComponent(title)}`;
+}
+
+function tagClass(t) { return t === 'core' ? 'tag-core' : t === 'exam' ? 'tag-exam' : 'tag-ref'; }
+function tagLabel(t) { return t === 'core' ? '핵심' : t === 'exam' ? '시험' : '참고'; }
+
+// Doc-style cards (curriculum, practice, reference, topical)
+function renderDocGrid(id, items) {
+  const el = document.getElementById(id);
+  el.innerHTML = items.map(it => `
+    <a href="${viewerLink(it.file, it.title)}" class="doc-card">
+      <div class="doc-card-meta">
+        <span class="doc-card-num">${it.num}</span>
+        ${it.tag ? `<span class="doc-card-tag ${tagClass(it.tag)}">${tagLabel(it.tag)}</span>` : ''}
+      </div>
+      <div class="doc-card-title">${it.title}</div>
+      <div class="doc-card-desc">${it.desc}</div>
+    </a>
+  `).join('');
+}
+
+// Topical: same as doc-card but uses .n
+function renderTopicalGrid(id, items) {
+  const el = document.getElementById(id);
+  el.innerHTML = items.map(it => `
+    <a href="${viewerLink(it.file, it.title)}" class="doc-card">
+      <div class="doc-card-meta">
+        <span class="doc-card-num">TP-${String(it.n).padStart(2,'0')}</span>
+        <span class="doc-card-tag tag-core">집중</span>
+      </div>
+      <div class="doc-card-title">${it.title}</div>
+      <div class="doc-card-desc">${it.desc}</div>
+    </a>
+  `).join('');
+}
+
+// Units: 강의노트 + 딥다이브 두 링크
+function renderUnitsGrid(id, items) {
+  const el = document.getElementById(id);
+  el.innerHTML = items.map(u => `
+    <div class="doc-card" style="cursor:default;border-left-color: var(--accent);">
+      <div class="doc-card-meta">
+        <span class="doc-card-num">UNIT ${String(u.n).padStart(2,'0')}</span>
+        <span class="doc-card-tag tag-core">필수</span>
+      </div>
+      <div class="doc-card-title">${u.title}</div>
+      <div class="doc-card-desc">${u.desc}</div>
+      <div class="pill-row">
+        <a href="${viewerLink(u.lecture, 'Unit '+u.n+' 강의노트')}" class="pill" style="text-decoration:none;">📖 강의노트</a>
+        <a href="${viewerLink(u.deep, 'Unit '+u.n+' 시험개념 딥다이브')}" class="pill" style="text-decoration:none;">🔍 딥다이브</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Mock: MCQ + FRQ
+function renderMockGrid(id, items) {
+  const el = document.getElementById(id);
+  el.innerHTML = items.map(m => `
+    <div class="mini-card" style="cursor:default;text-align:left;">
+      <div class="mini-card-num">SET ${m.n}</div>
+      <div class="mini-card-title">Mock Exam ${m.n}</div>
+      <div class="pill-row" style="margin-top:8px;justify-content:center;">
+        <a href="${viewerLink(m.mcq,'Mock Set '+m.n+' MCQ')}" class="pill" style="text-decoration:none;">MCQ</a>
+        <a href="${viewerLink(m.frq,'Mock Set '+m.n+' FRQ')}" class="pill" style="text-decoration:none;">FRQ</a>
+      </div>
+    </div>
+  `).join('') + `
+    <a href="${viewerLink('05_mock_exams/점수변환표.md','점수변환표')}" class="mini-card">
+      <div class="mini-card-num">SCORE</div>
+      <div class="mini-card-title">점수변환표</div>
+      <div class="mini-card-sub">5점 환산</div>
+    </a>
+  `;
+}
+
+function renderLevelGrid(id, items) {
+  const el = document.getElementById(id);
+  el.innerHTML = items.map(l => `
+    <a href="${viewerLink(l.file,'Level Test '+l.n)}" class="mini-card">
+      <div class="mini-card-num">LT-${String(l.n).padStart(2,'0')}</div>
+      <div class="mini-card-title">Level Test ${l.n}</div>
+    </a>
+  `).join('');
+}
+
+renderDocGrid('grid-curriculum', DATA.curriculum);
+renderUnitsGrid('grid-units', DATA.units);
+renderDocGrid('grid-practice', DATA.practice);
+renderMockGrid('grid-mock', DATA.mock);
+renderLevelGrid('grid-level', DATA.level);
+renderTopicalGrid('grid-topical', DATA.topical);
+renderDocGrid('grid-reference', DATA.reference);
+
+// Theme toggle
+(function(){
+  const btn = document.querySelector('.theme-toggle');
+  if (!btn) return;
+  function set(t){ document.documentElement.setAttribute('data-theme', t); try{localStorage.setItem('ap-csa-theme', t);}catch(e){} btn.querySelector('span').textContent = t === 'dark' ? '☀️' : '🌙'; }
+  set(document.documentElement.getAttribute('data-theme') || 'light');
+  btn.addEventListener('click', () => set(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+})();
+</script>
+</body>
+</html>

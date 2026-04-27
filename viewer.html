@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+  <script>try{var t=localStorage.getItem("ap-csa-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로딩 중… | AP CSA</title>
+  <meta name="description" content="AP Computer Science A 한국어 학습 자료">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .doc-wrapper { max-width: 920px; margin: 0 auto; padding: 40px 24px 80px; }
+    .doc-eyebrow {
+      display:inline-block; font-size:0.7rem; font-weight:700; letter-spacing:1.6px;
+      text-transform:uppercase; color: var(--accent-text);
+      background: var(--accent-soft); border: 1px solid var(--border-accent);
+      border-radius: var(--radius-full); padding: 4px 12px; margin-bottom: 16px;
+    }
+    .doc-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: clamp(1.7rem, 4.5vw, 2.4rem);
+      font-weight: 900; line-height: 1.3; color: var(--text);
+      margin-bottom: 24px; letter-spacing: -0.02em;
+    }
+    .doc-content {
+      color: var(--text); line-height: 1.85; font-size: 0.97rem;
+    }
+    .doc-content h1, .doc-content h2, .doc-content h3, .doc-content h4 {
+      font-weight: 800; line-height: 1.3; color: var(--text);
+      margin: 2em 0 0.6em; letter-spacing: -0.01em;
+    }
+    .doc-content h1 { font-size: 1.85rem; padding-bottom: 0.4em; border-bottom: 2px solid var(--border-accent); }
+    .doc-content h2 { font-size: 1.45rem; padding-bottom: 0.3em; border-bottom: 1px solid var(--border); }
+    .doc-content h3 { font-size: 1.18rem; color: var(--accent-text); }
+    .doc-content h4 { font-size: 1.02rem; color: var(--text-secondary); }
+    .doc-content p { margin: 0.85em 0; }
+    .doc-content ul, .doc-content ol { margin: 0.85em 0; padding-left: 1.6em; }
+    .doc-content li { margin: 0.3em 0; }
+    .doc-content li > p { margin: 0.4em 0; }
+    .doc-content a { color: var(--accent-text); text-decoration: none; border-bottom: 1px dotted var(--border-accent); }
+    .doc-content a:hover { border-bottom-style: solid; }
+    .doc-content strong { color: var(--text); font-weight: 700; }
+    .doc-content em { color: var(--text-secondary); }
+    .doc-content blockquote {
+      margin: 1.2em 0; padding: 12px 18px;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-soft); color: var(--text-secondary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+    .doc-content blockquote > :first-child { margin-top: 0; }
+    .doc-content blockquote > :last-child { margin-bottom: 0; }
+    .doc-content code:not(pre code) {
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 1px 6px; border-radius: 4px;
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.88em; color: var(--accent-text);
+    }
+    .doc-content pre {
+      background: #1e293b; color: #e2e8f0;
+      padding: 16px 18px; border-radius: var(--radius-sm);
+      overflow-x: auto; margin: 1.2em 0; line-height: 1.6;
+      font-size: 0.86rem;
+    }
+    .doc-content pre code {
+      background: transparent; border: none; padding: 0;
+      font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      color: inherit; font-size: inherit;
+    }
+    .doc-content table {
+      border-collapse: collapse; width: 100%; margin: 1.2em 0;
+      font-size: 0.88rem; background: var(--bg-elevated);
+      border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden;
+    }
+    .doc-content th, .doc-content td {
+      padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border);
+    }
+    .doc-content th { background: var(--surface); font-weight: 700; color: var(--text); }
+    .doc-content tr:last-child td { border-bottom: none; }
+    .doc-content hr { border: none; height: 1px; background: var(--border); margin: 2.5em 0; }
+    .doc-content img { max-width: 100%; height: auto; border-radius: var(--radius-sm); margin: 1em 0; }
+    .doc-loading { text-align: center; padding: 60px 0; color: var(--text-muted); }
+    .doc-error {
+      padding: 24px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); color: var(--text);
+    }
+    .doc-error h2 { margin-top: 0; color: var(--text); }
+    .doc-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.85rem; color: var(--text-secondary);
+      text-decoration: none; padding: 8px 14px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--bg-elevated); margin-bottom: 24px;
+      transition: all 0.2s var(--ease-out);
+    }
+    .doc-back:hover { color: var(--text); border-color: var(--border-accent); transform: translateX(-2px); }
+
+    /* TOC */
+    .doc-toc {
+      margin: 24px 0; padding: 16px 18px; background: var(--bg-elevated);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+    }
+    .doc-toc summary {
+      cursor: pointer; font-weight: 700; font-size: 0.9rem; color: var(--text);
+      padding: 4px 0; user-select: none;
+    }
+    .doc-toc-list { list-style: none; padding: 12px 0 0; margin: 0; font-size: 0.86rem; }
+    .doc-toc-list li { margin: 4px 0; }
+    .doc-toc-list a { color: var(--text-secondary); text-decoration: none; border: none; }
+    .doc-toc-list a:hover { color: var(--accent-text); }
+    .doc-toc-list .toc-h3 { padding-left: 16px; }
+    .doc-toc-list .toc-h4 { padding-left: 32px; font-size: 0.8rem; color: var(--text-muted); }
+
+    @media (max-width: 640px) {
+      .doc-wrapper { padding: 28px 16px 60px; }
+      .doc-content { font-size: 0.93rem; }
+    }
+  </style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">본문 바로가기</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="https://soccz.github.io" class="home-btn" title="soccz.github.io" aria-label="포트폴리오 홈"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+      <a href="index.html" class="site-title">AP CSA</a>
+    </div>
+    <div class="header-nav">
+      <a href="index.html" class="nav-btn">← 인덱스</a>
+      <a id="gh-link" href="https://github.com/soccz/AP_CSA" target="_blank" rel="noopener" class="nav-btn">GitHub</a>
+      <button class="theme-toggle" aria-label="테마 전환"><span aria-hidden="true">🌙</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+  <div class="doc-wrapper">
+    <a href="index.html" class="doc-back">← 인덱스로 돌아가기</a>
+    <div id="doc-meta"></div>
+    <h1 id="doc-title" class="doc-title">로딩 중…</h1>
+    <div id="doc-toc-container"></div>
+    <article id="doc-content" class="doc-content">
+      <div class="doc-loading">📄 문서를 불러오는 중입니다…</div>
+    </article>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>
+function getParam(name) {
+  return new URLSearchParams(location.search).get(name);
+}
+
+function slugify(str) {
+  return str.trim().toLowerCase()
+    .replace(/[^\p{L}\p{N}\s-]+/gu, '')
+    .replace(/\s+/g, '-')
+    .substring(0, 80);
+}
+
+function buildTOC(html) {
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  const headings = div.querySelectorAll('h1, h2, h3, h4');
+  if (headings.length < 3) return { tocHtml: '', contentHtml: html };
+
+  const seen = new Set();
+  const toc = [];
+  headings.forEach(h => {
+    let id = slugify(h.textContent);
+    if (!id) id = 'h-' + Math.random().toString(36).slice(2, 8);
+    let unique = id, n = 1;
+    while (seen.has(unique)) unique = `${id}-${n++}`;
+    seen.add(unique);
+    h.id = unique;
+    toc.push({ level: parseInt(h.tagName[1], 10), text: h.textContent, id: unique });
+  });
+
+  const tocHtml = `
+    <details class="doc-toc" open>
+      <summary>📋 목차</summary>
+      <ul class="doc-toc-list">
+        ${toc.map(t => `<li class="toc-h${t.level}"><a href="#${t.id}">${t.text}</a></li>`).join('')}
+      </ul>
+    </details>
+  `;
+  return { tocHtml, contentHtml: div.innerHTML };
+}
+
+async function loadDoc() {
+  const file = getParam('file');
+  const title = getParam('title') || 'AP CSA 문서';
+
+  document.title = `${title} | AP CSA`;
+  document.getElementById('doc-title').textContent = title;
+  document.getElementById('gh-link').href = `https://github.com/soccz/AP_CSA/blob/main/${file || ''}`;
+
+  const meta = document.getElementById('doc-meta');
+  if (file) meta.innerHTML = `<span class="doc-eyebrow">${file.split('/')[0].replace(/^\d+_/, '').replace(/_/g, ' ')}</span>`;
+
+  if (!file) {
+    document.getElementById('doc-content').innerHTML = `<div class="doc-error"><h2>파일이 지정되지 않았습니다</h2><p>인덱스 페이지에서 문서를 선택해주세요.</p></div>`;
+    return;
+  }
+
+  try {
+    const res = await fetch(file);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const md = await res.text();
+
+    if (window.marked) {
+      marked.setOptions({
+        gfm: true, breaks: false,
+        highlight: (code, lang) => {
+          if (window.hljs && lang && hljs.getLanguage(lang)) {
+            try { return hljs.highlight(code, { language: lang }).value; } catch(e){}
+          }
+          return code;
+        }
+      });
+    }
+
+    const rawHtml = marked.parse(md);
+    const { tocHtml, contentHtml } = buildTOC(rawHtml);
+
+    document.getElementById('doc-toc-container').innerHTML = tocHtml;
+    document.getElementById('doc-content').innerHTML = contentHtml;
+
+    // highlight code blocks
+    if (window.hljs) {
+      document.querySelectorAll('pre code').forEach(b => {
+        try { hljs.highlightElement(b); } catch(e){}
+      });
+    }
+
+    // smooth anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth', block:'start' }); history.replaceState(null,'','#'+id); }
+      });
+    });
+
+    if (location.hash) {
+      const t = document.getElementById(location.hash.slice(1));
+      if (t) setTimeout(() => t.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
+    }
+  } catch (err) {
+    document.getElementById('doc-content').innerHTML = `
+      <div class="doc-error">
+        <h2>문서를 불러오지 못했습니다</h2>
+        <p><code>${file}</code> 파일을 찾을 수 없습니다.</p>
+        <p style="font-size:0.85rem;color:var(--text-muted);">에러: ${err.message}</p>
+        <p><a href="index.html">인덱스로 돌아가기</a></p>
+      </div>
+    `;
+  }
+}
+
+// Theme toggle
+(function(){
+  const btn = document.querySelector('.theme-toggle');
+  if (!btn) return;
+  function set(t){ document.documentElement.setAttribute('data-theme', t); try{localStorage.setItem('ap-csa-theme', t);}catch(e){} btn.querySelector('span').textContent = t === 'dark' ? '☀️' : '🌙'; }
+  set(document.documentElement.getAttribute('data-theme') || 'light');
+  btn.addEventListener('click', () => set(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+})();
+
+loadDoc();
+</script>
+</body>
+</html>
