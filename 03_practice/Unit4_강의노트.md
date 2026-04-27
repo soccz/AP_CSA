@@ -1317,13 +1317,25 @@ public static void merge(int[] arr, int left, int mid, int right) {
 
     while (i <= mid && j <= right) {
         if (arr[i] <= arr[j]) {
-            temp[k++] = arr[i++];
+            temp[k] = arr[i];
+            k++;
+            i++;
         } else {
-            temp[k++] = arr[j++];
+            temp[k] = arr[j];
+            k++;
+            j++;
         }
     }
-    while (i <= mid) temp[k++] = arr[i++];
-    while (j <= right) temp[k++] = arr[j++];
+    while (i <= mid) {
+        temp[k] = arr[i];
+        k++;
+        i++;
+    }
+    while (j <= right) {
+        temp[k] = arr[j];
+        k++;
+        j++;
+    }
 
     // temp를 원본에 복사
     for (int t = 0; t < temp.length; t++) {

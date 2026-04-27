@@ -520,11 +520,23 @@ while (i < 5) {
 }
 
 // 패턴 2: 센티넬(sentinel) 기반
+// ⚠️ 아래 scanner는 Scanner(new File(...)) 파일 입력을 전제로 한다.
+//    Scanner(System.in) 키보드 입력은 CED 1.4.B.1 EXCLUSION으로 AP 시험에 출제되지 않는다.
+//    시험에서는 아래처럼 파일에서 읽거나, 배열을 직접 받는 형태로 나온다.
 int sum = 0;
-int input = scanner.nextInt();
-while (input != -1) {      // -1이 입력되면 종료
+int input = scanner.nextInt();   // Scanner는 File 입력이라고 가정
+while (input != -1) {            // -1이 입력되면 종료
     sum += input;
     input = scanner.nextInt();
+}
+
+// 파일 입력이 없는 시험 상황에서는 보통 배열/ArrayList를 받는다 (센티넬 불필요)
+int[] data = {3, 7, 2, 8, -1, 5};  // -1이 센티넬
+int total = 0;
+int idx = 0;
+while (idx < data.length && data[idx] != -1) {
+    total += data[idx];
+    idx++;
 }
 ```
 

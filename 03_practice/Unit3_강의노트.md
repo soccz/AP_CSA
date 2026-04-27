@@ -840,8 +840,11 @@ public class Circle {
     }
 
     public double getArea() {
-        return Math.PI * this.radius * this.radius;
-        // this 생략 가능: Math.PI * radius * radius
+        // ⚠️ Math.PI는 Java Quick Reference(CED p.185)에 없다.
+        //    AP 시험 답안에서는 직접 상수를 쓰거나 필드로 선언한다.
+        final double PI = 3.14159;
+        return PI * this.radius * this.radius;
+        // this 생략 가능: PI * radius * radius
     }
 }
 ```
