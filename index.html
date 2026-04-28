@@ -193,8 +193,8 @@
 
   <!-- 2. UNITS -->
   <div class="section-header" id="units">
-    <h2>Unit 1 — 4 · 강의노트 + 시험개념 딥다이브</h2>
-    <p>각 단원별 강의노트와 시험개념 딥다이브로 구성. 개념부터 함정까지.</p>
+    <h2>Unit 1 — 4 · 강의노트 + 시험개념 딥다이브 + 완전정복 (3·4)</h2>
+    <p>각 단원별 강의노트·시험개념 딥다이브로 구성. Unit 3·4는 <strong>2025-26 CED 모든 EK 매핑 + Skill Category</strong>까지 다룬 <strong>완전정복 딥다이브</strong> 추가.</p>
   </div>
   <div class="card-grid" id="grid-units"></div>
 
@@ -254,10 +254,10 @@ const DATA = {
     {file: '공식_시험범위_검증.md',             num:'08', title:'공식 시험범위 검증', desc:'College Board CED와 자료 1:1 매핑', tag:'exam'},
   ],
   units: [
-    {n:1, lecture:'03_practice/Unit1_강의노트.md',    deep:'03_practice/Unit1_시험개념_딥다이브.md', title:'Primitive Types & 입출력', desc:'기본 자료형, 변수, 연산자, Math 클래스, Casting'},
-    {n:2, lecture:'03_practice/Unit2_강의노트.md',    deep:'03_practice/Unit2_시험개념_딥다이브.md', title:'Using Objects',           desc:'String, Wrapper, 참조 vs 값, .equals() vs =='},
-    {n:3, lecture:'03_practice/Unit3_강의노트.md',    deep:'03_practice/Unit3_시험개념_딥다이브.md', title:'Boolean & if/else',       desc:'논리 연산, 단축평가, 중첩 조건문, 복합 boolean'},
-    {n:4, lecture:'03_practice/Unit4_강의노트.md',    deep:'03_practice/Unit4_시험개념_딥다이브.md', title:'Iteration (반복문)',       desc:'while/for/foreach, 무한루프, break/continue, 중첩반복'},
+    {n:1, lecture:'03_practice/Unit1_강의노트.md',    deep:'03_practice/Unit1_시험개념_딥다이브.md', title:'Using Objects and Methods', desc:'2025-26 CED Unit 1 (15-25%) · 객체 사용, 메서드 호출, Wrapper, String'},
+    {n:2, lecture:'03_practice/Unit2_강의노트.md',    deep:'03_practice/Unit2_시험개념_딥다이브.md', title:'Selection and Iteration',   desc:'2025-26 CED Unit 2 (25-35%) · if/else, while/for, boolean, 중첩'},
+    {n:3, lecture:'03_practice/Unit3_강의노트.md',    deep:'03_practice/Unit3_시험개념_딥다이브.md', master:'03_practice/Unit3_완전정복_딥다이브.md', title:'Class Creation', desc:'2025-26 CED Unit 3 (10-18%) · 클래스 설계·캡슐화·생성자·static·this — FRQ Q2 직결'},
+    {n:4, lecture:'03_practice/Unit4_강의노트.md',    deep:'03_practice/Unit4_시험개념_딥다이브.md', master:'03_practice/Unit4_완전정복_딥다이브.md', title:'Data Collections',  desc:'2025-26 CED Unit 4 (30-40%) · 배열·ArrayList·2D·검색·정렬·재귀 — 시험 최대 비중'},
   ],
   practice: [
     {file: '03_practice/FRQ_Q1_완전공략.md',         num:'P-01', title:'FRQ Q1 완전공략',     desc:'AP CSA FRQ Question 1 만점 전략 + 템플릿', tag:'exam'},
@@ -329,7 +329,7 @@ function renderTopicalGrid(id, items) {
   `).join('');
 }
 
-// Units: 강의노트 + 딥다이브 두 링크
+// Units: 강의노트 + 딥다이브 + (선택) 완전정복 딥다이브
 function renderUnitsGrid(id, items) {
   const el = document.getElementById(id);
   el.innerHTML = items.map(u => `
@@ -337,12 +337,14 @@ function renderUnitsGrid(id, items) {
       <div class="doc-card-meta">
         <span class="doc-card-num">UNIT ${String(u.n).padStart(2,'0')}</span>
         <span class="doc-card-tag tag-core">필수</span>
+        ${u.master ? '<span class="doc-card-tag tag-exam" style="margin-left:auto;">완전정복 ⭐</span>' : ''}
       </div>
       <div class="doc-card-title">${u.title}</div>
       <div class="doc-card-desc">${u.desc}</div>
       <div class="pill-row">
         <a href="${viewerLink(u.lecture, 'Unit '+u.n+' 강의노트')}" class="pill" style="text-decoration:none;">📖 강의노트</a>
         <a href="${viewerLink(u.deep, 'Unit '+u.n+' 시험개념 딥다이브')}" class="pill" style="text-decoration:none;">🔍 딥다이브</a>
+        ${u.master ? `<a href="${viewerLink(u.master, 'Unit '+u.n+' 완전정복 딥다이브')}" class="pill" style="text-decoration:none;background:var(--accent-soft);border-color:var(--border-accent);color:var(--accent-text);font-weight:700;">⭐ 완전정복</a>` : ''}
       </div>
     </div>
   `).join('');
